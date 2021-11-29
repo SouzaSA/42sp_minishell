@@ -44,3 +44,23 @@ To achieve the bonus the minishell must: (from minishell subject version 6)
 
 - **&&**, **||** with parenthesis for priorities.
 - the wildcard *\** should work for the current working directory.
+
+# Project Development
+
+|TOKEN | Description | Function | Sample Lexeme |
+|------|-------------|----------|---------------|
+| echo | characters e, c, h, o | echoes the command on terminal | echo "hello" |
+| echo_flag   | characters -, n | remove the newline from echo   | echo -n "hello" |
+| cd   | characters c, d | change woking directory        | cd / |
+| pwd  | characters p, w, d | print working directory        | pwd  |
+| export | characters e, x, p, o, r, t | Set export attribute for shell variables | export EDITOR=/usr/bin/vim |
+| unset | characters u, n, s, e, t | Unset values and attributes of variables and functions | unset EDITOR |
+| env | characters e, n, v | run a program in a modified environment | env |
+| exit | characters e, x, i, t | cause normal process termination | exit |
+| id | letter followed by letters and digits | variable name | EDITOR, FT1, ARG |
+| number | any numeric constant | | 1, 34, 3.1415 |
+
+
+
+
+
