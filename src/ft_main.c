@@ -6,13 +6,13 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:06:49 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/11/25 19:05:02 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/11/26 09:18:22 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-int	minishell()
+int	minishell(char **envp)
 {
 
 	return (0);
@@ -29,5 +29,6 @@ int	main(int argc, char **argv, char **envp)
 		free(msg);
 		return (1);
 	}
+	minishell(envp);
 	return (0);
 }

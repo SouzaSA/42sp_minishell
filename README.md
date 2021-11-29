@@ -1,4 +1,4 @@
-# minishell
+# **minishell**
 
 In this project the idea is dive a little deeper inside the linux world creating a simplified shell, a command line user interface, to interact with operating system.
 
@@ -19,13 +19,13 @@ To achieve the goal the minishell must: (from minishell subject version 6)
 	- **unset** with no options
 	- **env** with no options or arguments
 	- **exit** with no options
-- ' inhibit all interpretation of a sequence of characters.
-- " inhibit all interpretation of a sequence of characters except for $.
+- **'** inhibit all interpretation of a sequence of characters.
+- **"** inhibit all interpretation of a sequence of characters except for $.
 - Redirections:
 	- **<** should redirect input.
-	- **\>** should redirect output.
-	- **"<<"** read input from the current source until a line containing only the delimiter is seen. it doesn’t need to update history!
-	- **">>"** should redirect output with append mode.
+	- **>** should redirect output.
+	- **<<** read input from the current source until a line containing only the delimiter is seen. it doesn’t need to update history!
+	- **>>** should redirect output with append mode.
 - Pipes **|** The output of each command in the pipeline is connected via a pipe to the input of the next command.
 - Environment variables (**\$** followed by characters) should expand to their values.
 - **$?** should expand to the exit status of the most recently executed foreground

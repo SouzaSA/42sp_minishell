@@ -6,11 +6,11 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2021/11/25 08:58:11 by sde-alva         ###   ########.fr        #
+#    Updated: 2021/11/29 09:40:52 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-DEFAULT_GOAL	:=	all
+.DEFAULT_GOAL	:=	all
 
 NAME			=	minishell
 
