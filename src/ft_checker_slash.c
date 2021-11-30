@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_main.c                                          :+:      :+:    :+:   */
+/*   ft_checker_slash.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/25 09:06:49 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/11/30 16:47:30 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/11/30 15:29:06 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/11/30 15:29:26 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+int	ft_checker_slash(char *str)
 {
-	char	*msg;
+	int	has_slash;
 
-	if (argc != 1)
-	{
-		msg = ft_strjoin(argv[0], ": Invalid arguments.");
-		printf("%s\n", msg);
-		free(msg);
-		return (1);
-	}
-	minishell(envp);
-	return (0);
+	has_slash = 0;
+	if (ft_strncmp(str, "/", 1) == 0 || ft_strncmp(str, "./", 2) == 0 \
+		|| ft_strncmp(str, "../", 3) == 0)
+		has_slash = 1;
+	return (has_slash);
 }

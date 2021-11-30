@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_main.c                                          :+:      :+:    :+:   */
+/*   ft_get_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/25 09:06:49 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/11/30 16:47:30 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/11/30 15:55:56 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/11/30 15:56:11 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+char	**ft_get_path(char **envp)
 {
-	char	*msg;
+	int		i;
+	char	*str;
+	char	**path;
 
-	if (argc != 1)
+	i = 0;
+	str = NULL;
+	path = NULL;
+	while (envp[i])
 	{
-		msg = ft_strjoin(argv[0], ": Invalid arguments.");
-		printf("%s\n", msg);
-		free(msg);
-		return (1);
+		if (ft_strncmp("PATH=", envp[i], 5) == 0)
+			str = ft_strdup(envp[i] + 5);
+		i++;
 	}
-	minishell(envp);
-	return (0);
+	if (str)
+	{
+		path = ft_split(str, ':');
+		free(str);
+	}
+	return (path);
 }

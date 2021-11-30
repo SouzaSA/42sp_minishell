@@ -61,6 +61,10 @@ To achieve the bonus the minishell must: (from minishell subject version 6)
 | number | any numeric constant | | 1, 34, 3.1415 |
 
 
-
-
+# References
+1. [Writing Your Own Shell - book chapter](https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf)
+1. [Tutorial to code a simple shell in C - by Ricardo Hincapie](https://medium.com/swlh/tutorial-to-code-a-simple-shell-in-c-9405b2d3533e)
+1. [Tutorial - Write a Shell in C - by Stephen Brennan](https://brennan.io/2015/01/16/write-a-shell-in-c/)
+1. [GNU Bash manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/)
+1. Compilers: Principles, Techniques, & Tools; Alfred V. Aho, Monica S. Lam, Ravi Sethi, Jeffrey D. Ullman, Pearson/Addison Wesley, 2007 - chaperts 2, 3, 4 and 5.
 
