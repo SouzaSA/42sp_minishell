@@ -51,7 +51,7 @@ To achieve the bonus the minishell must: (from minishell subject version 6)
 | function | description | header |
 |----------|-------------|--------|
 | readline | get a line from a user with editing | stdio.h <br> readline/readline.h <br> readline/history.h |
-| rl_clear_history | clear the history list by deleting all of the entries |
+| rl_clear_history | clear the history list by deleting all of the entries |stdio.h <br> readline/readline.h <br> readline/history.h |
 | rl_on_new_line | tell the update functions that we have moved onto a new (empty) line | stdio.h <br> readline/readline.h <br> readline/history.h |
 | rl_replace_line | replace the contents of rl_line_buffer with text | stdio.h <br> readline/readline.h <br> readline/history.h |
 | rl_redisplay | if non-zero, Readline will call indirectly through this pointer to update the display with the current contents of the editing buffer | stdio.h <br> readline/readline.h <br> readline/history.h |
@@ -106,15 +106,20 @@ To achieve the bonus the minishell must: (from minishell subject version 6)
 | unset | characters u, n, s, e, t | Unset values and attributes of variables and functions | unset EDITOR |
 | env | characters e, n, v | run a program in a modified environment | env |
 | exit | characters e, x, i, t | cause normal process termination | exit |
-| id | letter followed by letters and digits | variable name | EDITOR, FT1, ARG |
+| \< | character \<, folowed by an filename | should redirect input | \< infile |
+| \> | character \> , folowed by an filename | should redirect output | \> outfile |
+| \<\< | characters \<, \<, folowed by an delimiter |read input from the current source until a line containing only the delimiter is seen | \<\< EOF |
+| \>\> | characters \>, \>, folowed by an filename | should redirect output with append mode | \>\> outfile |
+| \| | character \|, preceded and folowed by a command | output of each command in the pipeline is connected via a pipe to the input of the next command | ls \| wc |
+| $? | characters $, ? | expand to the exit status | $? |
+| id | letter followed by letters and digits | variable name or namefiles | EDITOR, FT1, ARG, infile, outfile |
 | number | any numeric constant | | 1, 34, 3.1415 |
 
 
 
 # References
-1. [Writing Your Own Shell - book chapter](https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf)
+1. [Writing Your Own Shell - book chapter](https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf) from [Prof. Gustavo Rodriguez-Rivera](https://www.cs.purdue.edu/homes/grr/)
 1. [Tutorial to code a simple shell in C - by Ricardo Hincapie](https://medium.com/swlh/tutorial-to-code-a-simple-shell-in-c-9405b2d3533e)
 1. [Tutorial - Write a Shell in C - by Stephen Brennan](https://brennan.io/2015/01/16/write-a-shell-in-c/)
 1. [GNU Bash manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/)
 1. Compilers: Principles, Techniques, & Tools; Alfred V. Aho, Monica S. Lam, Ravi Sethi, Jeffrey D. Ullman, Pearson/Addison Wesley, 2007 - chaperts 2, 3, 4 and 5.
-
