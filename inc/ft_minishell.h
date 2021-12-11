@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/11/26 10:22:28 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/11 12:44:41 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,21 @@
 # include <sys/wait.h>
 # include <string.h>
 # include "libft.h"
+
+typedef struct s_shell
+{
+	t_list	*cmds;
+	char	**envp;
+	int		status;
+}	t_shell;
+
+typedef struct s_cmd_tbl
+{
+	int		infile;
+	int		outfile;
+	long	pid;
+	char	**full_cmd;
+	char	*full_path;
+}	t_cmd_tbl;
 
 #endif
