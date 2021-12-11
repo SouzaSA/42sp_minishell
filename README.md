@@ -127,7 +127,7 @@ Shell Subsystems is some more stuff that completes the shell, like environment v
 
 ##  The PARSER
 
-  Responsible to separate the inline inline elements to right values. The structure used to keep this elements is showed below.
+  Responsible to separate the inline elements to right values. The structure used to keep this elements is showed below.
 
 ```c
 typedef struct s_shell
@@ -160,9 +160,14 @@ Description of the structures.
 | envp | Up-to-date array of arrays containing keys and values for the shell environment |
 | status | Exit status of a function |
 
+## The EXECUTOR
+
+Takes every command in cmd list and create a new process to it, if necessary create a pipe to process comunication, additionaly, it will redirect the standard input, output and error if there are any redirections.
+
+
 # References
 1. [Writing Your Own Shell - book chapter](https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf) from [Prof. Gustavo Rodriguez-Rivera](https://www.cs.purdue.edu/homes/grr/)
-1. [Tutorial to code a simple shell in C - by Ricardo Hincapie](https://medium.com/swlh/tutorial-to-code-a-simple-shell-in-c-9405b2d3533e)
-1. [Tutorial - Write a Shell in C - by Stephen Brennan](https://brennan.io/2015/01/16/write-a-shell-in-c/)
-1. [GNU Bash manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/)
-1. Compilers: Principles, Techniques, & Tools; Alfred V. Aho, Monica S. Lam, Ravi Sethi, Jeffrey D. Ullman, Pearson/Addison Wesley, 2007 - chaperts 2, 3, 4 and 5.
+2. [Tutorial to code a simple shell in C - by Ricardo Hincapie](https://medium.com/swlh/tutorial-to-code-a-simple-shell-in-c-9405b2d3533e)
+3. [Tutorial - Write a Shell in C - by Stephen Brennan](https://brennan.io/2015/01/16/write-a-shell-in-c/)
+4. [GNU Bash manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/)
+5. Compilers: Principles, Techniques, & Tools; Alfred V. Aho, Monica S. Lam, Ravi Sethi, Jeffrey D. Ullman, Pearson/Addison Wesley, 2007 - chaperts 2, 3, 4 and 5.
