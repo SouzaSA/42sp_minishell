@@ -164,6 +164,35 @@ Description of the structures.
 
 Takes every command in cmd list and create a new process to it, if necessary create a pipe to process comunication, additionaly, it will redirect the standard input, output and error if there are any redirections.
 
+**Shell Context Free Grammar (CFG) grammar:**
+
+```
+BLOCK	⟶	&epsilon;
+		|	STMT
+		|	(STMT)
+		|	BLOCK CONCAT
+		|	BLOCK WORD
+
+STMT	⟶	CMD
+		|	REDIR
+		|	CMD [|] STMT
+		|	REDIR STMT
+		|	STMT REDIR
+		|	CMD REDIR
+
+CONCAT	⟶	[&&] BLOCK
+		|	[||] BLOCK
+
+REDIR	⟶	< filename
+		|	> filename
+		|	<< delimiter
+		|	>> filename
+
+WORD	⟶	'string'
+		|	"string"
+
+CMD		⟶	cmd
+```
 
 # References
 1. [Writing Your Own Shell - book chapter](https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf) from [Prof. Gustavo Rodriguez-Rivera](https://www.cs.purdue.edu/homes/grr/)
