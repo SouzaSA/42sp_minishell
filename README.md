@@ -96,7 +96,7 @@ To achieve the bonus the minishell must: (from minishell subject version 6)
 
 # Project Development
 
-Following some tips from prof. Gustavo Rodrigues \[1\], to build this projct we need to implement a **Parser**, a **Executor** and **shell Subsystems**.
+Following some tips from prof. Gustavo Rodrigues \[1\], to build this project we need to implement a **Parser**, a **Executor** and **shell Subsystems**.
 
 The Parser, is the software component that reads the command line, and puts it into a data structure that will store the commands that will be executed futher.
 
@@ -110,19 +110,19 @@ Shell Subsystems is some more stuff that completes the shell, like environment v
 |------|-------------|----------|---------------|
 | echo | characters e, c, h, o | echoes the command on terminal | echo "hello" |
 | echo_flag   | characters -, n | remove the newline from echo   | echo -n "hello" |
-| cd   | characters c, d | change woking directory        | cd / |
+| cd   | characters c, d | change working directory        | cd / |
 | pwd  | characters p, w, d | print working directory        | pwd  |
 | export | characters e, x, p, o, r, t | Set export attribute for shell variables | export EDITOR=/usr/bin/vim |
 | unset | characters u, n, s, e, t | Unset values and attributes of variables and functions | unset EDITOR |
 | env | characters e, n, v | run a program in a modified environment | env |
 | exit | characters e, x, i, t | cause normal process termination | exit |
-| \< | character \<, folowed by an filename | should redirect input | \< infile |
-| \> | character \> , folowed by an filename | should redirect output | \> outfile |
-| \<\< | characters \<, \<, folowed by an delimiter |read input from the current source until a line containing only the delimiter is seen | \<\< EOF |
-| \>\> | characters \>, \>, folowed by an filename | should redirect output with append mode | \>\> outfile |
-| \| | character \|, preceded and folowed by a command | output of each command in the pipeline is connected via a pipe to the input of the next command | ls \| wc |
+| \< | character \<, followed by an filename | should redirect input | \< infile |
+| \> | character \> , followed by an filename | should redirect output | \> outfile |
+| \<\< | characters \<, \<, followed by an delimiter |read input from the current source until a line containing only the delimiter is seen | \<\< EOF |
+| \>\> | characters \>, \>, followed by an filename | should redirect output with append mode | \>\> outfile |
+| \| | character \|, preceded and followed by a command | output of each command in the pipeline is connected via a pipe to the input of the next command | ls \| wc |
 | $? | characters $, ? | expand to the exit status | $? |
-| id | letter followed by letters and digits | variable name, comand name, parameters of the command or namefiles | EDITOR, FT1, ARG, infile, outfile |
+| id | letter followed by letters and digits | variable name, command name, parameters of the command or namefiles | EDITOR, FT1, ARG, infile, outfile |
 | number | any numeric constant | pid | 1, 34, 4223 |
 
 ##  The PARSER
@@ -153,7 +153,7 @@ Description of the structures.
 |:-- | :--|
 | cmds | Linked list containing a node with all commands |
 | full_cmd | Array of arrays containing the command name and its parameters |
-| full_path | If not a builtin, it has the comand with full path, get by envp PATH |
+| full_path | If not a builtin, it has the command with full path, get by envp PATH |
 | pid | Process id of a child that runs a command |
 | infile | 	File descriptor to read from. |
 | outfile | File descriptor to write to.|
@@ -162,7 +162,7 @@ Description of the structures.
 
 ## The EXECUTOR
 
-Takes every command in cmd list and create a new process to it, if necessary create a pipe to process comunication, additionaly, it will redirect the standard input, output and error if there are any redirections.
+Takes every command in cmd list and create a new process to it, if necessary create a pipe to process communication, additionally, it will redirect the standard input, output and error if there are any redirections.
 
 **Shell Context Free Grammar (CFG) grammar:**
 
@@ -198,4 +198,4 @@ CMD		⟶	cmd
 2. [Tutorial to code a simple shell in C - by Ricardo Hincapie](https://medium.com/swlh/tutorial-to-code-a-simple-shell-in-c-9405b2d3533e)
 3. [Tutorial - Write a Shell in C - by Stephen Brennan](https://brennan.io/2015/01/16/write-a-shell-in-c/)
 4. [GNU Bash manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/)
-5. Compilers: Principles, Techniques, & Tools; Alfred V. Aho, Monica S. Lam, Ravi Sethi, Jeffrey D. Ullman, Pearson/Addison Wesley, 2007 - chaperts 2, 3, 4 and 5.
+5. Compilers: Principles, Techniques, & Tools; Alfred V. Aho, Monica S. Lam, Ravi Sethi, Jeffrey D. Ullman, Pearson/Addison Wesley, 2007 - chapters 2, 3, 4 and 5.
