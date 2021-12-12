@@ -167,7 +167,7 @@ Takes every command in cmd list and create a new process to it, if necessary cre
 **Shell Context Free Grammar (CFG) grammar:**
 
 ```
-BLOCK		⟶	ε;
+BLOCK		⟶	ε
 		|	STMT
 		|	(STMT)
 		|	BLOCK CONCAT
@@ -191,7 +191,7 @@ REDIR		⟶	< filename
 WORD		⟶	'string'
 		|	"string"
 
-CMD			⟶	cmd
+CMD		⟶	cmd
 ```
 # References
 1. [Writing Your Own Shell - book chapter](https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf) from [Prof. Gustavo Rodriguez-Rivera](https://www.cs.purdue.edu/homes/grr/)
