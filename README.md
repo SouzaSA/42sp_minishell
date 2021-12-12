@@ -167,31 +167,42 @@ Takes every command in cmd list and create a new process to it, if necessary cre
 **Shell Context Free Grammar (CFG) grammar:**
 
 ```
-BLOCK		⟶	ε
-		|	STMT
-		|	(STMT)
-		|	BLOCK CONCAT
+LINE		⟶	ε
+		|	BLOCK
+
+BLOCK		⟶	STMT
+		|	(BLOCK)
+		|	CONCAT BLOCK
 		|	BLOCK WORD
 
 STMT		⟶	CMD
 		|	REDIR
-		|	CMD [|] STMT
 		|	REDIR STMT
 		|	STMT REDIR
 		|	CMD REDIR
+		|	VAR
 
-CONCAT		⟶	[&&] BLOCK
-		|	[||] BLOCK
+CONCAT		⟶	BLOCK [&&]
+		|	BLOCK [||]
 
 REDIR		⟶	< filename
 		|	> filename
 		|	<< delimiter
 		|	>> filename
 
-WORD		⟶	'string'
-		|	"string"
+WORD		⟶	ε
+		|	number
+		|	word
+		|	'WORD word'
+		|	"WORD word"
 
-CMD		⟶	cmd
+CMD			⟶	cmd
+		|	cmd | CMD
+		|	cmd [*]
+
+VAR			⟶	var=WORD
+		|	var=$(BLOCK)
+		|	$var
 ```
 # References
 1. [Writing Your Own Shell - book chapter](https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf) from [Prof. Gustavo Rodriguez-Rivera](https://www.cs.purdue.edu/homes/grr/)
