@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:36:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/14 15:46:45 by edpaulin         ###   ########.fr       */
+/*   Updated: 2021/12/15 20:25:43 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,30 @@
 
 int	ft_minishell(char **envp)
 {
-	char	**path;
+	//char	**path;
 	char	*line;
-	char	**splitted_line;
+	//char	**splitted_line;
 	int 	status;
 
+	if (!envp)//tirar
+		write(1,"boo\n",4); // tirar
 	status = 1;
-	path = ft_get_path(envp);
+	//path = ft_get_path(envp);
 	while (status)
 	{
-		printf("> ");
-		line = get_next_line(0);
-		splitted_line = ft_split(line, ' ');
-		status = ft_execute(splitted_line, path, envp);
-
-		free(line);
-		ft_split_destroy(splitted_line);
+		line = readline("$ ");
+		if (!line)
+		{
+			write(2, "exit\n", 5);
+			status = 0;
+		}
+		if (ft_strlen(line) == 0)
+		{
+			free(line);
+			continue ;
+		}
+		add_history(line);
+		ft_putendl_fd(line, 1);
 	}
 	return (0);
 }

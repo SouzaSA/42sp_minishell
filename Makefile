@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2021/11/29 09:40:52 by sde-alva         ###   ########.fr        #
+#    Updated: 2021/12/15 20:22:51 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,21 +26,18 @@ LIBFT_LIB		=	${LIBFT_DIR}/lib
 CC				=	cc
 CFLAGS			=	-Wall -Wextra -Werror
 INCS			=	-I ${INC_DIR} -I ${LIBFT_INC}
-LIBS			=	-L ${LIBFT_LIB} -l ${LIBFT}
+LIBS			=	-L ${LIBFT_LIB} -l ${LIBFT} -lreadline
 SAN				=	-g -fsanitize=address
 
-SRCS			=
+SRCS			=	ft_get_path.c	\
+					ft_main.c	\
+					ft_minishell.c
 
 BONUS			=
 
+OBJS			=	${addprefix ./${OBJ_DIR}/,${SRCS:.c=.o}}
 
-SRCS_DIR		=	${addprefix ${SRC_DIR}/,${SRCS}}
-
-BONUS_DIR		=	${addprefix ${SRC_DIR}/,${BONUS}}
-
-OBJS			=	${addprefix ./${OBJ_DIR}/,${SRCS_DIR:.c=.o}}
-
-BONUS_OBJS		=	${addprefix ./${OBJ_DIR}/,${BONUS_DIR:.c=.o}}
+BONUS_OBJS		=	${addprefix ./${OBJ_DIR}/,${BONUS:.c=.o}}
 
 RM				=	@rm -rf
 

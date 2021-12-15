@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 13:58:02 by sde-alva          #+#    #+#              #
-#    Updated: 2021/12/10 11:06:18 by sde-alva         ###   ########.fr        #
+#    Updated: 2021/12/15 20:27:31 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -121,7 +121,7 @@ SRCS_DIR		=	${addprefix ${SRC_DIR}/,${SRCS}}
 
 OBJS			=	${addprefix ./${OBJ_DIR}/,${SRCS:.c=.o}}
 
-CC				=	clang
+CC				=	cc
 CFLAGS			=	-Wall -Wextra -Werror
 
 RM				=	rm -rf
