@@ -6,11 +6,13 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:36:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/15 21:31:47 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/16 10:16:20 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
+
+static int	ft_set_status(char *line);
 
 int	ft_minishell(char **envp)
 {
@@ -38,9 +40,19 @@ int	ft_minishell(char **envp)
 		}
 		add_history(line);
 		ft_putendl_fd(line, 1);
-		if (line)
-			free(line);
+		status = ft_set_status(line);
+		free(line);
 	}
 	rl_clear_history();
 	return (0);
+}
+
+static int	ft_set_status(char *line)
+{
+	int		status;
+
+	status = 1;
+	if (ft_strcmp("exit", line) == 0)
+		status = 0;
+	return (status);
 }
