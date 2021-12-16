@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:36:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/15 20:25:43 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/15 21:23:33 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,18 @@ int	ft_minishell(char **envp)
 			write(2, "exit\n", 5);
 			status = 0;
 		}
-		if (ft_strlen(line) == 0)
+		if (line && ft_strlen(line) == 0)
 		{
 			free(line);
 			continue ;
 		}
 		add_history(line);
 		ft_putendl_fd(line, 1);
+		if (line)
+			free(line);
+		if (rl_line_buffer)
+			free(rl_line_buffer);
 	}
+	rl_clear_history();
 	return (0);
 }
