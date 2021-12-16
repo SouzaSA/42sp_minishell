@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:36:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/16 10:16:20 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/16 13:10:40 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	ft_minishell(char **envp)
 	//path = ft_get_path(envp);
 	while (status)
 	{
-		line = readline("$ ");
-		if (!line)
+		line = readline("\033[0;33m$\e[0;39m ");
+		if (!line || (line && !ft_set_status(line)))
 		{
 			write(2, "exit\n", 5);
 			status = 0;
@@ -40,7 +40,6 @@ int	ft_minishell(char **envp)
 		}
 		add_history(line);
 		ft_putendl_fd(line, 1);
-		status = ft_set_status(line);
 		free(line);
 	}
 	rl_clear_history();

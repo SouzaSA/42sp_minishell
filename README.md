@@ -469,4 +469,4 @@ VAR			⟶	var=WORD
 4. [GNU Bash manual](https://www.gnu.org/savannah-checkouts/gnu/bash/manual/)
 5. Compilers: Principles, Techniques, & Tools; Alfred V. Aho, Monica S. Lam, Ravi Sethi, Jeffrey D. Ullman, Pearson/Addison Wesley, 2007 - chapters 2, 3, 4 and 5.
 6. [Shell Command Language](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_10)
-7. [Build your own Command Line with ANSI escape codes](https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html)
+7. [Adding Color to Your Output From C](https://www.theurbanpenguin.com/4184-2/)
