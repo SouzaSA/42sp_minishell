@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:36:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/17 11:29:25 by edpaulin         ###   ########.fr       */
+/*   Updated: 2021/12/17 11:40:15 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ void	del(void *content)
 		free(content);
 		content = NULL;
 	}
+}
+
+void	echo(char *msg, int flag)
+{
+	if (flag == 1)
+		ft_putendl_fd(msg, 1);
+	else
+		ft_putstr_fd(msg, 1);
 }
 
 void	env(t_shell *shell)
@@ -81,6 +89,10 @@ int	ft_minishell(char **envp)
 			export(&shell, line);
 		else if (ft_strcmp(line, "unset") == 0)
 			unset(&shell);
+		else if (ft_strcmp(line, "echo") == 0)
+			echo("with new line", 1);
+		else if (ft_strcmp(line, "echo -n") == 0)
+			echo("no new line", 0);
 		free(line);
 	}
 	ft_destroy_vars(&shell);
