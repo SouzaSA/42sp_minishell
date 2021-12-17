@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2021/12/15 20:22:51 by sde-alva         ###   ########.fr        #
+#    Updated: 2021/12/16 20:22:42 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,11 @@
 
 NAME			=	minishell
 
-SRC_DIR			=	src
-OBJ_DIR			=	obj
 INC_DIR			=	inc
+OBJ_DIR			=	obj
+SRC_DIR			=	src
+BUILTINS_DIR	=	builtins
+UTILS_DIR		=	utils
 
 LIBFT			=	ft
 LIBFT_DIR		=	libft
@@ -31,13 +33,23 @@ SAN				=	-g -fsanitize=address
 
 SRCS			=	ft_get_path.c	\
 					ft_main.c	\
-					ft_minishell.c
+					ft_minishell.c	\
+					${UTILS_ADD_DIR}
+
+BUILTINS		=
+
+UTILS			=	ft_destroy_vars.c	\
+					ft_get_var_value.c	\
+					ft_init_vars.c	\
+					ft_put_msg_error.c
 
 BONUS			=
 
 OBJS			=	${addprefix ./${OBJ_DIR}/,${SRCS:.c=.o}}
 
 BONUS_OBJS		=	${addprefix ./${OBJ_DIR}/,${BONUS:.c=.o}}
+
+UTILS_ADD_DIR	=	${addprefix ${UTILS_DIR}/,${UTILS}}
 
 RM				=	@rm -rf
 

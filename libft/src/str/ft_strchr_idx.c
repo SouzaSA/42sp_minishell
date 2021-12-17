@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*   ft_strchr_idx.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/16 16:43:00 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/16 20:41:33 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/12/16 20:59:44 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/12/16 21:02:03 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_minishell.h"
+#include "libft.h"
 
-int	ft_cd(t_shell *shell, char **cmd)
+int	ft_strchr_idx(const char *s, int c)
 {
-	if (cmd && !ft_strcmp("cd", cmd[0]))
+	int		i;
+
+	i = 0;
+	if (s)
 	{
-		if (!cmd[1] || !ft_strcmp("~", cmd[1]))
-			return (ft_cd_home(shell));
-		else if (!ft_strcmp("-", cmd[1]))
-			return (ft_cd_swap(shell));
-		else
-			return (ft_cd_path(shell, cmd[1]));
+		while (s[i] != '\0')
+		{
+			if (s[i] == (char) c)
+				break ;
+			i++;
+		}
+		if (c == '\0')
+			i++;
 	}
-	return (1);
+	return (i);
 }

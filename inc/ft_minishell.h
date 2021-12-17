@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/16 13:08:26 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/16 20:49:08 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,16 @@
 # include "libft.h"
 # include "ft_colors.h"
 
+typedef struct s_dictionary
+{
+	char	*key;
+	char	*value;
+}	t_dictionary;
+
 typedef struct s_shell
 {
-	t_list	*cmds;
-	char	**envp;
-	int		status;
+	t_list	*env_list;
+	int		error_status;
 }	t_shell;
 
 typedef struct s_cmd_tbl
@@ -42,5 +47,10 @@ typedef struct s_cmd_tbl
 }	t_cmd_tbl;
 
 char	**ft_get_path(char **envp);
-int	ft_minishell(char **envp);
+int		ft_minishell(char **envp);
+
+void	ft_destroy_vars(t_shell *shell);
+char	*ft_get_var_value(t_shell *shell, char *var);
+void	ft_init_minishell(t_shell *shell, char **envp);
+void	ft_put_msg_error(t_shell *shell, char *msg);
 #endif

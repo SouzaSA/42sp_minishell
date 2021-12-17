@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*   ft_put_msg_error.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/16 16:43:00 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/16 20:41:33 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/12/16 18:10:27 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/12/16 20:28:02 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-int	ft_cd(t_shell *shell, char **cmd)
+void	ft_put_msg_error(t_shell *shell, char *msg)
 {
-	if (cmd && !ft_strcmp("cd", cmd[0]))
-	{
-		if (!cmd[1] || !ft_strcmp("~", cmd[1]))
-			return (ft_cd_home(shell));
-		else if (!ft_strcmp("-", cmd[1]))
-			return (ft_cd_swap(shell));
-		else
-			return (ft_cd_path(shell, cmd[1]));
-	}
-	return (1);
+	ft_putendl_fd(msg, 2);
+	shell->error_status = 1;
 }
