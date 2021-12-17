@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:36:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/16 21:15:43 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/17 11:29:25 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,43 @@
 static int	ft_set_status(char *line);
 static void	ft_print_dictionary(void *dic_item); //tirar só para teste
 
+void	del(void *content)
+{
+	if (content)
+	{
+		free(content);
+		content = NULL;
+	}
+}
+
+void	env(t_shell *shell)
+{
+	ft_lstiter(shell->env_list, &ft_print_dictionary);
+}
+
+void	export(t_shell *shell, char *line)
+{
+	t_dictionary	*dic_item;
+	
+	dic_item = (t_dictionary *)malloc(sizeof(t_dictionary));
+	dic_item->key = ft_strdup(line);
+	dic_item->value = ft_strdup(line);
+	ft_lstadd_back(&shell->env_list, ft_lstnew(dic_item));
+}
+
+void	unset(t_shell *shell)
+{
+	t_list	*node;
+	t_list	*last;
+
+	last = ft_lstlast(shell->env_list);
+	node = shell->env_list;
+	while (node->next->next != NULL)
+		node = node->next;
+	ft_lstdelone(last, &del);
+	node->next = NULL;
+}
+
 int	ft_minishell(char **envp)
 {
 	t_shell	shell;
@@ -22,8 +59,6 @@ int	ft_minishell(char **envp)
 	int 	status;
 
 	ft_init_minishell(&shell, envp);
-	ft_lstiter(shell.env_list, &ft_print_dictionary);
-	ft_destroy_vars(&shell);
 	status = 1;
 	while (status)
 	{
@@ -40,8 +75,15 @@ int	ft_minishell(char **envp)
 		}
 		add_history(line);
 		ft_putendl_fd(line, 1);
+		if (ft_strcmp(line, "env") == 0)
+			env(&shell);
+		else if (ft_strcmp(line, "export") == 0)
+			export(&shell, line);
+		else if (ft_strcmp(line, "unset") == 0)
+			unset(&shell);
 		free(line);
 	}
+	ft_destroy_vars(&shell);
 	rl_clear_history();
 	return (0);
 }
