@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_after.c                                  :+:      :+:    :+:   */
+/*   ft_destroy_dictionary_element.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/18 11:25:58 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/18 16:33:29 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/12/18 16:51:29 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/12/18 16:52:23 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_minishell.h"
 
-void	ft_lstadd_after(t_list *node, t_list *new)
+void	ft_destroy_dictionary_element(void *dic_item)
 {
-	t_list	*aux;
+	t_dictionary	*aux;
 
-	if (node)
+	if (dic_item)
 	{
-		aux = node->next;
-		node->next = new;
-		if (new)
-			new->next = aux;
+		aux = (t_dictionary *)dic_item;
+		if (aux->key)
+			free(aux->key);
+		aux->key = NULL;
+		if (aux->value)
+			free(aux->value);
+		aux->key = NULL;
+		free(dic_item);
 	}
 }

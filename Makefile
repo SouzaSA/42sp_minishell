@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2021/12/18 14:38:53 by sde-alva         ###   ########.fr        #
+#    Updated: 2021/12/18 16:53:59 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ SRCS			=	ft_get_path.c	\
 BUILTINS		=	ft_env.c \
 					ft_export.c
 
-UTILS			=	ft_destroy_vars.c	\
+UTILS			=	ft_destroy_dictionary_element.c	\
+					ft_destroy_vars.c	\
 					ft_get_var_value.c	\
 					ft_init_vars.c	\
 					ft_put_msg_error.c
