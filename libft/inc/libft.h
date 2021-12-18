@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 15:47:46 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/16 21:03:02 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/18 13:05:26 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int		ft_isdigit(int c);
 int		ft_isprint(int c);
 int		ft_isspace(int c);
 
+void	ft_lstadd_after(t_list *node, t_list *new);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 void	ft_lstclear(t_list **lst, void (*del)(void *));

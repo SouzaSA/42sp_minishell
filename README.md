@@ -470,3 +470,4 @@ VAR			⟶	var=WORD
 5. Compilers: Principles, Techniques, & Tools; Alfred V. Aho, Monica S. Lam, Ravi Sethi, Jeffrey D. Ullman, Pearson/Addison Wesley, 2007 - chapters 2, 3, 4 and 5.
 6. [Shell Command Language](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_10)
 7. [Adding Color to Your Output From C](https://www.theurbanpenguin.com/4184-2/)
+8. [Standard Exit Status Codes in Linux](https://www.baeldung.com/linux/status-codes)

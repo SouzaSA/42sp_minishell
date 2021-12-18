@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 13:58:02 by sde-alva          #+#    #+#              #
-#    Updated: 2021/12/16 21:04:13 by sde-alva         ###   ########.fr        #
+#    Updated: 2021/12/18 13:06:26 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ IS				=	ft_isalnum.c	\
 					ft_isprint.c	\
 					ft_isspace.c
 
-LST				=	ft_lstadd_back.c	\
+LST				=	ft_lstadd_after.c	\
+					ft_lstadd_back.c	\
 					ft_lstadd_front.c	\
 					ft_lstclear.c	\
 					ft_lstdelone.c	\

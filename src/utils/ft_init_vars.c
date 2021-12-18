@@ -6,16 +6,23 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:57:26 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/16 21:16:46 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/18 14:20:16 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
+static void	ft_import_envp(t_shell *shell, char **envp);
+
 void	ft_init_minishell(t_shell *shell, char **envp)
 {
+	ft_import_envp(shell, envp);
+}
+
+static void	ft_import_envp(t_shell *shell, char **envp)
+{
 	int				i;
-	long	idx;
+	long			idx;
 	t_dictionary	*dic_item;
 
 	i = 0;
@@ -26,7 +33,7 @@ void	ft_init_minishell(t_shell *shell, char **envp)
 		idx = (long)(ft_strchr(envp[i], '=') - &envp[i][0]);
 		dic_item->key = ft_substr(envp[i], 0, idx);
 		dic_item->value = ft_substr(envp[i], idx + 1, ft_strlen(envp[i]));
-		ft_lstadd_back(&shell->env_list, ft_lstnew(dic_item));
+		ft_export(shell, ft_lstnew(dic_item));
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/16 20:49:08 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/18 14:21:41 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@
 # include <readline/history.h>
 # include "libft.h"
 # include "ft_colors.h"
+
+# define EXIT_SHELL_SUCCESS 0
+# define EXIT_SHELL_ERROR_GENERIC 1
+# define EXIT_SHELL_ERROR_MISSUSE_BUITIN 2
+# define EXIT_SHELL_ERROR_CANNOT_EXECUTE 126
+# define EXIT_SHELL_ERROR_CMD_NOT_FOUND 127
+# define EXIT_SHELL_ERROR_INVALID_ARG_TO_EXIT 128
+# define EXIT_SHELL_ERROR_SIGNAL_N 128
 
 typedef struct s_dictionary
 {
@@ -48,6 +56,9 @@ typedef struct s_cmd_tbl
 
 char	**ft_get_path(char **envp);
 int		ft_minishell(char **envp);
+
+int		ft_env(t_shell *shell);
+void 	ft_export(t_shell *shell, t_list *new_node);
 
 void	ft_destroy_vars(t_shell *shell);
 char	*ft_get_var_value(t_shell *shell, char *var);
