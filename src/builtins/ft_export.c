@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 12:20:09 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/18 14:40:32 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/18 19:12:28 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void ft_env_add_size1(t_shell *shell, t_list *new_node)
 {
 	char	*new_node_key;
 	char	*dic_key;
+	char	*value;
 
 	if (shell)
 	{
@@ -43,7 +44,10 @@ static void ft_env_add_size1(t_shell *shell, t_list *new_node)
 		{
 			dic_key = ((t_dictionary *)shell->env_list->content)->key;
 			new_node_key = ((t_dictionary *)new_node->content)->key;
-			if (ft_strcmp(dic_key, new_node_key) < 0)
+			value = ((t_dictionary *)new_node->content)->value;
+			if (ft_strcmp(dic_key, new_node_key) == 0)
+				((t_dictionary *)shell->env_list->content)->value = value;
+			else if (ft_strcmp(dic_key, new_node_key) < 0)
 				ft_lstadd_back(&shell->env_list, new_node);
 			else
 				ft_lstadd_front(&shell->env_list, new_node);
@@ -53,6 +57,9 @@ static void ft_env_add_size1(t_shell *shell, t_list *new_node)
 
 static void ft_search_and_add(t_shell *shell, t_list *new_node)
 {
+	char	*new_node_key;
+	char	*dic_key;
+	char	*value;
 	t_list	*element;
 
 	if (shell)
@@ -60,8 +67,14 @@ static void ft_search_and_add(t_shell *shell, t_list *new_node)
 		if (shell->env_list && new_node)
 		{
 			element = ft_search_right_pos(shell->env_list, new_node);
+			if (element)
+				dic_key = ((t_dictionary *)element->content)->key;
+			new_node_key = ((t_dictionary *)new_node->content)->key;
+			value = ((t_dictionary *)new_node->content)->value;
 			if (!element)
 				ft_lstadd_front(&shell->env_list, new_node);
+			else if (ft_strcmp(dic_key, new_node_key) == 0)
+				((t_dictionary *)shell->env_list->content)->value = value;
 			else
 				ft_lstadd_after(element, new_node);
 		}
