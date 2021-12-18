@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_main.c                                          :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/25 09:06:49 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/18 19:08:46 by edpaulin         ###   ########.fr       */
+/*   Created: 2021/11/10 10:02:17 by edpaulin          #+#    #+#             */
+/*   Updated: 2021/11/10 10:06:03 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **envp)
+long	ft_atol(const char *str)
 {
-	char	*msg;
+	signed char		sign;
+	unsigned long	nbr;
 
-	if (argc != 1)
+	sign = 1;
+	nbr = 0;
+	while ((*str >= 9 && *str <= 13) || *str == 32)
+		++str;
+	if (*str == '-' || *str == '+')
 	{
-		msg = ft_strjoin(argv[0], ": Invalid arguments.");
-		printf("%s\n", msg);
-		free(msg);
-		return (1);
+		if (*str == '-')
+			sign = -1;
+		++str;
 	}
-	ft_minishell(envp);
-	return (0);
+	while (ft_isdigit(*str))
+		nbr = (nbr * 10) + (*(str++) - '0');
+	return (nbr * sign);
 }

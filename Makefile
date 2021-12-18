@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2021/12/18 14:38:53 by sde-alva         ###   ########.fr        #
+#    Updated: 2021/12/18 18:35:52 by edpaulin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,9 @@ SRCS			=	ft_get_path.c	\
 					${UTILS_ADD_DIR}
 
 BUILTINS		=	ft_env.c \
-					ft_export.c
+					ft_export.c \
+					ft_echo.c \
+					ft_exit.c
 
 UTILS			=	ft_destroy_vars.c	\
 					ft_get_var_value.c	\

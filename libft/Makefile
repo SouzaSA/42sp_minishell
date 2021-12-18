@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 13:58:02 by sde-alva          #+#    #+#              #
-#    Updated: 2021/12/18 13:06:26 by sde-alva         ###   ########.fr        #
+#    Updated: 2021/12/18 18:39:13 by edpaulin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,7 +97,8 @@ STR				=	ft_atoi.c	\
 					ft_strtrim.c	\
 					ft_substr.c	\
 					ft_tolower.c	\
-					ft_toupper.c
+					ft_toupper.c	\
+					ft_atol.c
 
 SRCS			=	${ADD_DIR_ARRAY}	\
 					${ADD_DIR_GNL}	\
