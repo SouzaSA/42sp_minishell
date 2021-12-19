@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2021/12/18 16:53:59 by sde-alva         ###   ########.fr        #
+#    Updated: 2021/12/19 13:57:43 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ LIBFT_LIB		=	${LIBFT_DIR}/lib
 CC				=	cc
 CFLAGS			=	-Wall -Wextra -Werror -g
 INCS			=	-I ${INC_DIR} -I ${LIBFT_INC}
-LIBS			=	-L ${LIBFT_LIB} -l ${LIBFT} -lreadline
+LIBS			=	-L ${LIBFT_LIB} -l ${LIBFT} -lreadline -lncurses
 SAN				=	-g -fsanitize=address
 
 SRCS			=	ft_get_path.c	\
@@ -42,7 +42,7 @@ BUILTINS		=	ft_env.c \
 
 UTILS			=	ft_destroy_dictionary_element.c	\
 					ft_destroy_vars.c	\
-					ft_get_var_value.c	\
+					ft_get_env_value_by_key.c	\
 					ft_init_vars.c	\
 					ft_put_msg_error.c
 

@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_var_value.c                                 :+:      :+:    :+:   */
+/*   ft_get_env_node_by_key.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/16 17:39:09 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/16 20:23:31 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/12/19 13:55:04 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/12/19 13:56:53 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-char	*ft_get_var_value(t_shell *shell, char *var)
+char	*ft_get_env_node_by_key(t_shell *shell, char *key)
 {
 	t_list	*node;
+	t_list	*return_node;
 	char	*value;
 
 	node = shell->env_list;
-	value = NULL;
+	return_node = NULL;
 	while (node)
 	{
-		if (!ft_strcmp(var, (char *)node->content))
-			value = (char *)node->content;
+		if (!ft_strcmp(key, ((t_dictionary *)node->content)->key))
+			return_node = node;
 		node = node->next;
 	}
-	return (value);
+	return (return_node);
 }
-

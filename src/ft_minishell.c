@@ -6,11 +6,14 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:36:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/18 14:22:43 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/19 16:53:15 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
+
+#include <curses.h>
+#include <term.h>
 
 static int	ft_set_status(char *line);
 

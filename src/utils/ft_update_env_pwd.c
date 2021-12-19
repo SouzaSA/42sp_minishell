@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_update_env_pwd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/16 16:29:00 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/18 21:15:03 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/12/19 13:41:05 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/12/19 16:58:36 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-int ft_pwd(t_shell *shell)
+int	ft_update_env_pwd(t_shell *shell, char *new_pwd)
 {
-	char	*cwd;
+	char	*old_pwd;
+	char	*aux;
 
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
-		return (1);
-	ft_putendl_fd(cwd);
-	free(cwd);
-	cwd = NULL;
-	return(0)
+	old_pwd = ft_get_env_value_by_key(shell, "OLDPWD")
+	aux = ft_get_env_value_by_key(shell, "PWD")
+	dic_item = (t_dictionary *)malloc(sizeof(t_dictionary));
+	idx = (long)(ft_strchr(envp[i], '=') - &envp[i][0]);
+	dic_item->key = ft_strdup("OLDPWD");
+	dic_item->value = ;
+	ft_export(shell, ft_lstnew(dic_item));
 }

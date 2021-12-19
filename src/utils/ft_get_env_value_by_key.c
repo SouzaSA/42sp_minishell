@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_get_env_value_by_key.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/16 16:29:00 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/18 21:15:03 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/12/16 17:39:09 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/12/19 13:57:23 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-int ft_pwd(t_shell *shell)
+char	*ft_get_env_value_by_key(t_shell *shell, char *key)
 {
-	char	*cwd;
+	t_list	*node;
+	char	*value;
 
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
-		return (1);
-	ft_putendl_fd(cwd);
-	free(cwd);
-	cwd = NULL;
-	return(0)
+	node = shell->env_list;
+	value = NULL;
+	while (node)
+	{
+		if (!ft_strcmp(key, ((t_dictionary *)node->content)->key))
+			value = ((t_dictionary *)node->content)->value;
+		node = node->next;
+	}
+	return (value);
 }
