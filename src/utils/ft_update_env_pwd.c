@@ -6,22 +6,24 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 13:41:05 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/19 16:58:36 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/19 17:39:22 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-int	ft_update_env_pwd(t_shell *shell, char *new_pwd)
+int	ft_update_env_pwds(t_shell *shell, char *new_pwd)
 {
-	char	*old_pwd;
-	char	*aux;
+	char	*tmp_pwd;
+	char	*tmp_old_pwd;
+	t_list	*node_old_pwd;
+	t_list	*node_pwd;
 
-	old_pwd = ft_get_env_value_by_key(shell, "OLDPWD")
-	aux = ft_get_env_value_by_key(shell, "PWD")
-	dic_item = (t_dictionary *)malloc(sizeof(t_dictionary));
-	idx = (long)(ft_strchr(envp[i], '=') - &envp[i][0]);
-	dic_item->key = ft_strdup("OLDPWD");
-	dic_item->value = ;
-	ft_export(shell, ft_lstnew(dic_item));
+	node_old_pwd = ft_get_env_node_by_key(shell, "OLDPWD");
+	node_pwd = ft_get_env_node_by_key(shell, "PWD");
+	tmp_node = ((t_dictionary *)node_pwd->content)->value;
+	tmp_old_pwd = ((t_dictionary *)node_old_pwd->content)->value;
+	((t_dictionary *)node_old_pwd->content)->value = tmp_node;
+	((t_dictionary *)node_pwd->content)->value = new_pwd;
+	free(tmp_old_pwd);
 }

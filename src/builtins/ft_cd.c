@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:43:00 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/19 16:58:33 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/19 19:23:05 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,24 @@
 
 int	ft_cd(t_shell *shell, char **cmd)
 {
+	shell->error_status = 0;
 	if (cmd && !ft_strcmp("cd", cmd[0]))
 	{
 		if (!cmd[1])
 			return (ft_cd_home(shell));
 		else if (cmd[1] && cmd[2])
-			return (ft_throws_error_msg("minishell: cd: too many arguments"));
-		else if (!ft_strcmp("~", cmd[1]))
-			return (ft_cd_tilde(shell));
+		{
+			shell->error_status = 1;
+			return (ft_put_msg_error(shell, "cd: too many arguments"));
+		}
 		else if (!ft_strcmp("-", cmd[1]))
+		{
 			return (ft_cd_swap(shell));
+		}
 		else
+		{
 			return (ft_cd_path(shell, cmd[1]));
+		}
 	}
 	return (1);
 }
@@ -37,17 +43,48 @@ static int	ft_cd_home(t_shell *shell)
 
 	if (shell && shell->env_list)
 	{
-		home_path = ((t_dictionary)shell->env_list->content)->key;
-		node = shell->env_list;
-		while (node && !ft_strcmp("HOME", home_path))
-		{
-			node = node->next;
-			if (node)
-				home_path = ((t_dictionary)node->content)->key;
-		}
+		node = ft_get_env_node_by_key(shell, "HOME");
 		if (!node)
-			return (ft_throws_error_msg("minishell: cd: HOME not set"));
-		ft_update_env_PWD(shell, ((t_dictionary)node->content)->value);
+		{
+			shell->error_status = 1;
+			return (ft_put_msg_error(shell, "cd: HOME not set"));
+		}
+		home_path = ft_strdup(((t_dictionary)node->content)->value);
+		if (chdir(home_path) != 0)
+			return (ft_put_msg_error(shell, strerror(erno)));
+		ft_update_env_pwds(shell, home_path);
+		shell->error->status = 0;
 	}
+	return (0);
+}
+
+static int	ft_cd_swap(t_shell *shell)
+{
+	char	*old_pwd;
+
+	old_pwd = ft_get_env_value_by_key(shell, "OLDPWD");
+	if (!old_pwd)
+	{
+		shell->error_status = 1;
+		return (ft_put_msg_error(shell, "cd: OLDPWD not set"));
+	}
+	if (chdir(home_path) != 0)
+		return (ft_put_msg_error(shell, strerror(erno)));
+	ft_update_env_pwds(shell, ft_strdup(old_pwd));
+	return (0);
+}
+
+static int	ft_cd_path(t_shell *shell, char *path)
+{
+	char 	*msg;
+
+	if (chdir(path) != 0)
+	{
+		msg = ft_strjoin("cd: ", path);
+		ft_put_msg_error(shell, strerror(erno));
+		free (msg);
+		return (1);
+	}
+	ft_update_env_pwds(shell, ft_strdup(path));
 	return (0);
 }
