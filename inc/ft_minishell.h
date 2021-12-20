@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/19 18:39:35 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/20 09:16:17 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ void	 ft_export(t_shell *shell, char *key, char *value);
 void	ft_destroy_vars(t_shell *shell);
 char	*ft_get_env_value_by_key(t_shell *shell, char *key);
 void	ft_init_minishell(t_shell *shell, char **envp);
-int		ft_put_msg_error(t_shell *shell, char *msg);
+int		ft_put_msg_error(t_shell *shell, char *msg, int error_flag);
 void	ft_destroy_dictionary_element(void *dic_item);
 #endif
