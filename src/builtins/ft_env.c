@@ -6,11 +6,11 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 09:45:11 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/18 14:27:23 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/21 11:21:20 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_minishell.h"
+#include "ft_builtins.h"
 
 static void	ft_print_dictionary(void *dic_item);
 

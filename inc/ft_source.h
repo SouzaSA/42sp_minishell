@@ -1,0 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_source.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/21 08:28:08 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/12/21 10:26:47 by sde-alva         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef FT_SOURCE_H
+# define FT_SOURCE_H
+# include "ft_minishell.h"
+
+# define EOF -1
+# define ERRCHAR 0
+# define INIT_SRC_POS -2
+
+/* ************************************************************************** */
+/* ---    buffer --> input text                                           --- */
+/* ---    bufsize --> size of the input text                              --- */
+/* ---    curpos --> absolute char position in source                     --- */
+/* ************************************************************************** */
+typedef struct	s_source
+{
+    char	*buffer;
+    long	bufsize;
+    long	curpos;
+}	t_source;
+
+char	ft_next_char(t_shell *sheel, t_source *src);
+void	ft_unget_char(t_source *src);
+char	ft_peek_char(t_shell *sheel, t_source *src);
+void	ft_skip_white_spaces(t_source *src);
+
+#endif

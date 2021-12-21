@@ -6,11 +6,11 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:43:00 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/20 10:21:28 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/21 11:21:06 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_minishell.h"
+#include "ft_builtins.h"
 
 static int	ft_cd_home(t_shell *shell);
 static int	ft_cd_swap(t_shell *shell);

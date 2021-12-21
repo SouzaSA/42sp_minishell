@@ -6,13 +6,13 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 10:52:06 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/18 16:52:29 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/21 12:43:08 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_minishell.h"
+#include "ft_builtins.h"
 
-int	ft_unset(ft_shell *shell, char *key)
+int	ft_unset(t_shell *shell, char *key)
 {
 	char	*dic_key;
 	t_list	*node;

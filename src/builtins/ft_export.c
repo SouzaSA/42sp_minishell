@@ -6,11 +6,11 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 12:20:09 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/19 16:50:31 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/21 11:21:26 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_minishell.h"
+#include "ft_builtins.h"
 
 static void 	ft_env_add_size1(t_shell *shell, t_list *new_node);
 static void 	ft_search_and_add(t_shell *shell, t_list *new_node);

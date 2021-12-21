@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_minishell.h                                     :+:      :+:    :+:   */
+/*   ft_builtins.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/20 09:16:17 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/21 12:43:25 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MINISHELL_H
-# define FT_MINISHELL_H
+#ifndef FT_BUILTINS_H
+# define FT_BUILTINS_H
 # include <errno.h>
 # include <fcntl.h>
 # include <stdio.h>
