@@ -4,11 +4,12 @@ t_token *tokenize(t_scanner *scan, t_source *src)
 {
 	int		endloop;
 	char	nc;
+	t_token	*tok;
 
 	endloop = 0;
 	if(!src || !src->buffer || !src->bufsize)
 	{
-		errno = ENODATA;
+		g_errnum = ENODATA;
 		return &eof_token;
 	}
 	if(!scan->tok_buf)
@@ -17,7 +18,7 @@ t_token *tokenize(t_scanner *scan, t_source *src)
 		scan->tok_buf = malloc(scan->tok_bufsize);
 		if(!scan->tok_buf)
 		{
-			errno = ENOMEM;
+			g_errnum = ENOMEM;
 			return &eof_token;
 		}
 	}
@@ -35,7 +36,7 @@ t_token *tokenize(t_scanner *scan, t_source *src)
         scan->tok_bufindex--;
     }
     scan->tok_buf[scan->tok_bufindex] = '\0';
-    struct token_s *tok = create_token(scan->tok_buf);
+	tok = create_token(scan->tok_buf);
     if(!tok)
     {
         fprintf(stderr, "error: failed to alloc buffer: %s\n",
@@ -63,15 +64,15 @@ static void	ft_token_parse(t_scanner *scan, t_source *src, char nc)
 		else if (nc == '\n')
 		{
 			if(scan->tok_bufindex > 0)
-				unget_char(src);
+				ft_unget_char(src);
 			else
-				add_to_buf(nc);
+				ft_add_to_buf(nc);
 			endloop = 1;
 		}
 		else
-			add_to_buf(nc);
+			ft_add_to_buf(nc);
 		if(endloop)
 			break ;
-		nc = next_char(src);
+		nc = ft_next_char(src);
 	}
 }

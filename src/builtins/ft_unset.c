@@ -6,11 +6,11 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 10:52:06 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/21 12:43:08 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/21 21:03:45 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_builtins.h"
+#include "ft_minishell.h"
 
 int	ft_unset(t_shell *shell, char *key)
 {
@@ -35,8 +35,8 @@ int	ft_unset(t_shell *shell, char *key)
 			if (node == shell->env_list)
 				ft_lstadd_front(&shell->env_list, node->next);
 			else
-				ft_lstadd_back(prev_node, node->mext);
-			ft_lstdelone(node, &ft_destroy_dictionary_element)
+				ft_lstadd_back(prev_node, node->next);
+			ft_lstdelone(node, &ft_destroy_dictionary_element);
 		}
 	}
 }

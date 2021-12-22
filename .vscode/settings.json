@@ -1,5 +1,6 @@
 {
 	"files.associations": {
-		"ft_builtins.h": "c"
+		"ft_builtins.h": "c",
+		"ft_minishell.h": "c"
 	}
 }

@@ -6,13 +6,13 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 08:28:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/21 10:26:47 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/21 20:47:56 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_SOURCE_H
 # define FT_SOURCE_H
-# include "ft_minishell.h"
+# include "ft_error.h"
 
 # define EOF -1
 # define ERRCHAR 0
@@ -30,9 +30,9 @@ typedef struct	s_source
     long	curpos;
 }	t_source;
 
-char	ft_next_char(t_shell *sheel, t_source *src);
+char	ft_next_char(t_source *src);
 void	ft_unget_char(t_source *src);
-char	ft_peek_char(t_shell *sheel, t_source *src);
+char	ft_peek_char(t_source *src);
 void	ft_skip_white_spaces(t_source *src);
 
 #endif

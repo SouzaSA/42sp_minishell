@@ -6,11 +6,11 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:43:00 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/21 11:21:06 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/21 21:11:12 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_builtins.h"
+#include "ft_minishell.h"
 
 static int	ft_cd_home(t_shell *shell);
 static int	ft_cd_swap(t_shell *shell);
@@ -44,7 +44,7 @@ static int	ft_cd_home(t_shell *shell)
 		node = ft_get_env_node_by_key(shell, "HOME");
 		if (!node)
 			return (ft_cd_error(shell, "HOME not set", 1));
-		home_path = ft_strdup(((t_dictionary)node->content)->value);
+		home_path = ft_strdup(((t_dictionary *)node->content)->value);
 		if (chdir(home_path) != 0)
 			return (ft_cd_error(shell, NULL, 0));
 		ft_update_env_pwds(shell, home_path);
