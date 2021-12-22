@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 08:28:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/21 20:47:56 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/22 19:50:56 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
 /* ---    bufsize --> size of the input text                              --- */
 /* ---    curpos --> absolute char position in source                     --- */
 /* ************************************************************************** */
-typedef struct	s_source
+typedef struct s_source
 {
-    char	*buffer;
-    long	bufsize;
-    long	curpos;
+	char	*buffer;
+	long	bufsize;
+	long	curpos;
 }	t_source;
 
 char	ft_next_char(t_source *src);

@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_free_token.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/22 17:51:36 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/12/22 19:41:07 by sde-alva         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_scanner.h"
 
 void	free_token(t_token *tok)
 {
-    if(tok->text)
-        free(tok->text);
-    free(tok);
+	if (tok->text)
+		free(tok->text);
+	free(tok);
 }

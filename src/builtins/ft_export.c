@@ -6,18 +6,18 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 12:20:09 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/21 21:00:27 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/22 19:45:30 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-static void 	ft_env_add_size1(t_shell *shell, t_list *new_node);
-static void 	ft_search_and_add(t_shell *shell, t_list *new_node);
+static void		ft_env_add_size1(t_shell *shell, t_list *new_node);
+static void		ft_search_and_add(t_shell *shell, t_list *new_node);
 static t_list	*ft_search_right_pos(t_list *list, t_list *new_node);
 static void		ft_exchange_node(t_shell *shell, t_list *old, t_list *new);
 
-void ft_export(t_shell *shell, char *key, char *value)
+void	ft_export(t_shell *shell, char *key, char *value)
 {
 	t_dictionary	*dic_item;
 	t_list			*new_node;
@@ -39,7 +39,7 @@ void ft_export(t_shell *shell, char *key, char *value)
 	}
 }
 
-static void ft_env_add_size1(t_shell *shell, t_list *new_node)
+static void	ft_env_add_size1(t_shell *shell, t_list *new_node)
 {
 	char	*new_node_key;
 	char	*dic_key;
@@ -60,7 +60,7 @@ static void ft_env_add_size1(t_shell *shell, t_list *new_node)
 	}
 }
 
-static void ft_search_and_add(t_shell *shell, t_list *new_node)
+static void	ft_search_and_add(t_shell *shell, t_list *new_node)
 {
 	char	*new_node_key;
 	char	*dic_key;

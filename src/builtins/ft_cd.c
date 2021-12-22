@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:43:00 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/22 12:25:00 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/22 19:46:27 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ static int	ft_cd_path(t_shell *shell, char *path)
 	struct stat	stats;
 
 	stat(path, &stats);
-
 	if (S_ISDIR(stats.st_mode))
 	{
 		g_errnum = ENOTDIR;

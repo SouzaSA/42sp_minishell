@@ -6,12 +6,11 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 21:08:19 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/21 21:08:22 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/22 17:52:41 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_source.h"
-#include "ft_minishell.h"
 
 char	ft_peek_char(t_source *src)
 {

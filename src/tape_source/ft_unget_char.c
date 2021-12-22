@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 21:08:36 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/21 21:08:37 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/22 19:42:43 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_unget_char(t_source *src)
 {
-	if(src->curpos < 0)
+	if (src->curpos < 0)
 		return ;
 	src->curpos--;
 }

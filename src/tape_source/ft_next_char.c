@@ -6,12 +6,11 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 21:08:06 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/21 21:08:08 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/22 19:44:21 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_source.h"
-#include "ft_minishell.h"
 
 char	ft_next_char(t_source *src)
 {
@@ -24,7 +23,7 @@ char	ft_next_char(t_source *src)
 		return (ERRCHAR);
 	}
 	if (src->curpos == INIT_SRC_POS)
-		src->curpos  = -1;
+		src->curpos = -1;
 	else
 		tmp_char = src->buffer[src->curpos];
 	if (++src->curpos >= src->bufsize)

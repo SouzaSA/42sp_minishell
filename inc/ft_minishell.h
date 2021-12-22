@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/22 11:27:26 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/22 19:53:45 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	**ft_get_path(char **envp);
 int		ft_minishell(char **envp);
 
 int		ft_env(t_shell *shell);
-void	 ft_export(t_shell *shell, char *key, char *value);
+void	ft_export(t_shell *shell, char *key, char *value);
 
 void	ft_destroy_vars(t_shell *shell);
 char	*ft_get_env_value_by_key(t_shell *shell, char *key);
