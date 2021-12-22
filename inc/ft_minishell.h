@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_minishell.c                                     :+:      :+:    :+:   */
+/*   ft_minishell.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/21 11:37:52 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/22 11:27:26 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_MINISHELL_H
 # define FT_MINISHELL_H
-# include <errno.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-# include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include "ft_error.h"
 # include "libft.h"
 # include "ft_colors.h"
-
-# define EXIT_SHELL_SUCCESS 0
-# define EXIT_SHELL_ERROR_GENERIC 1
-# define EXIT_SHELL_ERROR_MISSUSE_BUITIN 2
-# define EXIT_SHELL_ERROR_CANNOT_EXECUTE 126
-# define EXIT_SHELL_ERROR_CMD_NOT_FOUND 127
-# define EXIT_SHELL_ERROR_INVALID_ARG_TO_EXIT 128
-# define EXIT_SHELL_ERROR_SIGNAL_N 128
 
 typedef struct s_dictionary
 {
@@ -63,6 +55,5 @@ void	 ft_export(t_shell *shell, char *key, char *value);
 void	ft_destroy_vars(t_shell *shell);
 char	*ft_get_env_value_by_key(t_shell *shell, char *key);
 void	ft_init_minishell(t_shell *shell, char **envp);
-int		ft_put_msg_error(t_shell *shell, char *msg, int error_flag);
 void	ft_destroy_dictionary_element(void *dic_item);
 #endif
