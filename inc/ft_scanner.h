@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:52:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/23 12:10:39 by sde-alva         ###   ########.fr       */
+/*   Updated: 2021/12/24 10:37:18 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_token
 	t_source	*src;
 	int			text_len;
 	char		*text;
+	int			end_flag;
 }	t_token;
 
 typedef struct s_scanner
@@ -32,7 +33,6 @@ typedef struct s_scanner
 	char	*tok_buf;
 	int		tok_bufsize;
 	int		tok_bufindex;
-	int		end_flag;
 }	t_scanner;
 
 t_token	*ft_tokenize(t_source *src);

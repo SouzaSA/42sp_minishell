@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_new_node.c                                      :+:      :+:    :+:   */
+/*   ft_init_token.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/23 18:33:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/23 18:33:09 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/12/24 10:48:42 by sde-alva          #+#    #+#             */
+/*   Updated: 2021/12/25 13:23:28 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_parser.h"
+#include "ft_scanner.h"
 
-t_node	*ft_new_node(enum e_node_type type)
+t_token	*ft_init_token(void)
 {
-	t_node	*node;
+	t_token	*tok;
 
-	node = (t_node *)malloc(sizeof(t_node));
-	if (!node)
+	tok = (t_token *)malloc(sizeof(t_token));
+	if (!tok)
+	{
+		ft_put_msg_error("scanner: failed to alloc token", FLAG_ERROR_P);
 		return (NULL);
-	ft_memset(node, 0, sizeof(t_node));
-	node->type = type;
-	return (node);
+	}
+	tok->src = NULL;
+	tok->text_len = 0;
+	tok->text = NULL;
+	tok->end_flag = 0;
+	return (tok);
 }

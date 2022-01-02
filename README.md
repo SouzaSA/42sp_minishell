@@ -96,6 +96,19 @@ To achieve the bonus the minishell must: (from minishell subject version 6)
 
 # Project Development
 
+## Overview
+
+```flow
+st=>start: Login
+op=>operation: Login operation
+cond=>condition: Successful Yes or No?
+e=>end: To admin
+
+st->op->cond
+cond(yes)->e
+cond(no)->op
+```
+
 Following some tips from prof. Gustavo Rodrigues \[1\], to build this project we need to implement a **Parser**, a **Executor** and **shell Subsystems**.
 
 The Parser, is the software component that reads the command line, and puts it into a data structure that will store the commands that will be executed futher.
