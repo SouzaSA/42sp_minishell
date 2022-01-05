@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/19 13:41:05 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/19 17:39:22 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/05 09:09:20 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	ft_update_env_pwds(t_shell *shell, char *new_pwd)
 
 	node_old_pwd = ft_get_env_node_by_key(shell, "OLDPWD");
 	node_pwd = ft_get_env_node_by_key(shell, "PWD");
-	tmp_node = ((t_dictionary *)node_pwd->content)->value;
+	tmp_pwd = ((t_dictionary *)node_pwd->content)->value;
 	tmp_old_pwd = ((t_dictionary *)node_old_pwd->content)->value;
-	((t_dictionary *)node_old_pwd->content)->value = tmp_node;
+	((t_dictionary *)node_old_pwd->content)->value = tmp_pwd;
 	((t_dictionary *)node_pwd->content)->value = new_pwd;
 	free(tmp_old_pwd);
 }

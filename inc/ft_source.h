@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 08:28:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/22 19:50:56 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/05 09:20:57 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ typedef struct s_source
 }	t_source;
 
 char	ft_next_char(t_source *src);
-void	ft_unget_char(t_source *src);
 char	ft_peek_char(t_source *src);
 void	ft_skip_white_spaces(t_source *src);
-
+void	ft_unget_char(t_source *src);
 #endif

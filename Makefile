@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2021/12/19 13:57:43 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/01/04 09:47:33 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,12 @@ INC_DIR			=	inc
 OBJ_DIR			=	obj
 SRC_DIR			=	src
 BUILTINS_DIR	=	builtins
+ERROR_DIR		=	error
+EXECUTOR_DIR	=	executor
+PARSER_DIR		=	parser
+PROMPT_DIR		=	prompt
+SCANNER_DIR		=	scanner
+TAPE_SOURCE_DIR	=	tape_source
 UTILS_DIR		=	utils
 
 LIBFT			=	ft
@@ -37,14 +43,45 @@ SRCS			=	ft_get_path.c	\
 					${BUILTIN_ADD_DIR}	\
 					${UTILS_ADD_DIR}
 
-BUILTINS		=	ft_env.c \
-					ft_export.c
+BUILTINS		=	ft_cd.c	\
+					ft_env.c \
+					ft_export.c	\
+					ft_pwd.c	\
+					ft_unset.c
+
+ERROR			=	ft_put_msg_error.c
+
+EXECUTOR		=	ft_checker_slash.c	\
+					ft_exec_simple_cmd.c	\
+					ft_execute_command.c	\
+					ft_get_cmd_path.c	\
+					ft_get_path.c
+
+PARSER			=	ft_child_node.c	\
+					ft_free_node_tree.c	\
+					ft_new_node.c	\
+					ft_parse_simple_command.c	\
+					ft_set_node_val_str.c
+
+PROMPT			=
+
+SCANNER			=	ft_add_to_buff.c	\
+					ft_free_token.c	\
+					ft_init_token.c	\
+					ft_set_token.c	\
+					ft_tokenize.c
+
+TAPE_SOURCE		=	ft_next_char.c	\
+					ft_peek_char.c	\
+					ft_skip_white_spaces_char.c	\
+					ft_unget_char.c
 
 UTILS			=	ft_destroy_dictionary_element.c	\
 					ft_destroy_vars.c	\
+					ft_get_env_node_by_key.c	\
 					ft_get_env_value_by_key.c	\
 					ft_init_vars.c	\
-					ft_put_msg_error.c
+					ft_update_env_pwd.c
 
 BONUS			=
 
@@ -55,6 +92,20 @@ BONUS_OBJS		=	${addprefix ./${OBJ_DIR}/,${BONUS:.c=.o}}
 UTILS_ADD_DIR	=	${addprefix ${UTILS_DIR}/,${UTILS}}
 
 BUILTIN_ADD_DIR	=	${addprefix ${BUILTINS_DIR}/,${BUILTINS}}
+
+ERROR_ADD_DIR	=	${addprefix ${ERROR_DIR}/,${ERROR}}
+
+EXECUTOR_ADD_DIR	=	${addprefix ${EXECUTOR_DIR}/,${EXECUTOR}}
+
+PARSER_ADD_DIR	=	${addprefix ${PARSER_DIR}/,${PARSER}}
+
+PROMPT_ADD_DIR	=	${addprefix ${PROMPT_DIR}/,${PROMPT}}
+
+SCANNER_ADD_DIR	=	${addprefix ${SCANNER_DIR}/,${SCANNER}}
+
+TAPE_SOURCE_ADD_DIR	=	${addprefix ${TAPE_SOURCE_DIR}/,${TAPE_SOURCE}}
+
+UTILS_ADD_DIR	=	${addprefix ${UTILS_DIR}/,${UTILS}}
 
 RM				=	@rm -rf
 

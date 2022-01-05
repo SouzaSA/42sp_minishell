@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:52:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/24 10:37:18 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/05 09:18:02 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ typedef struct s_scanner
 	int		tok_bufindex;
 }	t_scanner;
 
-t_token	*ft_tokenize(t_source *src);
-void	ft_free_token(t_token *tok);
+void	ft_add_to_buf(t_scanner *scan, char c);
+void	free_token(t_token *tok);
+t_token	*ft_init_token(void);
+t_token	*ft_set_token(t_token *tok, t_source *src, char *str);
+t_token	*tokenize(t_scanner *scan, t_source *src);
 #endif

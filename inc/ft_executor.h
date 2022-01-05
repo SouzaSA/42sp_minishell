@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/23 20:54:10 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/05 09:16:17 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,8 @@
 # define FT_EXECUTOR_H
 
 # include "ft_parser.h"
+
+int	ft_checker_slash(char *str);
+
 
 #endif
