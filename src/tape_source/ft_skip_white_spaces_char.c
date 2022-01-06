@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 21:08:29 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/22 19:44:00 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/06 11:09:29 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_skip_white_spaces(t_source *src)
 
 	if (!src || !src->buffer)
 		return ;
-	c = peek_char(src);
+	c = ft_peek_char(src);
 	while (c != EOF && (c == ' ' || c == '\t'))
-		next_char(src);
+		ft_next_char(src);
 }
