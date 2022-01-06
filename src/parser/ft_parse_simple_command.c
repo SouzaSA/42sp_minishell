@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 10:28:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/25 16:05:25 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/05 18:01:46 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	ft_add_tree_node(t_node *cmd, t_token *tok);
 
-t_node	*parse_simple_command(t_token *tok)
+t_node	*ft_parse_simple_command(t_scanner *scan, t_token *tok)
 {
 	t_node		*cmd;
 	t_source	*src;
@@ -25,15 +25,15 @@ t_node	*parse_simple_command(t_token *tok)
 	src = tok->src;
 	if (!cmd)
 	{
-		free_token(tok);
+		ft_free_token(tok);
 		return (NULL);
 	}
-	tok = tokenize(src);
+	tok = tokenize(scan, src);
 	while (!tok->end_flag)
 	{
 		if (tok->text[0] == '\n')
 		{
-			free_token(tok);
+			ft_free_token(tok);
 			break ;
 		}
 		ft_add_tree_node(cmd, tok);

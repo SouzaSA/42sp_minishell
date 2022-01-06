@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:43 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/05 09:16:13 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/05 18:01:43 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ typedef struct s_node
 void	ft_add_child_node(t_node *parent, t_node *child);
 void	ft_free_node_tree(t_node *node);
 t_node	*ft_new_node(enum e_node_type type);
-t_node	*parse_simple_command(t_token *tok);
+t_node	*ft_parse_simple_command(t_scanner *scan, t_token *tok);
 void	ft_set_node_val_str(t_node *node, char *val);
 #endif

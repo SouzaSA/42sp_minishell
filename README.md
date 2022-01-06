@@ -332,14 +332,14 @@ Word expansion and assignment shall never occur, even when required by the rules
 
 
 ```
-/* -------------------------------------------------------
-   The grammar symbols
-   ------------------------------------------------------- */
-%token  WORD
-%token  ASSIGNMENT_WORD
-%token  NAME
-%token  NEWLINE
-%token  IO_NUMBER
+/* ------------------------------------------------------- */
+/*                   The grammar symbols                   */
+/* ------------------------------------------------------- */
+%token  word
+%token  assingment_word
+%token  name
+%token  newline
+%token  number
 
 /* -------------------------------------------------------
    The Grammar
