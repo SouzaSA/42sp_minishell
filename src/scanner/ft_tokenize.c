@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:51:45 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/05 09:19:40 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/07 12:14:04 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,13 @@ static void	ft_token_parse(t_scanner *scan, t_source *src, char nc)
 	{
 		if (nc == ' ' || nc == '\t')
 			endloop = 1;
-		else if (nc == '\n')
+		else if (nc == '\n' || nc == '|' || nc == '<' || nc == '>')
 		{
+			if (nc == '<' || nc == '>')
+			{
+				nc = ft_next_char(src);
+				if (nc)
+			}
 			if (scan->tok_bufindex > 0)
 				ft_unget_char(src);
 			else

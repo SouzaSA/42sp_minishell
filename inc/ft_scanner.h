@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:52:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/05 09:18:02 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/07 11:05:39 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,26 @@
 # include "ft_source.h"
 # include "libft.h"
 
+enum e_tok_type
+{
+	PIPE = 1,
+	WORD,
+	ASSIGNMENT,
+	UNDERSCORE,
+	LBRACE,
+	RBRACE,
+	AND_IF,
+	OR_IF,
+	LESS,
+	GREAT,
+	DGREAT,
+	LESSGREAT,
+	DLESS,
+	NEWLINE,
+    TOK_EOF,
+    UNKNOWN,
+};
+
 /* ************************************************************************** */
 /* ---    src      -->  source of input                                   --- */
 /* ---    text_len -->  length of token text                              --- */
@@ -22,17 +42,18 @@
 /* ************************************************************************** */
 typedef struct s_token
 {
-	t_source	*src;
-	int			text_len;
-	char		*text;
-	int			end_flag;
+	enum e_tok_type	tok_type;
+	t_source		*src;
+	int				text_len;
+	char			*text;
+	int				end_flag;
 }	t_token;
 
 typedef struct s_scanner
 {
-	char	*tok_buf;
-	int		tok_bufsize;
-	int		tok_bufindex;
+	char		*tok_buf;
+	int			tok_bufsize;
+	int			tok_bufindex;
 }	t_scanner;
 
 void	ft_add_to_buf(t_scanner *scan, char c);
