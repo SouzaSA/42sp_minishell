@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:51:29 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/09 12:21:37 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/10 12:25:07 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ static void ft_set_token_type(t_token *tok, char *str)
 		tok->tok_type = LESSGREAT;
 	else if (ft_strcmp(str, "<<") == 0)
 		tok->tok_type = DLESS;
-	else if (ft_strcmp(str, "\n") == 0)
-		tok->tok_type = NEW_LINE;
 	else if (ft_strchr(str, '=') && !ft_isdigit(str[0]))
 		tok->tok_type = ASSIGNMENT;
 	else
