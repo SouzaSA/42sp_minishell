@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/22 19:49:45 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/09 10:45:40 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define FT_ERROR_H
 # include <errno.h>
 # include <string.h>
+# include <stdio.h>
+# include "libft.h"
+# include "ft_base_macros.h"
 
 # define FLAG_ERROR_P 0
 # define FLAG_ERROR_STR 1
@@ -32,7 +35,7 @@
 # define ENOTDIR 20
 # define ENODATA 61
 
-int	g_errnum = 0;
+extern int	g_errnum;
 
 int		ft_put_msg_error(char *msg, int error_flag);
 

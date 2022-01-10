@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 10:28:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/05 18:01:46 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/08 19:27:57 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_node	*ft_parse_simple_command(t_scanner *scan, t_token *tok)
 		return (NULL);
 	}
 	tok = tokenize(scan, src);
-	while (!tok->end_flag)
+	while (tok->tok_type != TOK_EOF)
 	{
 		if (tok->text[0] == '\n')
 		{

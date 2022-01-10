@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 08:28:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/05 09:20:57 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/09 10:46:15 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FT_SOURCE_H
 # include "ft_error.h"
 
-# define EOF -1
+//# define EOF -1
 # define ERRCHAR 0
 # define INIT_SRC_POS -2
 

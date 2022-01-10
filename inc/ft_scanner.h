@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:52:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/07 11:05:39 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/08 19:58:56 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@
 
 enum e_tok_type
 {
-	PIPE = 1,
-	WORD,
-	ASSIGNMENT,
-	UNDERSCORE,
+	PIPE,
 	LBRACE,
 	RBRACE,
 	AND_IF,
@@ -30,9 +27,11 @@ enum e_tok_type
 	DGREAT,
 	LESSGREAT,
 	DLESS,
-	NEWLINE,
-    TOK_EOF,
-    UNKNOWN,
+	NEW_LINE,
+	ASSIGNMENT,
+	WORD,
+	TOK_EOF,
+	UNKNOWN,
 };
 
 /* ************************************************************************** */
@@ -46,7 +45,6 @@ typedef struct s_token
 	t_source		*src;
 	int				text_len;
 	char			*text;
-	int				end_flag;
 }	t_token;
 
 typedef struct s_scanner
@@ -59,6 +57,7 @@ typedef struct s_scanner
 void	ft_add_to_buf(t_scanner *scan, char c);
 void	free_token(t_token *tok);
 t_token	*ft_init_token(void);
+t_list *ft_lexer(t_source *src);
 t_token	*ft_set_token(t_token *tok, t_source *src, char *str);
 t_token	*tokenize(t_scanner *scan, t_source *src);
 #endif

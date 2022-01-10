@@ -6,18 +6,19 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:51:19 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/22 19:41:44 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/08 20:14:34 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_scanner.h"
 
-static void	*ft_expand_mem(void *old_ptr, int old_size, int new_size);
+static char	*ft_expand_mem(void *old_ptr, int old_size, int new_size);
 
 void	ft_add_to_buf(t_scanner *scan, char c)
 {
 	char	*tmp;
 
+	tmp = NULL;
 	scan->tok_buf[scan->tok_bufindex++] = c;
 	if (scan->tok_bufindex >= scan->tok_bufsize)
 	{
@@ -32,7 +33,7 @@ void	ft_add_to_buf(t_scanner *scan, char c)
 	}
 }
 
-static void	*ft_expand_mem(void *old_ptr, int old_size, int new_size)
+static char	*ft_expand_mem(void *old_ptr, int old_size, int new_size)
 {
 	void	*new_ptr;
 

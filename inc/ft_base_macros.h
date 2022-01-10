@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put_msg_error.c                                 :+:      :+:    :+:   */
+/*   ft_base_macros.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/16 18:10:27 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/08 20:47:13 by sde-alva         ###   ########.fr       */
+/*   Created: 2022/01/08 16:56:19 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/01/08 19:53:30 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_error.h"
+#ifndef FT_BASE_MACROS_H
+# define FT_BASE_MACROS_H
 
-int	ft_put_msg_error(char *msg, int error_flag)
-{
-	ft_putstr_fd("minishell: ", 2);
-	if (error_flag == FLAG_ERROR_P)
-	{
-		perror(msg);
-	}
-	else if (error_flag == FLAG_ERROR_STR)
-	{
-		ft_putstr_fd(msg, 2);
-		ft_putstr_fd(": ", 2);
-		ft_putendl_fd(strerror(g_errnum), 2);
-	}
-	else if (error_flag == FLAG_ERROR_OWN)
-	{
-		ft_putendl_fd(msg, 2);
-	}
-	return (1);
-}
+# ifndef NULL
+#  define NULL (void *)0
+# endif
+# ifndef EXIT_SUCCESS
+#  define EXIT_SUCCESS 0
+# endif
+# ifndef EXIT_FAILURE
+#  define EXIT_FAILURE 1
+# endif
+#endif

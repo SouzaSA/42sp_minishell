@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/01/04 09:47:33 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/01/09 10:44:48 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,11 +37,13 @@ INCS			=	-I ${INC_DIR} -I ${LIBFT_INC}
 LIBS			=	-L ${LIBFT_LIB} -l ${LIBFT} -lreadline -lncurses
 SAN				=	-g -fsanitize=address
 
-SRCS			=	ft_get_path.c	\
-					ft_main.c	\
+SRCS			=	ft_main.c	\
 					ft_minishell.c	\
 					${BUILTIN_ADD_DIR}	\
-					${UTILS_ADD_DIR}
+					${ERROR_ADD_DIR} \
+					${UTILS_ADD_DIR}	\
+					${SCANNER_ADD_DIR}	\
+					${TAPE_SOURCE_ADD_DIR}
 
 BUILTINS		=	ft_cd.c	\
 					ft_env.c \
@@ -68,6 +70,7 @@ PROMPT			=
 SCANNER			=	ft_add_to_buff.c	\
 					ft_free_token.c	\
 					ft_init_token.c	\
+					ft_lexer.c	\
 					ft_set_token.c	\
 					ft_tokenize.c
 

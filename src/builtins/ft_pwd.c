@@ -6,13 +6,13 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:29:00 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/22 19:46:53 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/08 20:05:41 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-int	ft_pwd(t_shell *shell)
+int	ft_pwd()//t_shell *shell)
 {
 	char	*cwd;
 

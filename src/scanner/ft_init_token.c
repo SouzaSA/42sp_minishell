@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 10:48:42 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/25 13:23:28 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/08 12:01:01 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ t_token	*ft_init_token(void)
 		ft_put_msg_error("scanner: failed to alloc token", FLAG_ERROR_P);
 		return (NULL);
 	}
+	tok->tok_type = UNKNOWN;
 	tok->src = NULL;
 	tok->text_len = 0;
 	tok->text = NULL;
-	tok->end_flag = 0;
 	return (tok);
 }

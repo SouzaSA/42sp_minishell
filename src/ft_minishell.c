@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:36:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/19 16:53:15 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/09 16:07:38 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@
 #include <term.h>
 
 static int	ft_set_status(char *line);
+static void	ft_set_source(t_source *src, char *line);
 
 int	ft_minishell(char **envp)
 {
-	t_shell	shell;
-	char	*line;
-	int 	status;
+	t_shell		shell;
+	t_source	src;
+	char		*line;
+	int			status;
 
 	ft_init_minishell(&shell, envp);
 	ft_env(&shell);
@@ -41,7 +43,8 @@ int	ft_minishell(char **envp)
 			continue ;
 		}
 		add_history(line);
-		ft_putendl_fd(line, 1);
+		ft_set_source(&src, line);
+		ft_lexer(&src);
 		free(line);
 	}
 	rl_clear_history();
@@ -56,4 +59,11 @@ static int	ft_set_status(char *line)
 	if (ft_strcmp("exit", line) == 0)
 		status = 0;
 	return (status);
+}
+
+static void	ft_set_source(t_source *src, char *line)
+{
+	src->buffer = ft_strdup(line);
+	src->bufsize = ft_strlen(line);
+	src->curpos = INIT_SRC_POS;
 }

@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:43:00 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/22 19:46:27 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/09 10:51:09 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static int	ft_cd_home(t_shell *shell);
 static int	ft_cd_swap(t_shell *shell);
 static int	ft_cd_path(t_shell *shell, char *path);
 static int	ft_cd_error(t_shell *shell, char *msg, int error_flag);
+
+int g_errnum = 0;
 
 int	ft_cd(t_shell *shell, char **cmd)
 {

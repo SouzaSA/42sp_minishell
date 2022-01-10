@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 21:08:06 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/22 19:44:21 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/08 20:40:53 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char	ft_next_char(t_source *src)
 {
-	char	tmp_char;
+	//char	tmp_char;
 
-	tmp_char = 0;
+	//tmp_char = 0;
 	if (!src || !src->buffer)
 	{
 		g_errnum = ENODATA;
@@ -24,8 +24,8 @@ char	ft_next_char(t_source *src)
 	}
 	if (src->curpos == INIT_SRC_POS)
 		src->curpos = -1;
-	else
-		tmp_char = src->buffer[src->curpos];
+	//else
+	//	tmp_char = src->buffer[src->curpos];
 	if (++src->curpos >= src->bufsize)
 	{
 		src->curpos = src->bufsize;
