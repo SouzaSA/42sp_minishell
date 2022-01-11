@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:51:45 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/09 22:26:36 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/11 11:17:35 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	ft_token_parse(t_scanner *scan, t_source *src)
 				break ;
 		}
 		else if (nc == '\n' || nc == '|' || nc == '<' || nc == '>' \
-			|| nc == '(' || nc == ')')
+			|| nc == '(' || nc == ')' || nc == '&')
 		{
 			ft_token_separator(scan, src, nc);
 			break ;
@@ -85,16 +85,22 @@ static void ft_token_separator(t_scanner *scan, t_source *src, char nc)
 {
 	char	nnc;
 
+	nnc = ft_peek_char(src);
 	if (scan->tok_bufindex == 0 && (nc == '<' || nc == '>'))
 	{
 		ft_add_to_buf(scan, nc);
-		nnc = ft_peek_char(src);
 		if ((nc == '<' && (nnc == '>' || nnc == '<')) \
 			|| (nc == '>' && nnc == '>'))
 		{
 			nc = ft_next_char(src);
 			ft_add_to_buf(scan, nc);
 		}
+	}
+	else if (scan->tok_bufindex == 0 && \
+		((nc == '&' && nnc == '&') || (nc == '|' && nnc == '|')))
+	{
+		ft_add_to_buf(scan, nc);
+		ft_add_to_buf(scan, ft_next_char(src));
 	}
 	else if (scan->tok_bufindex > 0)
 		ft_unget_char(src);
