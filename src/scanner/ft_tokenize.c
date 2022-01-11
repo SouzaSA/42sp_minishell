@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:51:45 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/11 17:57:01 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/11 18:19:58 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	ft_token_parse(t_scanner *scan, t_source *src)
 				break ;
 		}
 		else if (nc == '\n' || nc == '|' || nc == '<' || nc == '>' \
-			|| nc == '(' || nc == ')' || nc == '&'  || nc == '\'' || nc == '\"')
+			|| nc == '(' || nc == ')' || nc == '&')
 		{
 			ft_token_separator(scan, src, nc);
 			break ;

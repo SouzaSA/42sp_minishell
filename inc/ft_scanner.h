@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:52:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/11 17:59:03 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/11 18:33:08 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ enum e_tok_type
 	RBRACE,
 	AND_IF,
 	OR_IF,
-	QUOTE,
-	DQUOTE,
 	LESS,
 	GREAT,
 	DGREAT,

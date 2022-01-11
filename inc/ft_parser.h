@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:43 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/05 18:01:43 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/11 17:10:53 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ enum	e_node_type
 {
 	NODE_COMMAND,
 	NODE_VAR,
+	NODE_REDIR,
 };
 
 enum	e_val_type
