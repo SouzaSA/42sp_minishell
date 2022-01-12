@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 13:58:02 by sde-alva          #+#    #+#              #
-#    Updated: 2021/12/19 16:42:49 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/01/12 10:22:49 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ LST				=	ft_lstadd_after.c	\
 					ft_lstadd_back.c	\
 					ft_lstadd_front.c	\
 					ft_lstclear.c	\
+					ft_lstdel_front.c	\
 					ft_lstdelone.c	\
 					ft_lstiter.c	\
 					ft_lstlast.c	\
