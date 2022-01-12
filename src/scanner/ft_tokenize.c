@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:51:45 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/12 09:27:44 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/12 11:05:52 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	ft_token_parse(t_scanner *scan, t_source *src)
 		return ;
 	while (nc != EOF)
 	{
-		if (quote_flag == 0 && nc == '\'' && nc != '\0')
+		if (dquote_flag == 0 && nc == '\'' && nc != '\0')
 			quote_flag = !quote_flag;
 		else if (quote_flag == 0 && nc == '\"' && nc != '\0')
 			dquote_flag = !dquote_flag;
