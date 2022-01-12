@@ -6,14 +6,15 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:51:45 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/11 18:19:58 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/12 09:27:44 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_scanner.h"
 
 static void	ft_create_buff(t_scanner *scan);
-static int	ft_token_parse(t_scanner *scan, t_source *src);
+static void	ft_token_parse(t_scanner *scan, t_source *src);
+static int	ft_buffer_set(t_scanner *scan, t_source *src, char nc);
 static void ft_token_separator(t_scanner *scan, t_source *src, char nc);
 
 t_token	*tokenize(t_scanner *scan, t_source *src)
@@ -54,31 +55,53 @@ static void	ft_create_buff(t_scanner *scan)
 	}
 }
 
-static int	ft_token_parse(t_scanner *scan, t_source *src)
+static void	ft_token_parse(t_scanner *scan, t_source *src)
 {
+	int		quote_flag;
+	int		dquote_flag;
 	char	nc;
 
+	quote_flag = 0;
+	dquote_flag = 0;
 	nc = ft_next_char(src);
 	if (nc == ERRCHAR || nc == EOF)
-		return (EXIT_FAILURE);
+		return ;
 	while (nc != EOF)
 	{
-		if (nc == ' ' || nc == '\t')
+		if (quote_flag == 0 && nc == '\'' && nc != '\0')
+			quote_flag = !quote_flag;
+		else if (quote_flag == 0 && nc == '\"' && nc != '\0')
+			dquote_flag = !dquote_flag;
+		else if (!quote_flag && !dquote_flag)
 		{
-			if (scan->tok_bufindex > 0)
+			if (ft_buffer_set(scan, src, nc))
 				break ;
 		}
-		else if (nc == '\n' || nc == '|' || nc == '<' || nc == '>' \
-			|| nc == '(' || nc == ')' || nc == '&')
-		{
-			ft_token_separator(scan, src, nc);
-			break ;
-		}
-		else
+		if (quote_flag || dquote_flag || nc == '\'' || nc == '\"')
 			ft_add_to_buf(scan, nc);
 		nc = ft_next_char(src);
 	}
-	return (EXIT_SUCCESS);
+}
+
+static int	ft_buffer_set(t_scanner *scan, t_source *src, char nc)
+{
+	int	break_flag;
+
+	break_flag = 0;
+	if (nc == ' ' || nc == '\t')
+	{
+		if (scan->tok_bufindex > 0)
+			break_flag = 1;
+	}
+	else if (nc == '\n' || nc == '|' || nc == '<' || nc == '>' \
+		|| nc == '(' || nc == ')' || nc == '&')
+	{
+		ft_token_separator(scan, src, nc);
+		break_flag = 1;
+	}
+	else
+		ft_add_to_buf(scan, nc);
+	return (break_flag);
 }
 
 static void ft_token_separator(t_scanner *scan, t_source *src, char nc)
