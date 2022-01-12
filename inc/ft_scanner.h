@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:52:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/11 18:33:08 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/12 12:48:37 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 enum e_tok_type
 {
-	PIPE,
+	PIPE = 1,
 	LBRACE,
 	RBRACE,
 	AND_IF,

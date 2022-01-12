@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:43 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/11 17:10:53 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/12 12:48:36 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,19 @@
 # define FT_PARSER_H
 
 # include "ft_scanner.h"
+
+enum	e_symbols
+{
+	NTS_START,
+	NTS_PIPELINE,
+	NTS_PIPELINE1,
+	NTS_COMMAND,
+	NTS_COMMAND1,
+	NTS_SUBSHELL,
+	NTS_SIMPLE_COMMAND,
+	NTS_SIMPLE_COMMAND1,
+	NTS_SIMPLE_COMMAND2,
+}
 
 enum	e_node_type
 {
