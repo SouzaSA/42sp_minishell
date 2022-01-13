@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:43 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/13 12:20:59 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/13 19:31:00 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,24 @@ enum	e_node_type
 {
 	NTS_START,
 	NTS_AND_OR,
+	NTS_AND_OR1,
 	NTS_PIPELINE,
+	NTS_PIPELINE1,
 	NTS_COMMAND,
+	NTS_COMMAND1,
 	NTS_SUBSHELL,
 	NTS_SIMPLE_CMD,
+	NTS_SIMPLE_CMD1,
+	NTS_SIMPLE_CMD2,
 	NTS_PREFIX,
+	NTS_PREFIX1,
 	NTS_SULFIX,
+	NTS_SULFIX1,
 	NTS_REDIRECT_LIST,
+	NTS_REDIRECT_LIST1,
 	NTS_IO_REDIRECT,
 	NTS_IO_FILE,
 	NTS_IO_HERE,
-	TS_AND_IF,
-	TS_OR_IF,
-	TS_PIPE,
-	TS_LBRACE,
-	TS_RBRACE,
-	TS_WORD,
-	TS_ASSIGNMENT,
-	TS_LESS,
-	TS_GREAT,
-	TS_DGREAT,
-	TS_LESSGREAT,
-	TS_DLES,
 };
 
 typedef struct s_ast_node

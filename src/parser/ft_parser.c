@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:18:16 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/13 12:21:59 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/13 19:30:43 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,39 @@ static int	**ft_transition_table(void)
 {
 	int	i;
 	int	**transition_table;
-
-	transition_table = (int **)malloc(23 * sizeof(int *));
+    //rules
+	transition_table = (int **)malloc(20 * sizeof(int *));
 	while (i < 23)
 	{
 		*transition_table = (int *)malloc(12 * sizeof(int));
 	}
-	transition_table[2][0] = 0;
-	transition_table[4][0] = 0;
-	transition_table[6][0] = 0;
-	transition_table[9][0] = 0;
-	transition_table[10][0] = 0;
-	transition_table[12][0] = 0;
-	transition_table[14][0] = 0;
-	transition_table[16][0] = 0;
-	transition_table[2][1] = 0;
-	transition_table[4][1] = 0;
-	transition_table[7][1] = 0;
-	transition_table[8][1] = 0;
-	transition_table[12][1] = 0;
-	transition_table[14][1] = 0;
-	transition_table[16][1] = 0;
+	transition_table[NTS_START][LBRACE] = 0;
+	transition_table[NTS_START][WORD] = 0;
+	transition_table[NTS_START][ASSIGNMENT] = 0;
+	transition_table[NTS_START][LESS] = 0;
+	transition_table[NTS_START][GREAT] = 0;
+	transition_table[NTS_START][DGREAT] = 0;
+	transition_table[NTS_START][LESSGREAT] = 0;
+	transition_table[NTS_START][DLESS] = 0;
+
+	transition_table[NTS_AND_OR][LBRACE] = 1;
+	transition_table[NTS_AND_OR][WORD] = 1;
+	transition_table[NTS_AND_OR][ASSIGNMENT] = 1;
+	transition_table[NTS_AND_OR][LESS] = 1;
+	transition_table[NTS_AND_OR][GREAT] = 1;
+	transition_table[NTS_AND_OR][DGREAT] = 1;
+	transition_table[NTS_AND_OR][LESSGREAT] = 1;
+	transition_table[NTS_AND_OR][DLESS] = 1;
+
+	transition_table[NTS_AND_OR1][TOK_EOF] = 199; //retorna um end?
+	transition_table[NTS_AND_OR1][AND_IF] = 2;
+	transition_table[NTS_AND_OR1][OR_IF] = 2;
+	transition_table[NTS_AND_OR1][RBRACE] = 199;  //retorna um end?
+
+	transition_table[NTS_PIPELINE][TOK_EOF] = 199;  //retorna um end?
+	transition_table[NTS_PIPELINE][AND_IF] = 3;
+	transition_table[NTS_PIPELINE][OR_IF] = 3;
+	transition_table[NTS_PIPELINE][LBRACE] = 3;
+	transition_table[NTS_PIPELINE][LBRACE] = 3;
+
 }
