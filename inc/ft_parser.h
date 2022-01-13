@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:43 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/12 12:48:36 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/13 12:20:59 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,64 +15,47 @@
 
 # include "ft_scanner.h"
 
-enum	e_symbols
-{
-	NTS_START,
-	NTS_PIPELINE,
-	NTS_PIPELINE1,
-	NTS_COMMAND,
-	NTS_COMMAND1,
-	NTS_SUBSHELL,
-	NTS_SIMPLE_COMMAND,
-	NTS_SIMPLE_COMMAND1,
-	NTS_SIMPLE_COMMAND2,
-}
-
 enum	e_node_type
 {
-	NODE_COMMAND,
-	NODE_VAR,
-	NODE_REDIR,
+	NTS_START,
+	NTS_AND_OR,
+	NTS_PIPELINE,
+	NTS_COMMAND,
+	NTS_SUBSHELL,
+	NTS_SIMPLE_CMD,
+	NTS_PREFIX,
+	NTS_SULFIX,
+	NTS_REDIRECT_LIST,
+	NTS_IO_REDIRECT,
+	NTS_IO_FILE,
+	NTS_IO_HERE,
+	TS_AND_IF,
+	TS_OR_IF,
+	TS_PIPE,
+	TS_LBRACE,
+	TS_RBRACE,
+	TS_WORD,
+	TS_ASSIGNMENT,
+	TS_LESS,
+	TS_GREAT,
+	TS_DGREAT,
+	TS_LESSGREAT,
+	TS_DLES,
 };
 
-enum	e_val_type
-{
-	VAL_SINT = 1,
-	VAL_UINT,
-	VAL_SLLONG,
-	VAL_ULLONG,
-	VAL_FLOAT,
-	VAL_LDOUBLE,
-	VAL_CHR,
-	VAL_STR,
-};
-
-union	u_symval
-{
-	long				sint;
-	unsigned long		uint;
-	long long			sllong;
-	unsigned long long	ullong;
-	double				sfloat;
-	long double			ldouble;
-	char				chr;
-	char				*str;
-};
-
-typedef struct s_node
+typedef struct s_ast_node
 {
 	enum e_node_type	type;
-	enum e_val_type		val_type;
-	union u_symval		val;
+	char				*str;
 	int					children;
 	struct s_node		*first_child;
 	struct s_node		*next_sibling;
 	struct s_node		*prev_sibling;
-}	t_node;
+}	t_ast_node;
 
-void	ft_add_child_node(t_node *parent, t_node *child);
-void	ft_free_node_tree(t_node *node);
-t_node	*ft_new_node(enum e_node_type type);
-t_node	*ft_parse_simple_command(t_scanner *scan, t_token *tok);
-void	ft_set_node_val_str(t_node *node, char *val);
+void	ft_add_child_node(t_ast_node *parent, t_ast_node *child);
+void	ft_free_node_tree(t_ast_node *node);
+t_ast_node	*ft_new_node(enum e_node_type type);
+t_ast_node	*ft_parse_simple_command(t_scanner *scan, t_token *tok);
+void	ft_set_node_val_str(t_ast_node *node, char *val);
 #endif

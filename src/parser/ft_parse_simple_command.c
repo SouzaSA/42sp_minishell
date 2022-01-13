@@ -6,17 +6,17 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 10:28:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/08 19:27:57 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/13 09:46:37 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_parser.h"
 
-static void	ft_add_tree_node(t_node *cmd, t_token *tok);
+static void	ft_add_tree_node(t_ast_node *cmd, t_token *tok);
 
-t_node	*ft_parse_simple_command(t_scanner *scan, t_token *tok)
+t_ast_node	*ft_parse_simple_command(t_scanner *scan, t_token *tok)
 {
-	t_node		*cmd;
+	t_ast_node		*cmd;
 	t_source	*src;
 
 	if (!tok)
@@ -41,9 +41,9 @@ t_node	*ft_parse_simple_command(t_scanner *scan, t_token *tok)
 	return (cmd);
 }
 
-static void	ft_add_tree_node(t_node *cmd, t_token *tok)
+static void	ft_add_tree_node(t_ast_node *cmd, t_token *tok)
 {
-	t_node		*word;
+	t_ast_node		*word;
 
 	word = new_node(NODE_VAR);
 	if (!word)
@@ -52,7 +52,7 @@ static void	ft_add_tree_node(t_node *cmd, t_token *tok)
 		free_token(tok);
 		return (NULL);
 	}
-	set_node_val_str(word, tok->text);
+	set_ast_node_val_str(word, tok->text);
 	add_child_node(cmd, word);
 	free_token(tok);
 }
