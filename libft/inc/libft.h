@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 15:47:46 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/12 10:26:32 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/14 10:53:35 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 t_list	*ft_lstnew(void *content);
+void	*ft_lstpop(t_list **lst, void (*del)(void *));
+void	ft_lstpush(t_list **lst, void *content);
 int		ft_lstsize(t_list *lst);
 
 int		ft_abs(int value);

@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 13:58:02 by sde-alva          #+#    #+#              #
-#    Updated: 2022/01/12 10:22:49 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/01/14 10:55:32 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,8 @@ LST				=	ft_lstadd_after.c	\
 					ft_lstlast.c	\
 					ft_lstmap.c	\
 					ft_lstnew.c	\
+					ft_lstpop.c	\
+					ft_lstpush.c	\
 					ft_lstsize.c
 
 MATH			=	ft_abs.c	\

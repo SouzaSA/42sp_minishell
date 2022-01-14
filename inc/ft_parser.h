@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:43 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/13 19:31:00 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/14 11:45:19 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,17 @@
 
 # include "ft_scanner.h"
 
-enum	e_node_type
+enum	e_symbol
 {
 	NTS_START,
 	NTS_AND_OR,
-	NTS_AND_OR1,
 	NTS_PIPELINE,
-	NTS_PIPELINE1,
 	NTS_COMMAND,
-	NTS_COMMAND1,
 	NTS_SUBSHELL,
 	NTS_SIMPLE_CMD,
-	NTS_SIMPLE_CMD1,
-	NTS_SIMPLE_CMD2,
 	NTS_PREFIX,
-	NTS_PREFIX1,
 	NTS_SULFIX,
-	NTS_SULFIX1,
 	NTS_REDIRECT_LIST,
-	NTS_REDIRECT_LIST1,
 	NTS_IO_REDIRECT,
 	NTS_IO_FILE,
 	NTS_IO_HERE,
@@ -41,7 +33,7 @@ enum	e_node_type
 
 typedef struct s_ast_node
 {
-	enum e_node_type	type;
+	enum e_symbol	type;
 	char				*str;
 	int					children;
 	struct s_node		*first_child;

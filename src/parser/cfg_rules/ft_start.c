@@ -1,7 +1,5 @@
 #include "ft_parser.h"
 
-#include "ft_parser.h"
-
 t_ast_node	*ft_start(t_token *tok)
 {
 	t_ast_node	*node;
