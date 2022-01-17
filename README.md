@@ -133,8 +133,8 @@ Shell Subsystems is some more stuff that completes the shell, like environment v
 | \<\< | [ \< ]\{2\} | dless |
 | \<\> | [ \< ]\{1\} [ \> ]\{1\} | lessgreat |
 | \>\> | [ \> ]\{2\} | dgreat |
-| ASSIGNMENT | [A-Za-z_] [0-9A-Za-z_]\* = ( ([ ' ] ( [ $ ]? [0-9A-Za-z_]\* ) [ ' ] ) \| ( [ " ] [ $ ]? [0-9A-Za-z_]\* [ " ] ) \| ( [ $ ]? [0-9A-Za-z_]\* ) )? | assignment |
-| WORD | ( [ ' ] [ $ ]? [0-9A-Za-z_]+ [ ' ] ) \| ( [ " ] [ $ ]? [0-9A-Za-z_]+ [ " ] ) \| (  [ $ ]? [0-9A-Za-z_]+ ) | word |
+| ASSIGNMENT | [A-Za-z_] [0-9A-Za-z_]\* = ( ([ ' ] ( [ \$ ]? [0-9A-Za-z_]\* ) [ ' ] ) \| ( [ " ] [ \$ ]? [0-9A-Za-z_]\* [ " ] ) \| ( [ $ ]? [0-9A-Za-z_]\* ) )? | assignment |
+| WORD | ( [ ' ] [ \$ ]? [0-9A-Za-z_]+ [ ' ] ) \| ( [ " ] [ \$ ]? [0-9A-Za-z_]+ [ " ] ) \| (  [ \$ ]? [0-9A-Za-z_]+ ) | word |
 | NULL | NULL | tok_eof |
 
 ##  The PARSER
@@ -149,7 +149,7 @@ Shell Subsystems is some more stuff that completes the shell, like environment v
 02. AND_OR1 ::= or_if AND_OR
 03. PIPELINE ::= COMMAND PIPELINE1
 04. PIPELINE1 ::= ''
-04. PIPELINE1 ::= pipe COMMAND
+04. PIPELINE1 ::= pipe PIPELINE
 05. COMMAND ::= SIMPLE_CMD
 05. COMMAND ::= SUBSHELL COMMAND1
 06. COMMAND1 ::= ''
