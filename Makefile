@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/01/15 10:51:36 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/01/17 15:26:43 by edpaulin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ PROMPT_DIR		=	prompt
 SCANNER_DIR		=	scanner
 TAPE_SOURCE_DIR	=	tape_source
 UTILS_DIR		=	utils
+SIG_DIR			=	signals
 
 LIBFT			=	ft
 LIBFT_DIR		=	libft
@@ -43,7 +44,8 @@ SRCS			=	ft_main.c	\
 					${ERROR_ADD_DIR} \
 					${UTILS_ADD_DIR}	\
 					${SCANNER_ADD_DIR}	\
-					${TAPE_SOURCE_ADD_DIR}
+					${TAPE_SOURCE_ADD_DIR} \
+					${SIG_ADD_DIR}
 
 BUILTINS		=	ft_cd.c	\
 					ft_env.c \
@@ -86,6 +88,8 @@ UTILS			=	ft_destroy_dictionary_element.c	\
 					ft_init_vars.c	\
 					ft_update_env_pwd.c
 
+SIG				=	ft_handle_signals.c
+
 BONUS			=
 
 OBJS			=	${addprefix ./${OBJ_DIR}/,${SRCS:.c=.o}}
@@ -109,6 +113,8 @@ SCANNER_ADD_DIR	=	${addprefix ${SCANNER_DIR}/,${SCANNER}}
 TAPE_SOURCE_ADD_DIR	=	${addprefix ${TAPE_SOURCE_DIR}/,${TAPE_SOURCE}}
 
 UTILS_ADD_DIR	=	${addprefix ${UTILS_DIR}/,${UTILS}}
+
+SIG_ADD_DIR	=	${addprefix ${SIG_DIR}/,${SIG}}
 
 RM				=	@rm -rf
 

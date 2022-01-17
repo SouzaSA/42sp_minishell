@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/08 20:07:00 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/17 15:24:28 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
 # include "ft_colors.h"
 # include "ft_error.h"
 # include "ft_executor.h"
@@ -64,4 +65,7 @@ t_list	*ft_get_env_node_by_key(t_shell *shell, char *key);
 char	*ft_get_env_value_by_key(t_shell *shell, char *key);
 void	ft_init_minishell(t_shell *shell, char **envp);
 int		ft_update_env_pwds(t_shell *shell, char *new_pwd);
+
+void	ft_handle_sigint(int signal);
+void	ft_handle_sigquit(int signal);
 #endif
