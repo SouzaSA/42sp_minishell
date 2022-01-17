@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:36:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/09 16:07:38 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/17 14:45:21 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,12 @@ int	ft_minishell(char **envp)
 	while (status)
 	{
 		line = readline("\033[0;33m$\e[0;39m ");
-		if (!line || (line && !ft_set_status(line)))
+		if (!line)
+		{
+			write(1, "\n", 1);
+			exit(EXIT_SUCCESS);
+		}
+		if (line && !ft_set_status(line))
 		{
 			write(2, "exit\n", 5);
 			status = 0;
