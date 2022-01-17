@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_main.c                                          :+:      :+:    :+:   */
+/*   ft_handle_signals.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/25 09:06:49 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/17 15:24:33 by edpaulin         ###   ########.fr       */
+/*   Created: 2022/01/17 15:23:12 by edpaulin          #+#    #+#             */
+/*   Updated: 2022/01/17 16:31:54 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
+#include <signal.h>
 
-int	main(int argc, char **argv, char **envp)
+void	ft_handle_sigint(int signal)
 {
-	char	*msg;
+	if (signal)
+		printf("\n\033[0;33m$\e[0;39m ");
+}
 
-	if (argc != 1)
-	{
-		msg = ft_strjoin(argv[0], ": Invalid arguments.");
-		printf("%s\n", msg);
-		free(msg);
-		return (1);
-	}
-	signal(SIGINT, &ft_handle_sigint);
-	signal(SIGQUIT, &ft_handle_sigquit);
-	ft_minishell(envp);
-	return (0);
+void	ft_handle_sigquit(int signal)
+{
+	if (signal)
+		return ;
 }
