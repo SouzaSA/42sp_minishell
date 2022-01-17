@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_token.c                                    :+:      :+:    :+:   */
+/*   ft_epslon.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/22 17:51:36 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/22 19:41:07 by sde-alva         ###   ########.fr       */
+/*   Created: 2022/01/16 17:56:22 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/01/16 19:37:54 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_scanner.h"
+#include "ft_parser.h"
 
-void	free_token(t_token *tok)
+void	ft_epsilon(t_list **symbol_stack, enum e_tok_type tok_type)
 {
-	if (tok->text)
-		free(tok->text);
-	free(tok);
+	if (tok_type > -1)
+	{
+		free(ft_lstpop(symbol_stack));
+	}
 }

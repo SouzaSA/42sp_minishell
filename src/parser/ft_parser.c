@@ -6,187 +6,203 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:18:16 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/14 11:45:34 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/16 21:45:55 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_parser.h"
 
-char **ft_parser(t_list *tokens)
+int ft_parser(t_list *tokens)
 {
 	t_token	*tok;
 	t_list	*parsed_cmd;
+	void	(***tt)(t_list **, enum e_tok_type);
+	t_list *symbol_stack;
+	int		symbol;
 
-	tok = (t_token *)tokens->content;
-	if (tokens && tok->tok_type == LBRACE)
+	tt = ft_transition_table();
+	ft_lstpush(&symbol_stack, ft_new_symbol(TS_EOF));
+	ft_lstpush(&symbol_stack, ft_new_symbol(NTS_START));
+
+	while (ft_lstsize(symbol_stack) > 0)
+	{
+		if (((t_token *)tokens)->tok_type == *((enum e_symbol *)symbol_stack->content))
+		{
+			tokens->next;
+			free(ft_lstpop(symbol_stack));
+		}
+		else
+		{
+			symbol = ft_lstpop(symbol_stack);
+			tt[symbol][((t_token *)tokens)->tok_type](tt, ((t_token *)tokens)->tok_type);
+			free(symbol);
+		}
+	}
+	//TODO - Define error criteria and return values.
 }
 
-static int	**ft_transition_table(void)
+static void	***ft_transition_table(void)
 {
 	int	i;
-	int	**transition_table;
+	void	(***transition_table)(t_list **, enum e_tok_type);
     //rules
-	transition_table = (int **)malloc(20 * sizeof(int *));
+	transition_table = (void ***)malloc(20 * sizeof(int **));
 	while (i < 23)
 	{
-		*transition_table = (int *)malloc(12 * sizeof(int));
+		*transition_table = (void **)malloc(14 * sizeof(void *));
 	}
-	transition_table[NTS_START][LBRACE] = 0;
-	transition_table[NTS_START][WORD] = 0;
-	transition_table[NTS_START][ASSIGNMENT] = 0;
-	transition_table[NTS_START][LESS] = 0;
-	transition_table[NTS_START][GREAT] = 0;
-	transition_table[NTS_START][DGREAT] = 0;
-	transition_table[NTS_START][LESSGREAT] = 0;
-	transition_table[NTS_START][DLESS] = 0;
+	transition_table[NTS_START][TS_LBRACE] = &ft_start;
+	transition_table[NTS_START][TS_WORD] = &ft_start;
+	transition_table[NTS_START][TS_ASSIGNMENT] = &ft_start;
+	transition_table[NTS_START][TS_LESS] = &ft_start;
+	transition_table[NTS_START][TS_GREAT] = &ft_start;
+	transition_table[NTS_START][TS_DGREAT] = &ft_start;
+	transition_table[NTS_START][TS_LESSGREAT] = &ft_start;
+	transition_table[NTS_START][TS_DLESS] = &ft_start;
 
-	transition_table[NTS_AND_OR][LBRACE] = 1;
-	transition_table[NTS_AND_OR][WORD] = 1;
-	transition_table[NTS_AND_OR][ASSIGNMENT] = 1;
-	transition_table[NTS_AND_OR][LESS] = 1;
-	transition_table[NTS_AND_OR][GREAT] = 1;
-	transition_table[NTS_AND_OR][DGREAT] = 1;
-	transition_table[NTS_AND_OR][LESSGREAT] = 1;
-	transition_table[NTS_AND_OR][DLESS] = 1;
+	transition_table[NTS_AND_OR][TS_LBRACE] = &ft_and_or;
+	transition_table[NTS_AND_OR][TS_WORD] = &ft_and_or;
+	transition_table[NTS_AND_OR][TS_ASSIGNMENT] = &ft_and_or;
+	transition_table[NTS_AND_OR][TS_LESS] = &ft_and_or;
+	transition_table[NTS_AND_OR][TS_GREAT] = &ft_and_or;
+	transition_table[NTS_AND_OR][TS_DGREAT] = &ft_and_or;
+	transition_table[NTS_AND_OR][TS_LESSGREAT] = &ft_and_or;
+	transition_table[NTS_AND_OR][TS_DLESS] = &ft_and_or;
+	transition_table[NTS_AND_OR1][TS_EOF] = &ft_epsilon;
+	transition_table[NTS_AND_OR1][TS_AND_IF] = &ft_and_or1;
+	transition_table[NTS_AND_OR1][TS_OR_IF] = &ft_and_or1;
+	transition_table[NTS_AND_OR1][TS_RBRACE] = &ft_epsilon;
 
-	transition_table[NTS_AND_OR1][TOK_EOF] = 199; //retorna um end?
-	transition_table[NTS_AND_OR1][AND_IF] = 2;
-	transition_table[NTS_AND_OR1][OR_IF] = 2;
-	transition_table[NTS_AND_OR1][RBRACE] = 199;  //retorna um end?
+	transition_table[NTS_PIPELINE][TS_EOF] = &ft_epsilon;
+	transition_table[NTS_PIPELINE][TS_AND_IF] = &ft_pipeline;
+	transition_table[NTS_PIPELINE][TS_OR_IF] = &ft_pipeline;
+	transition_table[NTS_PIPELINE][TS_LBRACE] = &ft_pipeline;
+	transition_table[NTS_PIPELINE][TS_WORD] = &ft_pipeline;
+	transition_table[NTS_PIPELINE][TS_ASSIGNMENT] = &ft_pipeline;
+	transition_table[NTS_PIPELINE][TS_LESS] = &ft_pipeline;
+	transition_table[NTS_PIPELINE][TS_GREAT] = &ft_pipeline;
+	transition_table[NTS_PIPELINE][TS_DGREAT] = &ft_pipeline;
+	transition_table[NTS_PIPELINE][TS_LESSGREAT] = &ft_pipeline;
+	transition_table[NTS_PIPELINE][TS_DLESS] = &ft_pipeline;
+	transition_table[NTS_PIPELINE1][TS_EOF] = &ft_epsilon;
+	transition_table[NTS_PIPELINE1][TS_AND_IF] = &ft_epsilon;
+	transition_table[NTS_PIPELINE1][TS_OR_IF] = &ft_epsilon;
+	transition_table[NTS_PIPELINE1][TS_PIPE] = &ft_pipeline1;
+	transition_table[NTS_PIPELINE1][TS_RBRACE] = &ft_epsilon;
 
-	transition_table[NTS_PIPELINE][TOK_EOF] = 199;  //retorna um end?
-	transition_table[NTS_PIPELINE][AND_IF] = 3;
-	transition_table[NTS_PIPELINE][OR_IF] = 3;
-	transition_table[NTS_PIPELINE][LBRACE] = 3;
-	transition_table[NTS_PIPELINE][WORD] = 3;
-	transition_table[NTS_PIPELINE][ASSIGNMENT] = 3;
-	transition_table[NTS_PIPELINE][LESS] = 3;
-	transition_table[NTS_PIPELINE][GREAT] = 3;
-	transition_table[NTS_PIPELINE][DGREAT] = 3;
-	transition_table[NTS_PIPELINE][LESSGREAT] = 3;
-	transition_table[NTS_PIPELINE][DLESS] = 3;
+	transition_table[NTS_COMMAND][TS_LBRACE] = &ft_command;
+	transition_table[NTS_COMMAND][TS_WORD] = &ft_command;
+	transition_table[NTS_COMMAND][TS_ASSIGNMENT] = &ft_command;
+	transition_table[NTS_COMMAND][TS_LESS] = &ft_command;
+	transition_table[NTS_COMMAND][TS_GREAT] = &ft_command;
+	transition_table[NTS_COMMAND][TS_DGREAT] = &ft_command;
+	transition_table[NTS_COMMAND][TS_LESSGREAT] = &ft_command;
+	transition_table[NTS_COMMAND][TS_DLESS] = &ft_command;
+	transition_table[NTS_COMMAND1][TS_EOF] = &ft_epsilon;
+	transition_table[NTS_COMMAND1][TS_AND_IF] = &ft_epsilon;
+	transition_table[NTS_COMMAND1][TS_OR_IF] = &ft_epsilon;
+	transition_table[NTS_COMMAND1][TS_PIPE] = &ft_epsilon;
+	transition_table[NTS_COMMAND1][TS_RBRACE] = &ft_epsilon;
+	transition_table[NTS_COMMAND1][TS_LESS] = ft_command1;
+	transition_table[NTS_COMMAND1][TS_GREAT] = ft_command1;
+	transition_table[NTS_COMMAND1][TS_DGREAT] = ft_command1;
+	transition_table[NTS_COMMAND1][TS_LESSGREAT] = ft_command1;
+	transition_table[NTS_COMMAND1][TS_DLESS] = ft_command1;
 
-	transition_table[NTS_PIPELINE1][TOK_EOF] = 199; //retorna um end?
-	transition_table[NTS_PIPELINE1][AND_IF] = 199; //retorna um end?
-	transition_table[NTS_PIPELINE1][OR_IF] = 199; //retorna um end?
-	transition_table[NTS_PIPELINE1][PIPE] = 4;
-	transition_table[NTS_PIPELINE1][RBRACE] = 199; //retorna um end?
+	transition_table[NTS_SUBSHELL][TS_LBRACE] = &ft_subshell;
 
-	transition_table[NTS_COMMAND][LBRACE] = 5;
-	transition_table[NTS_COMMAND][WORD] = 5;
-	transition_table[NTS_COMMAND][ASSIGNMENT] = 5;
-	transition_table[NTS_COMMAND][LESS] = 5;
-	transition_table[NTS_COMMAND][GREAT] = 5;
-	transition_table[NTS_COMMAND][DGREAT] = 5;
-	transition_table[NTS_COMMAND][LESSGREAT] = 5;
-	transition_table[NTS_COMMAND][DLESS] = 5;
+	transition_table[NTS_SIMPLE_CMD][TS_WORD] = &ft_simple_cmd;
+	transition_table[NTS_SIMPLE_CMD][TS_ASSIGNMENT] = &ft_simple_cmd;
+	transition_table[NTS_SIMPLE_CMD][TS_LESS] = &ft_simple_cmd;
+	transition_table[NTS_SIMPLE_CMD][TS_GREAT] = &ft_simple_cmd;
+	transition_table[NTS_SIMPLE_CMD][TS_DGREAT] = &ft_simple_cmd;
+	transition_table[NTS_SIMPLE_CMD][TS_LESSGREAT] = &ft_simple_cmd;
+	transition_table[NTS_SIMPLE_CMD][TS_DLESS] = &ft_simple_cmd;
+	transition_table[NTS_SIMPLE_CMD1][TS_EOF] = &ft_epsilon;
+	transition_table[NTS_SIMPLE_CMD1][TS_AND_IF] = &ft_epsilon;
+	transition_table[NTS_SIMPLE_CMD1][TS_OR_IF] = &ft_epsilon;
+	transition_table[NTS_SIMPLE_CMD1][TS_PIPE] = &ft_epsilon;
+	transition_table[NTS_SIMPLE_CMD1][TS_RBRACE] = &ft_epsilon;
+	transition_table[NTS_SIMPLE_CMD1][TS_WORD] = &ft_simple_cmd1;
 
-	transition_table[NTS_COMMAND1][TOK_EOF] = 199; //retorna um end?
-	transition_table[NTS_COMMAND1][AND_IF] = 199; //retorna um end?
-	transition_table[NTS_COMMAND1][OR_IF] = 199; //retorna um end?
-	transition_table[NTS_COMMAND1][PIPE] = 199; //retorna um end?
-	transition_table[NTS_COMMAND1][RBRACE] = 199; //retorna um end?
-	transition_table[NTS_COMMAND1][LESS] = 6;
-	transition_table[NTS_COMMAND1][GREAT] = 6;
-	transition_table[NTS_COMMAND1][DGREAT] = 6;
-	transition_table[NTS_COMMAND1][LESSGREAT] = 6;
-	transition_table[NTS_COMMAND1][DLESS] = 6;
+	transition_table[NTS_SIMPLE_CMD2][TS_EOF] = &ft_epsilon;
+	transition_table[NTS_SIMPLE_CMD2][TS_AND_IF] = &ft_epsilon;
+	transition_table[NTS_SIMPLE_CMD2][TS_OR_IF] = &ft_epsilon;
+	transition_table[NTS_SIMPLE_CMD2][TS_PIPE] = &ft_epsilon;
+	transition_table[NTS_SIMPLE_CMD2][TS_RBRACE] = &ft_epsilon;
+	transition_table[NTS_SIMPLE_CMD2][TS_WORD] = &ft_simple_cmd2;
+	transition_table[NTS_SIMPLE_CMD2][TS_LESS] = &ft_simple_cmd2;
+	transition_table[NTS_SIMPLE_CMD2][TS_GREAT] = &ft_simple_cmd2;
+	transition_table[NTS_SIMPLE_CMD2][TS_DGREAT] = &ft_simple_cmd2;
+	transition_table[NTS_SIMPLE_CMD2][TS_LESSGREAT] = &ft_simple_cmd2;
+	transition_table[NTS_SIMPLE_CMD2][TS_DLESS] = &ft_simple_cmd2;
 
-	transition_table[NTS_SUBSHELL][LBRACE] = 7;
+	transition_table[NTS_PREFIX][TS_ASSIGNMENT] = &ft_cmd_prefix;
+	transition_table[NTS_PREFIX][TS_LESS] = &ft_cmd_prefix;
+	transition_table[NTS_PREFIX][TS_GREAT] = &ft_cmd_prefix;
+	transition_table[NTS_PREFIX][TS_DGREAT] = &ft_cmd_prefix;
+	transition_table[NTS_PREFIX][TS_LESSGREAT] = &ft_cmd_prefix;
+	transition_table[NTS_PREFIX][TS_DLESS] = &ft_cmd_prefix;
 
-	transition_table[NTS_SIMPLE_CMD][WORD] = 8;
-	transition_table[NTS_SIMPLE_CMD][ASSIGNMENT] = 8;
-	transition_table[NTS_SIMPLE_CMD][LESS] = 8;
-	transition_table[NTS_SIMPLE_CMD][GREAT] = 8;
-	transition_table[NTS_SIMPLE_CMD][DGREAT] = 8;
-	transition_table[NTS_SIMPLE_CMD][LESSGREAT] = 8;
-	transition_table[NTS_SIMPLE_CMD][DLESS] = 8;
+	transition_table[NTS_PREFIX1][TS_EOF] = &ft_epsilon;
+	transition_table[NTS_PREFIX1][TS_AND_IF] = &ft_epsilon;
+	transition_table[NTS_PREFIX1][TS_OR_IF] = &ft_epsilon;
+	transition_table[NTS_PREFIX1][TS_PIPE] = &ft_epsilon;
+	transition_table[NTS_PREFIX1][TS_RBRACE] = &ft_epsilon;
+	transition_table[NTS_PREFIX1][TS_WORD] = &ft_epsilon;
+	transition_table[NTS_PREFIX1][TS_LESS] = &ft_cmd_prefix1;
+	transition_table[NTS_PREFIX1][TS_GREAT] = &ft_cmd_prefix1;
+	transition_table[NTS_PREFIX1][TS_DGREAT] = &ft_cmd_prefix1;
+	transition_table[NTS_PREFIX1][TS_LESSGREAT] = &ft_cmd_prefix1;
+	transition_table[NTS_PREFIX1][TS_DLESS] = &ft_cmd_prefix1;
 
-	transition_table[NTS_SIMPLE_CMD1][TOK_EOF] = 199; //retorna um end?
-	transition_table[NTS_SIMPLE_CMD1][AND_IF] = 199; //retorna um end?
-	transition_table[NTS_SIMPLE_CMD1][OR_IF] = 199; //retorna um end?
-	transition_table[NTS_SIMPLE_CMD1][PIPE] = 199; //retorna um end?
-	transition_table[NTS_SIMPLE_CMD1][RBRACE] = 199; //retorna um end?
-	transition_table[NTS_SIMPLE_CMD1][WORD] = 9; //retorna um end?
+	transition_table[NTS_SULFIX][TS_WORD] = &ft_cmd_sulfix;
+	transition_table[NTS_SULFIX][TS_LESS] = &ft_cmd_sulfix;
+	transition_table[NTS_SULFIX][TS_GREAT] = &ft_cmd_sulfix;
+	transition_table[NTS_SULFIX][TS_DGREAT] = &ft_cmd_sulfix;
+	transition_table[NTS_SULFIX][TS_LESSGREAT] = &ft_cmd_sulfix;
+	transition_table[NTS_SULFIX][TS_DLESS] = &ft_cmd_sulfix;
 
-	transition_table[NTS_SIMPLE_CMD2][TOK_EOF] = 199; //retorna um end?
-	transition_table[NTS_SIMPLE_CMD2][AND_IF] = 199; //retorna um end?
-	transition_table[NTS_SIMPLE_CMD2][OR_IF] = 199; //retorna um end?
-	transition_table[NTS_SIMPLE_CMD2][PIPE] = 199; //retorna um end?
-	transition_table[NTS_SIMPLE_CMD2][RBRACE] = 199; //retorna um end?
-	transition_table[NTS_SIMPLE_CMD2][WORD] = 10;
-	transition_table[NTS_SIMPLE_CMD2][LESS] = 10;
-	transition_table[NTS_SIMPLE_CMD2][GREAT] = 10;
-	transition_table[NTS_SIMPLE_CMD2][DGREAT] = 10;
-	transition_table[NTS_SIMPLE_CMD2][LESSGREAT] = 10;
-	transition_table[NTS_SIMPLE_CMD2][DLESS] = 10;
+	transition_table[NTS_SULFIX1][TS_EOF] = &ft_epsilon;
+	transition_table[NTS_SULFIX1][TS_AND_IF] = &ft_epsilon;
+	transition_table[NTS_SULFIX1][TS_OR_IF] = &ft_epsilon;
+	transition_table[NTS_SULFIX1][TS_PIPE] = &ft_epsilon;
+	transition_table[NTS_SULFIX1][TS_RBRACE] = &ft_epsilon;
+	transition_table[NTS_SULFIX1][TS_WORD] = &ft_cmd_sulfix1;
+	transition_table[NTS_SULFIX1][TS_LESS] = &ft_cmd_sulfix1;
+	transition_table[NTS_SULFIX1][TS_GREAT] = &ft_cmd_sulfix1;
+	transition_table[NTS_SULFIX1][TS_DGREAT] = &ft_cmd_sulfix1;
+	transition_table[NTS_SULFIX1][TS_LESSGREAT] = &ft_cmd_sulfix1;
+	transition_table[NTS_SULFIX1][TS_DLESS] = &ft_cmd_sulfix1;
 
-	transition_table[NTS_PREFIX][ASSIGNMENT] = 11;
-	transition_table[NTS_PREFIX][LESS] = 11;
-	transition_table[NTS_PREFIX][GREAT] = 11;
-	transition_table[NTS_PREFIX][DGREAT] = 11;
-	transition_table[NTS_PREFIX][LESSGREAT] = 11;
-	transition_table[NTS_PREFIX][DLESS] = 11;
+	transition_table[NTS_REDIRECT_LIST][TS_LESS] = &ft_cmd_redirect_list;
+	transition_table[NTS_REDIRECT_LIST][TS_GREAT] = &ft_cmd_redirect_list;
+	transition_table[NTS_REDIRECT_LIST][TS_DGREAT] = &ft_cmd_redirect_list;
+	transition_table[NTS_REDIRECT_LIST][TS_LESSGREAT] = &ft_cmd_redirect_list;
+	transition_table[NTS_REDIRECT_LIST][TS_DLESS] = &ft_cmd_redirect_list;
+	transition_table[NTS_REDIRECT_LIST1][TS_EOF] = &ft_epsilon;
+	transition_table[NTS_REDIRECT_LIST1][TS_AND_IF] = &ft_epsilon;
+	transition_table[NTS_REDIRECT_LIST1][TS_OR_IF] = &ft_epsilon;
+	transition_table[NTS_REDIRECT_LIST1][TS_PIPE] = &ft_epsilon;
+	transition_table[NTS_REDIRECT_LIST1][TS_RBRACE] = &ft_epsilon;
+	transition_table[NTS_REDIRECT_LIST1][TS_LESS] = &ft_cmd_redirect_list1;
+	transition_table[NTS_REDIRECT_LIST1][TS_GREAT] = &ft_cmd_redirect_list1;
+	transition_table[NTS_REDIRECT_LIST1][TS_DGREAT] = &ft_cmd_redirect_list1;
+	transition_table[NTS_REDIRECT_LIST1][TS_LESSGREAT] = &ft_cmd_redirect_list1;
+	transition_table[NTS_REDIRECT_LIST1][TS_DLESS] = &ft_cmd_redirect_list1;
 
-	transition_table[NTS_PREFIX1][TOK_EOF] = 199; //retorna um end?
-	transition_table[NTS_PREFIX1][AND_IF] = 199; //retorna um end?
-	transition_table[NTS_PREFIX1][OR_IF] = 199; //retorna um end?
-	transition_table[NTS_PREFIX1][PIPE] = 199; //retorna um end?
-	transition_table[NTS_PREFIX1][RBRACE] = 199; //retorna um end?
-	transition_table[NTS_PREFIX1][WORD] = 199; //retorna um end?
-	transition_table[NTS_PREFIX1][LESS] = 12;
-	transition_table[NTS_PREFIX1][GREAT] = 12;
-	transition_table[NTS_PREFIX1][DGREAT] = 12;
-	transition_table[NTS_PREFIX1][LESSGREAT] = 12;
-	transition_table[NTS_PREFIX1][DLESS] = 12;
+	transition_table[NTS_IO_REDIRECT][TS_LESS] = &ft_io_redirect;
+	transition_table[NTS_IO_REDIRECT][TS_GREAT] = &ft_io_redirect;
+	transition_table[NTS_IO_REDIRECT][TS_DGREAT] = &ft_io_redirect;
+	transition_table[NTS_IO_REDIRECT][TS_LESSGREAT] = &ft_io_redirect;
+	transition_table[NTS_IO_REDIRECT][TS_DLESS] = &ft_io_redirect;
 
-	transition_table[NTS_SULFIX][WORD] = 13;
-	transition_table[NTS_SULFIX][LESS] = 13;
-	transition_table[NTS_SULFIX][GREAT] = 13;
-	transition_table[NTS_SULFIX][DGREAT] = 13;
-	transition_table[NTS_SULFIX][LESSGREAT] = 13;
-	transition_table[NTS_SULFIX][DLESS] = 13;
+	transition_table[NTS_IO_FILE][TS_LESS] = &ft_io_file;
+	transition_table[NTS_IO_FILE][TS_GREAT] = &ft_io_file;
+	transition_table[NTS_IO_FILE][TS_DGREAT] = &ft_io_file;
+	transition_table[NTS_IO_FILE][TS_LESSGREAT] = &ft_io_file;
+	transition_table[NTS_IO_FILE][TS_DLESS] = &ft_io_file;
 
-	transition_table[NTS_SULFIX1][TOK_EOF] = 199; //retorna um end?
-	transition_table[NTS_SULFIX1][AND_IF] = 199; //retorna um end?
-	transition_table[NTS_SULFIX1][OR_IF] = 199; //retorna um end?
-	transition_table[NTS_SULFIX1][PIPE] = 199; //retorna um end?
-	transition_table[NTS_SULFIX1][RBRACE] = 199; //retorna um end?
-	transition_table[NTS_SULFIX1][WORD] = 14;
-	transition_table[NTS_SULFIX1][LESS] = 14;
-	transition_table[NTS_SULFIX1][GREAT] = 14;
-	transition_table[NTS_SULFIX1][DGREAT] = 14;
-	transition_table[NTS_SULFIX1][LESSGREAT] = 14;
-	transition_table[NTS_SULFIX1][DLESS] = 14;
-
-	transition_table[NTS_REDIRECT_LIST][LESS] = 15;
-	transition_table[NTS_REDIRECT_LIST][GREAT] = 15;
-	transition_table[NTS_REDIRECT_LIST][DGREAT] = 15;
-	transition_table[NTS_REDIRECT_LIST][LESSGREAT] = 15;
-	transition_table[NTS_REDIRECT_LIST][DLESS] = 15;
-
-	transition_table[NTS_REDIRECT_LIST1][TOK_EOF] = 199; //retorna um end?
-	transition_table[NTS_REDIRECT_LIST1][AND_IF] = 199; //retorna um end?
-	transition_table[NTS_REDIRECT_LIST1][OR_IF] = 199; //retorna um end?
-	transition_table[NTS_REDIRECT_LIST1][PIPE] = 199; //retorna um end?
-	transition_table[NTS_REDIRECT_LIST1][RBRACE] = 199; //retorna um end?
-	transition_table[NTS_REDIRECT_LIST1][LESS] = 16;
-	transition_table[NTS_REDIRECT_LIST1][GREAT] = 16;
-	transition_table[NTS_REDIRECT_LIST1][DGREAT] = 16;
-	transition_table[NTS_REDIRECT_LIST1][LESSGREAT] = 16;
-	transition_table[NTS_REDIRECT_LIST1][DLESS] = 16;
-
-	transition_table[NTS_IO_REDIRECT][LESS] = 17;
-	transition_table[NTS_IO_REDIRECT][GREAT] = 17;
-	transition_table[NTS_IO_REDIRECT][DGREAT] = 17;
-	transition_table[NTS_IO_REDIRECT][LESSGREAT] = 17;
-	transition_table[NTS_IO_REDIRECT][DLESS] = 17;
-
-	transition_table[NTS_IO_FILE][LESS] = 18;
-	transition_table[NTS_IO_FILE][GREAT] = 18;
-	transition_table[NTS_IO_FILE][DGREAT] = 18;
-	transition_table[NTS_IO_FILE][LESSGREAT] = 18;
-	transition_table[NTS_IO_FILE][DLESS] = 18;
-
-	transition_table[NTS_IO_HERE][DLESS] = 19;
+	transition_table[NTS_IO_HERE][TS_DLESS] = &ft_io_here;
+	return  (transition_table);
 }

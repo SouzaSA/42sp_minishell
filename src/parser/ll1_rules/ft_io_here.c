@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_new_node.c                                      :+:      :+:    :+:   */
+/*   ft_io_here.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/23 18:33:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/16 12:20:40 by sde-alva         ###   ########.fr       */
+/*   Created: 2022/01/15 11:20:44 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/01/16 17:49:10 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_parser.h"
 
-t_ast_node	*ft_new_node(enum e_symbol type)
+void	ft_io_here(t_list **symbol_stack, enum e_tok_type tok_type)
 {
-	t_ast_node	*node;
-
-	node = (t_ast_node *)malloc(sizeof(t_ast_node));
-	if (!node)
-		return (NULL);
-	ft_memset(node, 0, sizeof(t_ast_node));
-	node->type = type;
-	node->str = NULL;
-	node->first_child = NULL;
-	node->next_sibling = NULL;
-	node->prev_sibling = NULL;
-	return (node);
+	if (tok_type > -1)
+	{
+		free(ft_lstpop(symbol_stack));
+		ft_lstpush(symbol_stack, ft_new_symbol(TS_WORD));
+		ft_lstpush(symbol_stack, ft_new_symbol(TS_DLESS));
+	}
 }

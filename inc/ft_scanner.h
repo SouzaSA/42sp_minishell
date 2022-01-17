@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:52:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/12 12:48:37 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/16 21:29:13 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,20 @@
 
 enum e_tok_type
 {
-	PIPE = 1,
-	LBRACE,
-	RBRACE,
-	AND_IF,
-	OR_IF,
-	LESS,
-	GREAT,
-	DGREAT,
-	LESSGREAT,
-	DLESS,
-	ASSIGNMENT,
-	WORD,
-	TOK_EOF,
-	UNKNOWN,
+	TS_PIPE = 20,
+	TS_LBRACE,
+	TS_RBRACE,
+	TS_AND_IF,
+	TS_OR_IF,
+	TS_LESS,
+	TS_GREAT,
+	TS_DGREAT,
+	TS_LESSGREAT,
+	TS_DLESS,
+	TS_ASSIGNMENT,
+	TS_WORD,
+	TS_EOF,
+	TS_UNKNOWN,
 };
 
 /* ************************************************************************** */
@@ -54,9 +54,9 @@ typedef struct s_scanner
 }	t_scanner;
 
 void	ft_add_to_buf(t_scanner *scan, char c);
-void	free_token(t_token *tok);
+void	ft_del_token(void *tok);
 t_token	*ft_init_token(void);
-t_list *ft_lexer(t_source *src);
+t_list	*ft_lexer(t_source *src);
 t_token	*ft_set_token(t_token *tok, t_source *src, char *str);
 t_token	*tokenize(t_scanner *scan, t_source *src);
 #endif

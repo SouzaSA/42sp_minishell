@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 09:50:00 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/09 21:09:40 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/15 14:29:30 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void ft_init_scan(t_scanner *scan);
 //teste
 static void ft_token_print(void *token)
 {
-	if (((t_token *)token)->tok_type != TOK_EOF)
+	if (((t_token *)token)->tok_type != TS_EOF)
 		printf("%s, %d\n", ((t_token *)token)->text, ((t_token *)token)->tok_type);
 }
 
@@ -31,7 +31,7 @@ t_list *ft_lexer(t_source *src)
 	ft_init_scan(&scan);
 	tok = tokenize(&scan, src);
 	token_list = NULL;
-	while (tok->tok_type != TOK_EOF)
+	while (tok->tok_type != TS_EOF)
 	{
 		ft_lstadd_back(&token_list, ft_lstnew(tok));
 		tok = tokenize(&scan, src);

@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/01/09 10:44:48 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/01/15 10:51:36 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ PARSER			=	ft_child_node.c	\
 PROMPT			=
 
 SCANNER			=	ft_add_to_buff.c	\
-					ft_free_token.c	\
+					ft_del_token.c	\
 					ft_init_token.c	\
 					ft_lexer.c	\
 					ft_set_token.c	\

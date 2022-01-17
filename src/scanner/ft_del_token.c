@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_new_node.c                                      :+:      :+:    :+:   */
+/*   ft_del_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/23 18:33:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/16 12:20:40 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/12/22 17:51:36 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/01/15 10:54:20 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_parser.h"
+#include "ft_scanner.h"
 
-t_ast_node	*ft_new_node(enum e_symbol type)
+void	ft_del_token(void *tok)
 {
-	t_ast_node	*node;
-
-	node = (t_ast_node *)malloc(sizeof(t_ast_node));
-	if (!node)
-		return (NULL);
-	ft_memset(node, 0, sizeof(t_ast_node));
-	node->type = type;
-	node->str = NULL;
-	node->first_child = NULL;
-	node->next_sibling = NULL;
-	node->prev_sibling = NULL;
-	return (node);
+	if (((t_token *)tok)->text)
+		free(((t_token *)tok)->text);
+	free(tok);
 }
