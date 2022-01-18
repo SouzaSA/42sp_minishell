@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:43 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/16 18:48:47 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/18 10:58:48 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,26 +58,26 @@ void	ft_set_node_val_str(t_ast_node *node, char *val);
 /*
 * LL(1) RULES
 */
-void	ft_start(t_list **symbol_stack, enum e_tok_type tok_type);
-void	ft_and_or(t_list **symbol_stack, enum e_tok_type tok_type);
-void	ft_and_or1(t_list **symbol_stack, enum e_tok_type tok_type);
-void	ft_pipeline(t_list **symbol_stack, enum e_tok_type tok_type);
-void	ft_pipeline1(t_list **symbol_stack, enum e_tok_type tok_type);
-void	ft_command(t_list **symbol_stack, enum e_tok_type tok_type);
-void	ft_command1(t_list **symbol_stack, enum e_tok_type tok_type);
-void	ft_subshell(t_list **symbol_stack, enum e_tok_type tok_type);
-void	ft_simple_cmd(t_list **symbol_stack, enum e_tok_type tok_type);
-void	ft_simple_cmd1(t_list **symbol_stack, enum e_tok_type tok_type);
-void	ft_simple_cmd2(t_list **symbol_stack, enum e_tok_type tok_type);
-void	ft_cmd_prefix(t_list **symbol_stack, enum e_tok_type tok_type);
-void	ft_cmd_prefix1(t_list **symbol_stack, enum e_tok_type tok_type);
-void	ft_cmd_sulfix(t_list **symbol_stack, enum e_tok_type tok_type);
-void	ft_cmd_sulfix1(t_list **symbol_stack, enum e_tok_type tok_type);
-void	ft_cmd_redirect_list(t_list **symbol_stack, enum e_tok_type tok_type);
-void	ft_cmd_redirect_list1(t_list **symbol_stack, enum e_tok_type tok_type);
-void	ft_io_redirect(t_list **symbol_stack, enum e_tok_type tok_type);
-void	ft_io_file(t_list **symbol_stack, enum e_tok_type tok_type);
-void	ft_io_here(t_list **symbol_stack, enum e_tok_type tok_type);
-void	ft_epsilon(t_list **symbol_stack, enum e_tok_type tok_type);
+void	*ft_start(t_list **symbol_stack, enum e_tok_type tok_type);
+void	*ft_and_or(t_list **symbol_stack, enum e_tok_type tok_type);
+void	*ft_and_or1(t_list **symbol_stack, enum e_tok_type tok_type);
+void	*ft_pipeline(t_list **symbol_stack, enum e_tok_type tok_type);
+void	*ft_pipeline1(t_list **symbol_stack, enum e_tok_type tok_type);
+void	*ft_command(t_list **symbol_stack, enum e_tok_type tok_type);
+void	*ft_command1(t_list **symbol_stack, enum e_tok_type tok_type);
+void	*ft_subshell(t_list **symbol_stack, enum e_tok_type tok_type);
+void	*ft_simple_cmd(t_list **symbol_stack, enum e_tok_type tok_type);
+void	*ft_simple_cmd1(t_list **symbol_stack, enum e_tok_type tok_type);
+void	*ft_simple_cmd2(t_list **symbol_stack, enum e_tok_type tok_type);
+void	*ft_cmd_prefix(t_list **symbol_stack, enum e_tok_type tok_type);
+void	*ft_cmd_prefix1(t_list **symbol_stack, enum e_tok_type tok_type);
+void	*ft_cmd_sulfix(t_list **symbol_stack, enum e_tok_type tok_type);
+void	*ft_cmd_sulfix1(t_list **symbol_stack, enum e_tok_type tok_type);
+void	*ft_cmd_redirect_list(t_list **symbol_stack, enum e_tok_type tok_type);
+void	*ft_cmd_redirect_list1(t_list **symbol_stack, enum e_tok_type tok_type);
+void	*ft_io_redirect(t_list **symbol_stack, enum e_tok_type tok_type);
+void	*ft_io_file(t_list **symbol_stack, enum e_tok_type tok_type);
+void	*ft_io_here(t_list **symbol_stack, enum e_tok_type tok_type);
+void	*ft_epsilon(t_list **symbol_stack, enum e_tok_type tok_type);
 
 #endif

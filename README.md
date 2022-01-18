@@ -142,106 +142,96 @@ Shell Subsystems is some more stuff that completes the shell, like environment v
 ### **Shell Context Free Grammar (CFG) grammar, LL(1) type, defined with the BNF syntax:**
 
 ```
-00. START ::= AND_OR
-01. AND_OR ::= PIPELINE AND_OR1
-02. AND_OR1 ::= ''
-02. AND_OR1 ::= and_if AND_OR
-02. AND_OR1 ::= or_if AND_OR
-03. PIPELINE ::= COMMAND PIPELINE1
-04. PIPELINE1 ::= ''
-04. PIPELINE1 ::= pipe PIPELINE
-05. COMMAND ::= SIMPLE_CMD
-05. COMMAND ::= SUBSHELL COMMAND1
-06. COMMAND1 ::= ''
-06. COMMAND1 ::= REDIRECT_LIST
-07. SUBSHELL ::= lbrace AND_OR rbrace
-08. SIMPLE_CMD ::= CMD_PREFIX SIMPLE_CMD1
-08. SIMPLE_CMD ::= word SIMPLE_CMD2
-09. SIMPLE_CMD1 ::= ''
-09. SIMPLE_CMD1 ::= word SIMPLE_CMD2
-10. SIMPLE_CMD2 ::= ''
-10. SIMPLE_CMD2 ::= CMD_SULFIX
-11. CMD_PREFIX ::= IO_REDIRECT CMD_PREFIX1
-11. CMD_PREFIX ::= assignment CMD_PREFIX1
-12. CMD_PREFIX1 ::= ''
-12. CMD_PREFIX1 ::= CMD_PREFIX
-13. CMD_SULFIX ::= IO_REDIRECT CMD_SULFIX1
-13. CMD_SULFIX ::= word CMD_SULFIX1
-14. CMD_SULFIX1 ::= ''
-14. CMD_SULFIX1 ::= CMD_SULFIX
-15. REDIRECT_LIST ::= IO_REDIRECT REDIRECT_LIST1
-16. REDIRECT_LIST1 ::= ''
-16. REDIRECT_LIST1 ::= REDIRECT_LIST
-17. IO_REDIRECT ::= IO_FILE
-17. IO_REDIRECT ::= IO_HERE
-18. IO_FILE ::= less word
-18. IO_FILE ::= great word
-18. IO_FILE ::= dgreat word
-18. IO_FILE ::= lessgreat word
-19. IO_HERE ::= dless word
+START ::= AND_OR
+AND_OR ::= PIPELINE AND_OR1
+AND_OR1 ::= ''
+AND_OR1 ::= and_if AND_OR
+AND_OR1 ::= or_if AND_OR
+PIPELINE ::= COMMAND PIPELINE1
+PIPELINE1 ::= ''
+PIPELINE1 ::= pipe PIPELINE
+COMMAND ::= SIMPLE_CMD
+COMMAND ::= SUBSHELL COMMAND1
+COMMAND1 ::= ''
+COMMAND1 ::= REDIRECT_LIST
+SUBSHELL ::= lbrace AND_OR rbrace
+SIMPLE_CMD ::= CMD_PREFIX SIMPLE_CMD1
+SIMPLE_CMD ::= word SIMPLE_CMD2
+SIMPLE_CMD1 ::= ''
+SIMPLE_CMD1 ::= word SIMPLE_CMD2
+SIMPLE_CMD2 ::= ''
+SIMPLE_CMD2 ::= CMD_SULFIX
+CMD_PREFIX ::= IO_REDIRECT CMD_PREFIX1
+CMD_PREFIX ::= assignment CMD_PREFIX1
+CMD_PREFIX1 ::= ''
+CMD_PREFIX1 ::= CMD_PREFIX
+CMD_SULFIX ::= IO_REDIRECT CMD_SULFIX1
+CMD_SULFIX ::= word CMD_SULFIX1
+CMD_SULFIX1 ::= ''
+CMD_SULFIX1 ::= CMD_SULFIX
+REDIRECT_LIST ::= IO_REDIRECT REDIRECT_LIST1
+REDIRECT_LIST1 ::= ''
+REDIRECT_LIST1 ::= REDIRECT_LIST
+IO_REDIRECT ::= IO_FILE
+IO_REDIRECT ::= IO_HERE
+IO_FILE ::= less word
+IO_FILE ::= great word
+IO_FILE ::= dgreat word
+IO_FILE ::= lessgreat word
+IO_HERE ::= dless word
 ```
 
 ### **Nullable/First/Follow Table**
 
 | Nonterminal | Nullable? | First | Follow |
 | :-- | --- | --- | --- |
-| S | ✖ | lbrace, assign_word, word, less, great, dgreat, lessgreat, dless | |
-| PROGRAM | ✖ | lbrace, assign_word, word, less, great, dgreat, lessgreat, dless | $ |
-| AND_OR | ✖ | lbrace, assign_word, word, less, great, dgreat, lessgreat, dless | rbrace, $ |
+| S | ✖ | word, lbrace, assignment, less, great, dgreat, lessgreat, dless |  |
+| START | ✖ | word, lbrace, assignment, less, great, dgreat, lessgreat, dless | $ |
+| AND_OR | ✖ | word, lbrace, assignment, less, great, dgreat, lessgreat, dless | rbrace, $ |
 | AND_OR1 | ✔ | and_if, or_if | rbrace, $ |
-| PIPELINE | ✖ | lbrace, assign_word, word, less, great, dgreat, lessgreat, dless | and_if, or_if, rbrace, $ |
+| PIPELINE | ✖ | word, lbrace, assignment, less, great, dgreat, lessgreat, dless | and_if, or_if, rbrace, $ |
 | PIPELINE1 | ✔ | pipe | and_if, or_if, rbrace, $ |
-| COMMAND | ✖ | lbrace, assign_word, word, less, great, dgreat, lessgreat, dless | and_if, or_if, pipe, rbrace, $ |
+| COMMAND | ✖ | word, lbrace, assignment, less, great, dgreat, lessgreat, dless | and_if, or_if, pipe, rbrace, $ |
 | COMMAND1 | ✔ | less, great, dgreat, lessgreat, dless | and_if, or_if, pipe, rbrace, $ |
 | SUBSHELL | ✖ | lbrace | and_if, or_if, pipe, less, great, dgreat, lessgreat, dless, rbrace, $ |
-| SIMPLE_COMMAND | ✖ | assign_word, word, less, great, dgreat, lessgreat, dless | and_if, or_if, pipe, rbrace, $ |
-| SIMPLE_COMMAND1 | ✔ | word | and_if, or_if, pipe, rbrace, $ |
-| SIMPLE_COMMAND2 | ✔ | word, less, great, dgreat, lessgreat, dless | and_if, or_if, pipe, rbrace, $ |
-| CMD_WORD | ✖ | word | and_if, or_if, pipe, word, less, great, dgreat, lessgreat, dless, rbrace, $ |
-| ASSIGNMENT_WORD | ✖ | assign_word | and_if, or_if, pipe, word, assign_word, less, great, dgreat, lessgreat, dless, rbrace, $ |
-| CMD_PREFIX | ✖ | assign_word, less, great, dgreat, lessgreat, dless | and_if, or_if, pipe, word, rbrace, $ |
-| CMD_PREFIX1 | ✔ | assign_word, less, great, dgreat, lessgreat, dless | and_if, or_if, pipe, word, rbrace, $ |
+| SIMPLE_CMD | ✖ | word, assignment, less, great, dgreat, lessgreat, dless | and_if, or_if, pipe, rbrace, $ |
+| SIMPLE_CMD1 | ✔ | word | and_if, or_if, pipe, rbrace, $ |
+| SIMPLE_CMD2 | ✔ | word, less, great, dgreat, lessgreat, dless | and_if, or_if, pipe, rbrace, $ |
+| CMD_PREFIX | ✖ | assignment, less, great, dgreat, lessgreat, dless | and_if, or_if, pipe, word, rbrace, $ |
+| CMD_PREFIX1 | ✔ | assignment, less, great, dgreat, lessgreat, dless | and_if, or_if, pipe, word, rbrace, $ |
 | CMD_SULFIX | ✖ | word, less, great, dgreat, lessgreat, dless | and_if, or_if, pipe, rbrace, $ |
 | CMD_SULFIX1 | ✔ | word, less, great, dgreat, lessgreat, dless | and_if, or_if, pipe, rbrace, $ |
 | REDIRECT_LIST | ✖ | less, great, dgreat, lessgreat, dless | and_if, or_if, pipe, rbrace, $ |
 | REDIRECT_LIST1 | ✔ | less, great, dgreat, lessgreat, dless | and_if, or_if, pipe, rbrace, $ |
-| IO_REDIRECT | ✖ | less, great, dgreat, lessgreat, dless | and_if, or_if, pipe, word, assign_word, less, great, dgreat, lessgreat, dless, rbrace, $ |
-| IO_FILE | ✖ | less, great, dgreat, lessgreat | and_if, or_if, pipe, word, assign_word, less, great, dgreat, lessgreat, dless, rbrace, $ |
-| FILENAME | ✖ | word | and_if, or_if, pipe, word, assign_word, less, great, dgreat, lessgreat, dless, rbrace, $ |
-| IO_HERE | ✖ | dless | and_if, or_if, pipe, word, assign_word, less, great, dgreat, lessgreat, dless, rbrace, $ |
-| HERE_END | ✖ | word | and_if, or_if, pipe, word, assign_word, less, great, dgreat, lessgreat, dless, rbrace, $ |
-| WORD | ✖ | word | and_if, or_if, pipe, word, less, great, dgreat, lessgreat, dless, assign_word, rbrace, $ |
+| IO_REDIRECT | ✖ | less, great, dgreat, lessgreat, dless | and_if, or_if, pipe, word, assignment, less, great, dgreat, lessgreat, dless, rbrace, $ |
+| IO_FILE | ✖ | less, great, dgreat, lessgreat | and_if, or_if, pipe, word, assignment, less, great, dgreat, lessgreat, dless, rbrace, $ |
+| IO_HERE | ✖ | dless | and_if, or_if, pipe, word, assignment, less, great, dgreat, lessgreat, dless, rbrace, $ |
 
 ### **Transition Table**
 
 | | $ | and_if | or_if | pipe | lbrace | rbrace | assign_word | less | great | dgreat | lessgreat | dless | word |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-S |  |  |  |  | S ::= PROGRAM $ |  | S ::= PROGRAM $ | S ::= PROGRAM $ | S ::= PROGRAM $ | S ::= PROGRAM $ | S ::= PROGRAM $ | S ::= PROGRAM $ | S ::= PROGRAM $ |
-PROGRAM |  |  |  |  | PROGRAM ::= AND_OR |  | PROGRAM ::= AND_OR | PROGRAM ::= AND_OR | PROGRAM ::= AND_OR | PROGRAM ::= AND_OR | PROGRAM ::= AND_OR | PROGRAM ::= AND_OR | PROGRAM ::= AND_OR |
-AND_OR |  |  |  |  | AND_OR ::= PIPELINE AND_OR1 |  | AND_OR ::= PIPELINE AND_OR1 | AND_OR ::= PIPELINE AND_OR1 | AND_OR ::= PIPELINE AND_OR1 | AND_OR ::= PIPELINE AND_OR1 | AND_OR ::= PIPELINE AND_OR1 | AND_OR ::= PIPELINE AND_OR1 | AND_OR ::= PIPELINE AND_OR1 |
-AND_OR1 | AND_OR1 ::= ε | AND_OR1 ::= and_if PIPELINE AND_OR1 | AND_OR1 ::= or_if PIPELINE AND_OR1 |  |  | AND_OR1 ::= ε |  |  |  |  |  |  | |
-PIPELINE |  |  |  |  | PIPELINE ::= COMMAND PIPELINE1 |  | PIPELINE ::= COMMAND PIPELINE1 | PIPELINE ::= COMMAND PIPELINE1 | PIPELINE ::= COMMAND PIPELINE1 | PIPELINE ::= COMMAND PIPELINE1 | PIPELINE ::= COMMAND PIPELINE1 | PIPELINE ::= COMMAND PIPELINE1 | PIPELINE ::= COMMAND PIPELINE1 |
-PIPELINE1 | PIPELINE1 ::= ε | PIPELINE1 ::= ε | PIPELINE1 ::= ε | PIPELINE1 ::= pipe COMMAND |  | PIPELINE1 ::= ε |  |  |  |  |  |  | |
-COMMAND |  |  |  |  | COMMAND ::= SUBSHELL COMMAND1 |  | COMMAND ::= SIMPLE_COMMAND | COMMAND ::= SIMPLE_COMMAND | COMMAND ::= SIMPLE_COMMAND | COMMAND ::= SIMPLE_COMMAND | COMMAND ::= SIMPLE_COMMAND | COMMAND ::= SIMPLE_COMMAND | COMMAND ::= SIMPLE_COMMAND |
-COMMAND1 | COMMAND1 ::= ε | COMMAND1 ::= ε | COMMAND1 ::= ε | COMMAND1 ::= ε |  | COMMAND1 ::= ε |  | COMMAND1 ::= REDIRECT_LIST | COMMAND1 ::= REDIRECT_LIST | COMMAND1 ::= REDIRECT_LIST | COMMAND1 ::= REDIRECT_LIST | COMMAND1 ::= REDIRECT_LIST | |
-SUBSHELL |  |  |  |  | SUBSHELL ::= lbrace AND_OR rbrace |  |  |  |  |  |  |  | |
-SIMPLE_COMMAND |  |  |  |  |  |  | SIMPLE_COMMAND ::= CMD_PREFIX SIMPLE_COMMAND1 | SIMPLE_COMMAND ::= CMD_PREFIX SIMPLE_COMMAND1 | SIMPLE_COMMAND ::= CMD_PREFIX SIMPLE_COMMAND1 | SIMPLE_COMMAND ::= CMD_PREFIX SIMPLE_COMMAND1 | SIMPLE_COMMAND ::= CMD_PREFIX SIMPLE_COMMAND1 | SIMPLE_COMMAND ::= CMD_PREFIX SIMPLE_COMMAND1 | SIMPLE_COMMAND ::= CMD_WORD SIMPLE_COMMAND2 |
-SIMPLE_COMMAND1 | SIMPLE_COMMAND1 ::= ε | SIMPLE_COMMAND1 ::= ε | SIMPLE_COMMAND1 ::= ε | SIMPLE_COMMAND1 ::= ε |  | SIMPLE_COMMAND1 ::= ε |  |  |  |  |  |  | SIMPLE_COMMAND1 ::= CMD_WORD SIMPLE_COMMAND2 |
-SIMPLE_COMMAND2 | SIMPLE_COMMAND2 ::= ε | SIMPLE_COMMAND2 ::= ε | SIMPLE_COMMAND2 ::= ε | SIMPLE_COMMAND2 ::= ε |  | SIMPLE_COMMAND2 ::= ε |  | SIMPLE_COMMAND2 ::= CMD_SULFIX | SIMPLE_COMMAND2 ::= CMD_SULFIX | SIMPLE_COMMAND2 ::= CMD_SULFIX | SIMPLE_COMMAND2 ::= CMD_SULFIX | SIMPLE_COMMAND2 ::= CMD_SULFIX | SIMPLE_COMMAND2 ::= CMD_SULFIX |
-CMD_WORD |  |  |  |  |  |  |  |  |  |  |  |  | CMD_WORD ::= WORD |
-ASSIGNMENT_WORD |  |  |  |  |  |  | ASSIGNMENT_WORD ::= assign_word |  |  |  |  |  | |
-CMD_PREFIX |  |  |  |  |  |  | CMD_PREFIX ::= ASSIGNMENT_WORD CMD_PREFIX1 | CMD_PREFIX ::= IO_REDIRECT CMD_PREFIX1 | CMD_PREFIX ::= IO_REDIRECT CMD_PREFIX1 | CMD_PREFIX ::= IO_REDIRECT CMD_PREFIX1 | CMD_PREFIX ::= IO_REDIRECT CMD_PREFIX1 | CMD_PREFIX ::= IO_REDIRECT CMD_PREFIX1 | |
-CMD_PREFIX1 | CMD_PREFIX1 ::= ε | CMD_PREFIX1 ::= ε | CMD_PREFIX1 ::= ε | CMD_PREFIX1 ::= ε |  | CMD_PREFIX1 ::= ε | CMD_PREFIX1 ::= ASSIGNMENT_WORD CMD_PREFIX1 | CMD_PREFIX1 ::= IO_REDIRECT CMD_PREFIX1 | CMD_PREFIX1 ::= IO_REDIRECT CMD_PREFIX1 | CMD_PREFIX1 ::= IO_REDIRECT CMD_PREFIX1 | CMD_PREFIX1 ::= IO_REDIRECT CMD_PREFIX1 | CMD_PREFIX1 ::= IO_REDIRECT CMD_PREFIX1 | CMD_PREFIX1 ::= ε |
-CMD_SULFIX |  |  |  |  |  |  |  | CMD_SULFIX ::= IO_REDIRECT CMD_SULFIX1 | CMD_SULFIX ::= IO_REDIRECT CMD_SULFIX1 | CMD_SULFIX ::= IO_REDIRECT CMD_SULFIX1 | CMD_SULFIX ::= IO_REDIRECT CMD_SULFIX1 | CMD_SULFIX ::= IO_REDIRECT CMD_SULFIX1 | CMD_SULFIX ::= WORD CMD_SULFIX1 |
-CMD_SULFIX1 | CMD_SULFIX1 ::= ε | CMD_SULFIX1 ::= ε | CMD_SULFIX1 ::= ε | CMD_SULFIX1 ::= ε |  | CMD_SULFIX1 ::= ε |  | CMD_SULFIX1 ::= IO_REDIRECT CMD_SULFIX1 | CMD_SULFIX1 ::= IO_REDIRECT CMD_SULFIX1 | CMD_SULFIX1 ::= IO_REDIRECT CMD_SULFIX1 | CMD_SULFIX1 ::= IO_REDIRECT CMD_SULFIX1 | CMD_SULFIX1 ::= IO_REDIRECT CMD_SULFIX1 | CMD_SULFIX1 ::= WORD CMD_SULFIX1 |
-REDIRECT_LIST |  |  |  |  |  |  |  | REDIRECT_LIST ::= IO_REDIRECT REDIRECT_LIST1 | REDIRECT_LIST ::= IO_REDIRECT REDIRECT_LIST1 | REDIRECT_LIST ::= IO_REDIRECT REDIRECT_LIST1 | REDIRECT_LIST ::= IO_REDIRECT REDIRECT_LIST1 | REDIRECT_LIST ::= IO_REDIRECT REDIRECT_LIST1 | |
-REDIRECT_LIST1 | REDIRECT_LIST1 ::= ε | REDIRECT_LIST1 ::= ε | REDIRECT_LIST1 ::= ε | REDIRECT_LIST1 ::= ε |  | REDIRECT_LIST1 ::= ε |  | REDIRECT_LIST1 ::= IO_REDIRECT REDIRECT_LIST1 | REDIRECT_LIST1 ::= IO_REDIRECT REDIRECT_LIST1 | REDIRECT_LIST1 ::= IO_REDIRECT REDIRECT_LIST1 | REDIRECT_LIST1 ::= IO_REDIRECT REDIRECT_LIST1 | REDIRECT_LIST1 ::= IO_REDIRECT REDIRECT_LIST1 | |
-IO_REDIRECT |  |  |  |  |  |  |  | IO_REDIRECT ::= IO_FILE | IO_REDIRECT ::= IO_FILE | IO_REDIRECT ::= IO_FILE | IO_REDIRECT ::= IO_FILE | IO_REDIRECT ::= IO_HERE | |
-IO_FILE |  |  |  |  |  |  |  | IO_FILE ::= less FILENAME | IO_FILE ::= great FILENAME | IO_FILE ::= dgreat FILENAME | IO_FILE ::= lessgreat FILENAME |  | |
-FILENAME |  |  |  |  |  |  |  |  |  |  |  |  | FILENAME ::= WORD |
-IO_HERE |  |  |  |  |  |  |  |  |  |  |  | IO_HERE ::= dless HERE_END | |
-HERE_END |  |  |  |  |  |  |  |  |  |  |  |  | HERE_END ::= WORD |
-WORD |  |  |  |  |  |  |  |  |  |  |  |  | WORD ::= word |
+| S |  |  |  |  | S ::= START $ |  | S ::= START $ | S ::= START $ | S ::= START $ | S ::= START $ | S ::= START $ | S ::= START $ | S ::= START $ |
+| START |  |  |  |  | START ::= AND_OR |  | START ::= AND_OR | START ::= AND_OR | START ::= AND_OR | START ::= AND_OR | START ::= AND_OR | START ::= AND_OR | START ::= AND_OR |
+| AND_OR |  |  |  |  | AND_OR ::= PIPELINE AND_OR1 |  | AND_OR ::= PIPELINE AND_OR1 | AND_OR ::= PIPELINE AND_OR1 | AND_OR ::= PIPELINE AND_OR1 | AND_OR ::= PIPELINE AND_OR1 | AND_OR ::= PIPELINE AND_OR1 | AND_OR ::= PIPELINE AND_OR1 | AND_OR ::= PIPELINE AND_OR1 |
+| AND_OR1 | AND_OR1 ::= ε | AND_OR1 ::= and_if AND_OR | AND_OR1 ::= or_if AND_OR |  |  | AND_OR1 ::= ε |  |  |  |  |  |  |  |
+| PIPELINE |  |  |  |  | PIPELINE ::= COMMAND PIPELINE1 |  | PIPELINE ::= COMMAND PIPELINE1 | PIPELINE ::= COMMAND PIPELINE1 | PIPELINE ::= COMMAND PIPELINE1 | PIPELINE ::= COMMAND PIPELINE1 | PIPELINE ::= COMMAND PIPELINE1 | PIPELINE ::= COMMAND PIPELINE1 | PIPELINE ::= COMMAND PIPELINE1 |
+| PIPELINE1 | PIPELINE1 ::= ε | PIPELINE1 ::= ε | PIPELINE1 ::= ε | PIPELINE1 ::= pipe PIPELINE |  | PIPELINE1 ::= ε |  |  |  |  |  |  |  |
+| COMMAND |  |  |  |  | COMMAND ::= SUBSHELL COMMAND1 |  | COMMAND ::= SIMPLE_CMD | COMMAND ::= SIMPLE_CMD | COMMAND ::= SIMPLE_CMD | COMMAND ::= SIMPLE_CMD | COMMAND ::= SIMPLE_CMD | COMMAND ::= SIMPLE_CMD | COMMAND ::= SIMPLE_CMD |
+| COMMAND1 | COMMAND1 ::= ε | COMMAND1 ::= ε | COMMAND1 ::= ε | COMMAND1 ::= ε |  | COMMAND1 ::= ε |  |  | COMMAND1 ::= REDIRECT_LIST | COMMAND1 ::= REDIRECT_LIST | COMMAND1 ::= REDIRECT_LIST | COMMAND1 ::= REDIRECT_LIST | COMMAND1 ::= REDIRECT_LIST |
+| SUBSHELL |  |  |  |  | SUBSHELL ::= lbrace AND_OR rbrace |  |  |  |  |  |  |  |  |
+| SIMPLE_CMD |  |  |  |  |  |  | SIMPLE_CMD ::= word SIMPLE_CMD2 | SIMPLE_CMD ::= CMD_PREFIX SIMPLE_CMD1 | SIMPLE_CMD ::= CMD_PREFIX SIMPLE_CMD1 | SIMPLE_CMD ::= CMD_PREFIX SIMPLE_CMD1 | SIMPLE_CMD ::= CMD_PREFIX SIMPLE_CMD1 | SIMPLE_CMD ::= CMD_PREFIX SIMPLE_CMD1 | SIMPLE_CMD ::= CMD_PREFIX SIMPLE_CMD1 |
+| SIMPLE_CMD1 | SIMPLE_CMD1 ::= ε | SIMPLE_CMD1 ::= ε | SIMPLE_CMD1 ::= ε | SIMPLE_CMD1 ::= ε |  | SIMPLE_CMD1 ::= ε | SIMPLE_CMD1 ::= word SIMPLE_CMD2 |  |  |  |  |  |  |
+| SIMPLE_CMD2 | SIMPLE_CMD2 ::= ε | SIMPLE_CMD2 ::= ε | SIMPLE_CMD2 ::= ε | SIMPLE_CMD2 ::= ε |  | SIMPLE_CMD2 ::= ε | SIMPLE_CMD2 ::= CMD_SULFIX |  | SIMPLE_CMD2 ::= CMD_SULFIX | SIMPLE_CMD2 ::= CMD_SULFIX | SIMPLE_CMD2 ::= CMD_SULFIX | SIMPLE_CMD2 ::= CMD_SULFIX | SIMPLE_CMD2 ::= CMD_SULFIX |
+| CMD_PREFIX |  |  |  |  |  |  |  | CMD_PREFIX ::= assignment CMD_PREFIX1 | CMD_PREFIX ::= IO_REDIRECT CMD_PREFIX1 | CMD_PREFIX ::= IO_REDIRECT CMD_PREFIX1 | CMD_PREFIX ::= IO_REDIRECT CMD_PREFIX1 | CMD_PREFIX ::= IO_REDIRECT CMD_PREFIX1 | CMD_PREFIX ::= IO_REDIRECT CMD_PREFIX1 |
+| CMD_PREFIX1 | CMD_PREFIX1 ::= ε | CMD_PREFIX1 ::= ε | CMD_PREFIX1 ::= ε | CMD_PREFIX1 ::= ε |  | CMD_PREFIX1 ::= ε | CMD_PREFIX1 ::= ε | CMD_PREFIX1 ::= CMD_PREFIX | CMD_PREFIX1 ::= CMD_PREFIX | CMD_PREFIX1 ::= CMD_PREFIX | CMD_PREFIX1 ::= CMD_PREFIX | CMD_PREFIX1 ::= CMD_PREFIX | CMD_PREFIX1 ::= CMD_PREFIX |
+| CMD_SULFIX |  |  |  |  |  |  | CMD_SULFIX ::= word CMD_SULFIX1 |  | CMD_SULFIX ::= IO_REDIRECT CMD_SULFIX1 | CMD_SULFIX ::= IO_REDIRECT CMD_SULFIX1 | CMD_SULFIX ::= IO_REDIRECT CMD_SULFIX1 | CMD_SULFIX ::= IO_REDIRECT CMD_SULFIX1 | CMD_SULFIX ::= IO_REDIRECT CMD_SULFIX1 |
+| CMD_SULFIX1 | CMD_SULFIX1 ::= ε | CMD_SULFIX1 ::= ε | CMD_SULFIX1 ::= ε | CMD_SULFIX1 ::= ε |  | CMD_SULFIX1 ::= ε | CMD_SULFIX1 ::= CMD_SULFIX |  | CMD_SULFIX1 ::= CMD_SULFIX | CMD_SULFIX1 ::= CMD_SULFIX | CMD_SULFIX1 ::= CMD_SULFIX | CMD_SULFIX1 ::= CMD_SULFIX | CMD_SULFIX1 ::= CMD_SULFIX |
+| REDIRECT_LIST |  |  |  |  |  |  |  |  | REDIRECT_LIST ::= IO_REDIRECT REDIRECT_LIST1 | REDIRECT_LIST ::= IO_REDIRECT REDIRECT_LIST1 | REDIRECT_LIST ::= IO_REDIRECT REDIRECT_LIST1 | REDIRECT_LIST ::= IO_REDIRECT REDIRECT_LIST1 | REDIRECT_LIST ::= IO_REDIRECT REDIRECT_LIST1 |
+| REDIRECT_LIST1 | REDIRECT_LIST1 ::= ε | REDIRECT_LIST1 ::= ε | REDIRECT_LIST1 ::= ε | REDIRECT_LIST1 ::= ε |  | REDIRECT_LIST1 ::= ε |  |  | REDIRECT_LIST1 ::= REDIRECT_LIST | REDIRECT_LIST1 ::= REDIRECT_LIST | REDIRECT_LIST1 ::= REDIRECT_LIST | REDIRECT_LIST1 ::= REDIRECT_LIST | REDIRECT_LIST1 ::= REDIRECT_LIST |
+| IO_REDIRECT |  |  |  |  |  |  |  |  | IO_REDIRECT ::= IO_FILE | IO_REDIRECT ::= IO_FILE | IO_REDIRECT ::= IO_FILE | IO_REDIRECT ::= IO_FILE | IO_REDIRECT ::= IO_HERE |
+| IO_FILE |  |  |  |  |  |  |  |  | IO_FILE ::= less word | IO_FILE ::= great word | IO_FILE ::= dgreat word | IO_FILE ::= lessgreat word |  |
+| IO_HERE |  |  |  |  |  |  |  |  |  |  |  |  | IO_HERE ::= dless word |
 
 
 
