@@ -1,201 +1,84 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_init_transition_table.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/19 14:15:15 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/01/19 17:11:05 by sde-alva         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_parser.h"
 
-void	***ft_init_transition_table(void)
+void	***ft_fill_transition_table(void (***tt)(t_list **, enum e_symbol))
 {
 	int	i;
 	int	j;
-	void	(***transition_table)(t_list **, enum e_symbol);
 
 	i = 0;
-	transition_table = (void ***)malloc(20 * sizeof(int **));
-	while (i < 20)
-	{
-		*transition_table = (void **)malloc(14 * sizeof(void *));
-		i++;
-	}
-	i = 0;
-	while ( i < 20)
+	while (i < NUM_NTS)
 	{
 		j = 0;
-		while (j < 14)
+		while (j < NUN_TS)
 		{
-			transition_table[i][j] = NULL;
+			tt[i][j] = NULL;
 			j++;
 		}
 		i++;
 	}
-	ft_init_tt_start_and_or(transition_table);
-	ft_init_tt_pipeline_subshell(transition_table);
-	ft_init_tt_command_io_file_here(transition_table);
-	ft_init_tt_simple_cmd(transition_table);
-	ft_init_tt_prefix_redirect(transition_table);
-	ft_init_tt_sulfix(transition_table);
-	ft_init_tt_redirect_list(transition_table);
+	ft_init_tt_start_and_or(tt);
+	ft_init_tt_pipeline_subshell(tt);
+	ft_init_tt_command_io_file_here(tt);
+	ft_init_tt_simple_cmd(tt);
+	ft_init_tt_prefix_redirect(tt);
+	ft_init_tt_sulfix(tt);
+	ft_init_tt_redirect_list(tt);
+	return (tt);
 }
 
-void	ft_init_tt_start_and_or(void ***transition_table)
+void	ft_init_tt_start_and_or(void ***trans_tbl)
 {
-	transition_table[NTS_START][TS_LBRACE] = &ft_start;
-	transition_table[NTS_START][TS_WORD] = &ft_start;
-	transition_table[NTS_START][TS_ASSIGNMENT] = &ft_start;
-	transition_table[NTS_START][TS_LESS] = &ft_start;
-	transition_table[NTS_START][TS_GREAT] = &ft_start;
-	transition_table[NTS_START][TS_DGREAT] = &ft_start;
-	transition_table[NTS_START][TS_LESSGREAT] = &ft_start;
-	transition_table[NTS_START][TS_DLESS] = &ft_start;
-	transition_table[NTS_AND_OR][TS_LBRACE] = &ft_and_or;
-	transition_table[NTS_AND_OR][TS_WORD] = &ft_and_or;
-	transition_table[NTS_AND_OR][TS_ASSIGNMENT] = &ft_and_or;
-	transition_table[NTS_AND_OR][TS_LESS] = &ft_and_or;
-	transition_table[NTS_AND_OR][TS_GREAT] = &ft_and_or;
-	transition_table[NTS_AND_OR][TS_DGREAT] = &ft_and_or;
-	transition_table[NTS_AND_OR][TS_LESSGREAT] = &ft_and_or;
-	transition_table[NTS_AND_OR][TS_DLESS] = &ft_and_or;
-	transition_table[NTS_AND_OR1][TS_EOF] = &ft_epsilon;
-	transition_table[NTS_AND_OR1][TS_AND_IF] = &ft_and_or1;
-	transition_table[NTS_AND_OR1][TS_OR_IF] = &ft_and_or1;
-	transition_table[NTS_AND_OR1][TS_RBRACE] = &ft_epsilon;
+	trans_tbl[NTS_START][TS_LBRACE - NUM_NTS] = &ft_start;
+	trans_tbl[NTS_START][TS_WORD - NUM_NTS] = &ft_start;
+	trans_tbl[NTS_START][TS_ASSIGNMENT - NUM_NTS] = &ft_start;
+	trans_tbl[NTS_START][TS_LESS - NUM_NTS] = &ft_start;
+	trans_tbl[NTS_START][TS_GREAT - NUM_NTS] = &ft_start;
+	trans_tbl[NTS_START][TS_DGREAT - NUM_NTS] = &ft_start;
+	trans_tbl[NTS_START][TS_LESSGREAT - NUM_NTS] = &ft_start;
+	trans_tbl[NTS_START][TS_DLESS - NUM_NTS] = &ft_start;
+	trans_tbl[NTS_AND_OR][TS_LBRACE - NUM_NTS] = &ft_and_or;
+	trans_tbl[NTS_AND_OR][TS_WORD - NUM_NTS] = &ft_and_or;
+	trans_tbl[NTS_AND_OR][TS_ASSIGNMENT - NUM_NTS] = &ft_and_or;
+	trans_tbl[NTS_AND_OR][TS_LESS - NUM_NTS] = &ft_and_or;
+	trans_tbl[NTS_AND_OR][TS_GREAT - NUM_NTS] = &ft_and_or;
+	trans_tbl[NTS_AND_OR][TS_DGREAT - NUM_NTS] = &ft_and_or;
+	trans_tbl[NTS_AND_OR][TS_LESSGREAT - NUM_NTS] = &ft_and_or;
+	trans_tbl[NTS_AND_OR][TS_DLESS - NUM_NTS] = &ft_and_or;
+	trans_tbl[NTS_AND_OR1][TS_EOF - NUM_NTS] = &ft_epsilon;
+	trans_tbl[NTS_AND_OR1][TS_AND_IF - NUM_NTS] = &ft_and_or1;
+	trans_tbl[NTS_AND_OR1][TS_OR_IF - NUM_NTS] = &ft_and_or1;
+	trans_tbl[NTS_AND_OR1][TS_RBRACE - NUM_NTS] = &ft_epsilon;
 }
 
-void	ft_init_tt_pipeline_subshell(void ***transition_table)
+void	ft_init_tt_pipeline_subshell(void ***trans_tbl)
 {
-	transition_table[NTS_PIPELINE][TS_EOF] = &ft_epsilon;
-	transition_table[NTS_PIPELINE][TS_AND_IF] = &ft_pipeline;
-	transition_table[NTS_PIPELINE][TS_OR_IF] = &ft_pipeline;
-	transition_table[NTS_PIPELINE][TS_LBRACE] = &ft_pipeline;
-	transition_table[NTS_PIPELINE][TS_WORD] = &ft_pipeline;
-	transition_table[NTS_PIPELINE][TS_ASSIGNMENT] = &ft_pipeline;
-	transition_table[NTS_PIPELINE][TS_LESS] = &ft_pipeline;
-	transition_table[NTS_PIPELINE][TS_GREAT] = &ft_pipeline;
-	transition_table[NTS_PIPELINE][TS_DGREAT] = &ft_pipeline;
-	transition_table[NTS_PIPELINE][TS_LESSGREAT] = &ft_pipeline;
-	transition_table[NTS_PIPELINE][TS_DLESS] = &ft_pipeline;
-	transition_table[NTS_PIPELINE1][TS_EOF] = &ft_epsilon;
-	transition_table[NTS_PIPELINE1][TS_AND_IF] = &ft_epsilon;
-	transition_table[NTS_PIPELINE1][TS_OR_IF] = &ft_epsilon;
-	transition_table[NTS_PIPELINE1][TS_PIPE] = &ft_pipeline1;
-	transition_table[NTS_PIPELINE1][TS_RBRACE] = &ft_epsilon;
-	transition_table[NTS_SUBSHELL][TS_LBRACE] = &ft_subshell;
-}
-
-void	ft_init_tt_command_io_file_here(void ***transition_table)
-{
-	transition_table[NTS_COMMAND][TS_LBRACE] = &ft_command;
-	transition_table[NTS_COMMAND][TS_WORD] = &ft_command;
-	transition_table[NTS_COMMAND][TS_ASSIGNMENT] = &ft_command;
-	transition_table[NTS_COMMAND][TS_LESS] = &ft_command;
-	transition_table[NTS_COMMAND][TS_GREAT] = &ft_command;
-	transition_table[NTS_COMMAND][TS_DGREAT] = &ft_command;
-	transition_table[NTS_COMMAND][TS_LESSGREAT] = &ft_command;
-	transition_table[NTS_COMMAND][TS_DLESS] = &ft_command;
-	transition_table[NTS_COMMAND1][TS_EOF] = &ft_epsilon;
-	transition_table[NTS_COMMAND1][TS_AND_IF] = &ft_epsilon;
-	transition_table[NTS_COMMAND1][TS_OR_IF] = &ft_epsilon;
-	transition_table[NTS_COMMAND1][TS_PIPE] = &ft_epsilon;
-	transition_table[NTS_COMMAND1][TS_RBRACE] = &ft_epsilon;
-	transition_table[NTS_COMMAND1][TS_LESS] = ft_command1;
-	transition_table[NTS_COMMAND1][TS_GREAT] = ft_command1;
-	transition_table[NTS_COMMAND1][TS_DGREAT] = ft_command1;
-	transition_table[NTS_COMMAND1][TS_LESSGREAT] = ft_command1;
-	transition_table[NTS_COMMAND1][TS_DLESS] = ft_command1;
-	transition_table[NTS_IO_FILE][TS_LESS] = &ft_io_file;
-	transition_table[NTS_IO_FILE][TS_GREAT] = &ft_io_file;
-	transition_table[NTS_IO_FILE][TS_DGREAT] = &ft_io_file;
-	transition_table[NTS_IO_FILE][TS_LESSGREAT] = &ft_io_file;
-	transition_table[NTS_IO_FILE][TS_DLESS] = &ft_io_file;
-	transition_table[NTS_IO_HERE][TS_DLESS] = &ft_io_here;
-}
-
-void	ft_init_tt_simple_cmd(void ***transition_table)
-{
-	transition_table[NTS_SIMPLE_CMD][TS_WORD] = &ft_simple_cmd;
-	transition_table[NTS_SIMPLE_CMD][TS_ASSIGNMENT] = &ft_simple_cmd;
-	transition_table[NTS_SIMPLE_CMD][TS_LESS] = &ft_simple_cmd;
-	transition_table[NTS_SIMPLE_CMD][TS_GREAT] = &ft_simple_cmd;
-	transition_table[NTS_SIMPLE_CMD][TS_DGREAT] = &ft_simple_cmd;
-	transition_table[NTS_SIMPLE_CMD][TS_LESSGREAT] = &ft_simple_cmd;
-	transition_table[NTS_SIMPLE_CMD][TS_DLESS] = &ft_simple_cmd;
-	transition_table[NTS_SIMPLE_CMD1][TS_EOF] = &ft_epsilon;
-	transition_table[NTS_SIMPLE_CMD1][TS_AND_IF] = &ft_epsilon;
-	transition_table[NTS_SIMPLE_CMD1][TS_OR_IF] = &ft_epsilon;
-	transition_table[NTS_SIMPLE_CMD1][TS_PIPE] = &ft_epsilon;
-	transition_table[NTS_SIMPLE_CMD1][TS_RBRACE] = &ft_epsilon;
-	transition_table[NTS_SIMPLE_CMD1][TS_WORD] = &ft_simple_cmd1;
-	transition_table[NTS_SIMPLE_CMD2][TS_EOF] = &ft_epsilon;
-	transition_table[NTS_SIMPLE_CMD2][TS_AND_IF] = &ft_epsilon;
-	transition_table[NTS_SIMPLE_CMD2][TS_OR_IF] = &ft_epsilon;
-	transition_table[NTS_SIMPLE_CMD2][TS_PIPE] = &ft_epsilon;
-	transition_table[NTS_SIMPLE_CMD2][TS_RBRACE] = &ft_epsilon;
-	transition_table[NTS_SIMPLE_CMD2][TS_WORD] = &ft_simple_cmd2;
-	transition_table[NTS_SIMPLE_CMD2][TS_LESS] = &ft_simple_cmd2;
-	transition_table[NTS_SIMPLE_CMD2][TS_GREAT] = &ft_simple_cmd2;
-	transition_table[NTS_SIMPLE_CMD2][TS_DGREAT] = &ft_simple_cmd2;
-	transition_table[NTS_SIMPLE_CMD2][TS_LESSGREAT] = &ft_simple_cmd2;
-	transition_table[NTS_SIMPLE_CMD2][TS_DLESS] = &ft_simple_cmd2;
-}
-
-void	ft_init_tt_prefix_redirect(void ***transition_table)
-{
-	transition_table[NTS_PREFIX][TS_ASSIGNMENT] = &ft_cmd_prefix;
-	transition_table[NTS_PREFIX][TS_LESS] = &ft_cmd_prefix;
-	transition_table[NTS_PREFIX][TS_GREAT] = &ft_cmd_prefix;
-	transition_table[NTS_PREFIX][TS_DGREAT] = &ft_cmd_prefix;
-	transition_table[NTS_PREFIX][TS_LESSGREAT] = &ft_cmd_prefix;
-	transition_table[NTS_PREFIX][TS_DLESS] = &ft_cmd_prefix;
-	transition_table[NTS_PREFIX1][TS_EOF] = &ft_epsilon;
-	transition_table[NTS_PREFIX1][TS_AND_IF] = &ft_epsilon;
-	transition_table[NTS_PREFIX1][TS_OR_IF] = &ft_epsilon;
-	transition_table[NTS_PREFIX1][TS_PIPE] = &ft_epsilon;
-	transition_table[NTS_PREFIX1][TS_RBRACE] = &ft_epsilon;
-	transition_table[NTS_PREFIX1][TS_WORD] = &ft_epsilon;
-	transition_table[NTS_PREFIX1][TS_LESS] = &ft_cmd_prefix1;
-	transition_table[NTS_PREFIX1][TS_GREAT] = &ft_cmd_prefix1;
-	transition_table[NTS_PREFIX1][TS_DGREAT] = &ft_cmd_prefix1;
-	transition_table[NTS_PREFIX1][TS_LESSGREAT] = &ft_cmd_prefix1;
-	transition_table[NTS_PREFIX1][TS_DLESS] = &ft_cmd_prefix1;
-	transition_table[NTS_IO_REDIRECT][TS_LESS] = &ft_io_redirect;
-	transition_table[NTS_IO_REDIRECT][TS_GREAT] = &ft_io_redirect;
-	transition_table[NTS_IO_REDIRECT][TS_DGREAT] = &ft_io_redirect;
-	transition_table[NTS_IO_REDIRECT][TS_LESSGREAT] = &ft_io_redirect;
-	transition_table[NTS_IO_REDIRECT][TS_DLESS] = &ft_io_redirect;
-}
-
-void	ft_init_tt_sulfix(void ***transition_table)
-{
-	transition_table[NTS_SULFIX][TS_WORD] = &ft_cmd_sulfix;
-	transition_table[NTS_SULFIX][TS_LESS] = &ft_cmd_sulfix;
-	transition_table[NTS_SULFIX][TS_GREAT] = &ft_cmd_sulfix;
-	transition_table[NTS_SULFIX][TS_DGREAT] = &ft_cmd_sulfix;
-	transition_table[NTS_SULFIX][TS_LESSGREAT] = &ft_cmd_sulfix;
-	transition_table[NTS_SULFIX][TS_DLESS] = &ft_cmd_sulfix;
-	transition_table[NTS_SULFIX1][TS_EOF] = &ft_epsilon;
-	transition_table[NTS_SULFIX1][TS_AND_IF] = &ft_epsilon;
-	transition_table[NTS_SULFIX1][TS_OR_IF] = &ft_epsilon;
-	transition_table[NTS_SULFIX1][TS_PIPE] = &ft_epsilon;
-	transition_table[NTS_SULFIX1][TS_RBRACE] = &ft_epsilon;
-	transition_table[NTS_SULFIX1][TS_WORD] = &ft_cmd_sulfix1;
-	transition_table[NTS_SULFIX1][TS_LESS] = &ft_cmd_sulfix1;
-	transition_table[NTS_SULFIX1][TS_GREAT] = &ft_cmd_sulfix1;
-	transition_table[NTS_SULFIX1][TS_DGREAT] = &ft_cmd_sulfix1;
-	transition_table[NTS_SULFIX1][TS_LESSGREAT] = &ft_cmd_sulfix1;
-	transition_table[NTS_SULFIX1][TS_DLESS] = &ft_cmd_sulfix1;
-}
-
-void	ft_init_tt_redirect_list(void ***transition_table)
-{
-	transition_table[NTS_REDIRECT_LIST][TS_LESS] = &ft_cmd_redirect_list;
-	transition_table[NTS_REDIRECT_LIST][TS_GREAT] = &ft_cmd_redirect_list;
-	transition_table[NTS_REDIRECT_LIST][TS_DGREAT] = &ft_cmd_redirect_list;
-	transition_table[NTS_REDIRECT_LIST][TS_LESSGREAT] = &ft_cmd_redirect_list;
-	transition_table[NTS_REDIRECT_LIST][TS_DLESS] = &ft_cmd_redirect_list;
-	transition_table[NTS_REDIRECT_LIST1][TS_EOF] = &ft_epsilon;
-	transition_table[NTS_REDIRECT_LIST1][TS_AND_IF] = &ft_epsilon;
-	transition_table[NTS_REDIRECT_LIST1][TS_OR_IF] = &ft_epsilon;
-	transition_table[NTS_REDIRECT_LIST1][TS_PIPE] = &ft_epsilon;
-	transition_table[NTS_REDIRECT_LIST1][TS_RBRACE] = &ft_epsilon;
-	transition_table[NTS_REDIRECT_LIST1][TS_LESS] = &ft_cmd_redirect_list1;
-	transition_table[NTS_REDIRECT_LIST1][TS_GREAT] = &ft_cmd_redirect_list1;
-	transition_table[NTS_REDIRECT_LIST1][TS_DGREAT] = &ft_cmd_redirect_list1;
-	transition_table[NTS_REDIRECT_LIST1][TS_LESSGREAT] = &ft_cmd_redirect_list1;
-	transition_table[NTS_REDIRECT_LIST1][TS_DLESS] = &ft_cmd_redirect_list1;
+	trans_tbl[NTS_PIPELINE][TS_EOF - NUM_NTS] = &ft_epsilon;
+	trans_tbl[NTS_PIPELINE][TS_AND_IF - NUM_NTS] = &ft_pipeline;
+	trans_tbl[NTS_PIPELINE][TS_OR_IF - NUM_NTS] = &ft_pipeline;
+	trans_tbl[NTS_PIPELINE][TS_LBRACE - NUM_NTS] = &ft_pipeline;
+	trans_tbl[NTS_PIPELINE][TS_WORD - NUM_NTS] = &ft_pipeline;
+	trans_tbl[NTS_PIPELINE][TS_ASSIGNMENT - NUM_NTS] = &ft_pipeline;
+	trans_tbl[NTS_PIPELINE][TS_LESS - NUM_NTS] = &ft_pipeline;
+	trans_tbl[NTS_PIPELINE][TS_GREAT - NUM_NTS] = &ft_pipeline;
+	trans_tbl[NTS_PIPELINE][TS_DGREAT - NUM_NTS] = &ft_pipeline;
+	trans_tbl[NTS_PIPELINE][TS_LESSGREAT - NUM_NTS] = &ft_pipeline;
+	trans_tbl[NTS_PIPELINE][TS_DLESS - NUM_NTS] = &ft_pipeline;
+	trans_tbl[NTS_PIPELINE1][TS_EOF - NUM_NTS] = &ft_epsilon;
+	trans_tbl[NTS_PIPELINE1][TS_AND_IF - NUM_NTS] = &ft_epsilon;
+	trans_tbl[NTS_PIPELINE1][TS_OR_IF - NUM_NTS] = &ft_epsilon;
+	trans_tbl[NTS_PIPELINE1][TS_PIPE - NUM_NTS] = &ft_pipeline1;
+	trans_tbl[NTS_PIPELINE1][TS_RBRACE - NUM_NTS] = &ft_epsilon;
+	trans_tbl[NTS_SUBSHELL][TS_LBRACE - NUM_NTS] = &ft_subshell;
 }

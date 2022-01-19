@@ -6,13 +6,28 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:18:16 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/19 09:53:47 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/19 20:54:40 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_parser.h"
 
-int	ft_syntax(t_list *tokens, void	(***tt)(t_list **, enum e_symbol))
+static int	ft_syntax(t_list *tokens, void	(***tt)(t_list **, enum e_symbol));
+static void	ft_set_source(t_source *src, char *line);
+
+int	ft_parser(char *line, void	(***tt)(t_list **, enum e_symbol))
+{
+	t_list		*tokens;
+	t_source	src;
+	int			is_valid;
+
+	ft_set_source(&src, line);
+	tokens = ft_lexer(&src);
+	is_valid = ft_syntax(tokens, tt);
+
+}
+
+static int	ft_syntax(t_list *tokens, void	(***tt)(t_list **, enum e_symbol))
 {
 	t_list	*symbol_stack;
 	void	(*production)(t_list **, enum e_symbol);
@@ -39,5 +54,12 @@ int	ft_syntax(t_list *tokens, void	(***tt)(t_list **, enum e_symbol))
 				is_valid = 0;
 		}
 	}
-	//TODO - Define error criteria and return values.
+	return (is_valid);
+}
+
+static void	ft_set_source(t_source *src, char *line)
+{
+	src->buffer = ft_strdup(line);
+	src->bufsize = ft_strlen(line);
+	src->curpos = INIT_SRC_POS;
 }

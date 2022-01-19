@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:57:26 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/19 18:51:07 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/19 16:58:48 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	ft_import_envp(t_shell *shell, char **envp);
 void	ft_init_minishell(t_shell *shell, char **envp)
 {
 	ft_import_envp(shell, envp);
+	ft_fill_transition_table(shell->transition_table);
 }
 
 static void	ft_import_envp(t_shell *shell, char **envp)

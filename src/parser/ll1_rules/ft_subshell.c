@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:04:12 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/19 09:44:19 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/19 14:28:40 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,3 @@ void	ft_subshell(t_list **symbol_stack, enum e_symbol tok_type)
 		ft_lstpush(symbol_stack, ft_new_symbol(TS_LBRACE));
 	}
 }
-

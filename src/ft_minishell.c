@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:36:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/17 14:45:21 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/01/19 20:48:41 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,13 @@
 #include <term.h>
 
 static int	ft_set_status(char *line);
-static void	ft_set_source(t_source *src, char *line);
 
 int	ft_minishell(char **envp)
 {
 	t_shell		shell;
-	t_source	src;
 	char		*line;
 	int			status;
+
 
 	ft_init_minishell(&shell, envp);
 	ft_env(&shell);
@@ -48,8 +47,7 @@ int	ft_minishell(char **envp)
 			continue ;
 		}
 		add_history(line);
-		ft_set_source(&src, line);
-		ft_lexer(&src);
+		ft_parser(line, shell.transition_table);
 		free(line);
 	}
 	rl_clear_history();
@@ -64,11 +62,4 @@ static int	ft_set_status(char *line)
 	if (ft_strcmp("exit", line) == 0)
 		status = 0;
 	return (status);
-}
-
-static void	ft_set_source(t_source *src, char *line)
-{
-	src->buffer = ft_strdup(line);
-	src->bufsize = ft_strlen(line);
-	src->curpos = INIT_SRC_POS;
 }

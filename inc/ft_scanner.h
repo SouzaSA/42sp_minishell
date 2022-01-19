@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:52:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/19 08:38:18 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/19 17:07:29 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define FT_SCANNER_H
 # include "ft_source.h"
 # include "libft.h"
+
+#define NUN_TS 14
+#define NUM_NTS 20
 
 enum e_symbol
 {
@@ -32,8 +35,8 @@ enum e_symbol
 	NTS_PREFIX1,
 	NTS_SULFIX,
 	NTS_SULFIX1,
-	NTS_REDIRECT_LIST,
-	NTS_REDIRECT_LIST1,
+	NTS_REDIR_LST,
+	NTS_REDIR_LST1,
 	NTS_IO_REDIRECT,
 	NTS_IO_FILE,
 	NTS_IO_HERE,
