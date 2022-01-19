@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:52:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/16 21:29:13 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/19 08:38:18 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,29 @@
 # include "ft_source.h"
 # include "libft.h"
 
-enum e_tok_type
+enum e_symbol
 {
-	TS_PIPE = 20,
+	NTS_START,
+	NTS_AND_OR,
+	NTS_AND_OR1,
+	NTS_PIPELINE,
+	NTS_PIPELINE1,
+	NTS_COMMAND,
+	NTS_COMMAND1,
+	NTS_SUBSHELL,
+	NTS_SIMPLE_CMD,
+	NTS_SIMPLE_CMD1,
+	NTS_SIMPLE_CMD2,
+	NTS_PREFIX,
+	NTS_PREFIX1,
+	NTS_SULFIX,
+	NTS_SULFIX1,
+	NTS_REDIRECT_LIST,
+	NTS_REDIRECT_LIST1,
+	NTS_IO_REDIRECT,
+	NTS_IO_FILE,
+	NTS_IO_HERE,
+	TS_PIPE,
 	TS_LBRACE,
 	TS_RBRACE,
 	TS_AND_IF,
@@ -40,7 +60,7 @@ enum e_tok_type
 /* ************************************************************************** */
 typedef struct s_token
 {
-	enum e_tok_type	tok_type;
+	enum e_symbol	tok_type;
 	t_source		*src;
 	int				text_len;
 	char			*text;

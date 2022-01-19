@@ -6,13 +6,13 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:05:20 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/16 17:15:05 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/19 09:43:29 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_parser.h"
 
-void	ft_simple_cmd(t_list **symbol_stack, enum e_tok_type tok_type)
+void	ft_simple_cmd(t_list **symbol_stack, enum e_symbol tok_type)
 {
 	if (tok_type > -1)
 	{
@@ -30,7 +30,7 @@ void	ft_simple_cmd(t_list **symbol_stack, enum e_tok_type tok_type)
 	}
 }
 
-void	ft_simple_cmd1(t_list **symbol_stack, enum e_tok_type tok_type)
+void	ft_simple_cmd1(t_list **symbol_stack, enum e_symbol tok_type)
 {
 	if (tok_type > -1)
 	{
@@ -40,7 +40,7 @@ void	ft_simple_cmd1(t_list **symbol_stack, enum e_tok_type tok_type)
 	}
 }
 
-void	ft_simple_cmd2(t_list **symbol_stack, enum e_tok_type tok_type)
+void	ft_simple_cmd2(t_list **symbol_stack, enum e_symbol tok_type)
 {
 	if (tok_type > -1)
 	{

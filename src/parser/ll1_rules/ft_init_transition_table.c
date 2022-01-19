@@ -4,7 +4,7 @@ void	***ft_init_transition_table(void)
 {
 	int	i;
 	int	j;
-	void	(***transition_table)(t_list **, enum e_tok_type);
+	void	(***transition_table)(t_list **, enum e_symbol);
 
 	i = 0;
 	transition_table = (void ***)malloc(20 * sizeof(int **));

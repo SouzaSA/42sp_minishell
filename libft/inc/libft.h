@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/25 15:47:46 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/15 18:46:57 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/19 08:18:22 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_list	*ft_lstnew(void *content);
 void	*ft_lstpop(t_list **lst);
 void	ft_lstpush(t_list **lst, void *content);
 int		ft_lstsize(t_list *lst);
+void	*ft_lsttop(t_list *list);
 
 int		ft_abs(int value);
 int		ft_average(int nb_a, int nb_b);

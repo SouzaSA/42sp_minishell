@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/01/17 15:26:43 by edpaulin         ###   ########.fr        #
+#    Updated: 2022/01/19 11:41:26 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SCANNER_DIR		=	scanner
 TAPE_SOURCE_DIR	=	tape_source
 UTILS_DIR		=	utils
 SIG_DIR			=	signals
+LL1_RULES_DIR	=	ll1_rules
 
 LIBFT			=	ft
 LIBFT_DIR		=	libft
@@ -65,7 +66,25 @@ PARSER			=	ft_child_node.c	\
 					ft_free_node_tree.c	\
 					ft_new_node.c	\
 					ft_parse_simple_command.c	\
-					ft_set_node_val_str.c
+					ft_set_node_val_str.c	\
+					${LL1_RULES_ADD_DIR}
+
+LL1_RULES		=	ft_and_or.c	\
+					ft_cmd_prefix.c	\
+					ft_cmd_sulfix.c	\
+					ft_command.c	\
+					ft_epsilon.c	\
+					ft_init_transitions_table.c	\
+					ft_init_transitions_table1.c	\
+					ft_io_file.c	\
+					ft_io_here.c	\
+					ft_io_redirect.c	\
+					ft_new_symbol_node.c	\
+					ft_pipeline.c	\
+					ft_redirect_list.c	\
+					ft_simple_cmd.c	\
+					ft_start.c	\
+					ft_subshell.c
 
 PROMPT			=
 
@@ -105,6 +124,8 @@ ERROR_ADD_DIR	=	${addprefix ${ERROR_DIR}/,${ERROR}}
 EXECUTOR_ADD_DIR	=	${addprefix ${EXECUTOR_DIR}/,${EXECUTOR}}
 
 PARSER_ADD_DIR	=	${addprefix ${PARSER_DIR}/,${PARSER}}
+
+LL1_RULES_ADD_DIR	=	${addprefix ${LL1_RULES_DIR}/,${LL1_RULES}}
 
 PROMPT_ADD_DIR	=	${addprefix ${PROMPT_DIR}/,${PROMPT}}
 

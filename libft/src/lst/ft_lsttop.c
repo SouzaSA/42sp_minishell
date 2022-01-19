@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_subshell.c                                      :+:      :+:    :+:   */
+/*   ft_lsttop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/15 11:04:12 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/19 09:44:19 by sde-alva         ###   ########.fr       */
+/*   Created: 2022/01/15 10:12:26 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/01/19 08:18:24 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_parser.h"
+#include "libft.h"
 
-void	ft_subshell(t_list **symbol_stack, enum e_symbol tok_type)
+void	*ft_lsttop(t_list *list)
 {
-	if (tok_type > -1)
+	if (list)
 	{
-		free(ft_lstpop(symbol_stack));
-		ft_lstpush(symbol_stack, ft_new_symbol(TS_RBRACE));
-		ft_lstpush(symbol_stack, ft_new_symbol(NTS_AND_OR));
-		ft_lstpush(symbol_stack, ft_new_symbol(TS_LBRACE));
+		return (list->content);
 	}
+	return (NULL);
 }
-

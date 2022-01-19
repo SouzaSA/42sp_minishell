@@ -6,13 +6,13 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:20:44 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/16 17:49:10 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/19 08:49:34 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_parser.h"
 
-void	ft_io_here(t_list **symbol_stack, enum e_tok_type tok_type)
+void	ft_io_here(t_list **symbol_stack, enum e_symbol tok_type)
 {
 	if (tok_type > -1)
 	{
