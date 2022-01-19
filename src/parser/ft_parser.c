@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:18:16 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/18 12:29:28 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/18 21:21:54 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	ft_syntax(t_list *tokens, void	(***tt)(t_list **, enum e_tok_type))
 	int		*symbol;
 	int		is_valid;
 
-	tt = ft_transition_table();
 	ft_lstpush(&symbol_stack, ft_new_symbol(TS_EOF));
 	ft_lstpush(&symbol_stack, ft_new_symbol(NTS_START));
 	is_valid = 1;
@@ -33,7 +32,7 @@ int	ft_syntax(t_list *tokens, void	(***tt)(t_list **, enum e_tok_type))
 		else
 		{
 			symbol = ft_lstpop(symbol_stack);
-			production = tt[*symbol][((t_token *)tokens)->tok_type];
+			production = tt[*symbol][((t_token *)tokens)->tok_type - 20];
 			if (production)
 				production(tt, ((t_token *)tokens)->tok_type);
 			else
