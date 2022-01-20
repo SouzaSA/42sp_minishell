@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:43 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/19 20:42:46 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/20 11:53:05 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,22 @@ typedef struct s_command
 
 typedef struct s_ast_node
 {
-	enum e_node_type		type;
-	t_command				*cmd;
-	int						children;
-	struct s_node			*first_child;
-	struct s_node			*next_sibling;
-	struct s_node			*prev_sibling;
+	enum e_node_type	type;
+	t_command			*cmd;
+	int					children;
+	struct s_ast_node	*first_child;
+	struct s_ast_node	*next_sibling;
+	struct s_ast_node	*prev_sibling;
 }	t_ast_node;
 
 /*
 * Parser worker
 */
-int			ft_parser(char *line, void	(***tt)(t_list **, enum e_symbol));
+int			ft_parser(char *line, void	**(*tt)(t_list **, enum e_symbol));
 void		ft_add_child_node(t_ast_node *parent, t_ast_node *child);
 void		ft_free_node_tree(t_ast_node *node);
 t_ast_node	*ft_new_node(enum e_symbol type);
-void		ft_set_node_val_str(t_ast_node *node, char *val);
+void		ft_set_node_val_str(t_ast_node *node, t_command *cmd);
 /*
 * LL(1) RULES
 */
@@ -74,16 +74,17 @@ void		ft_io_redirect(t_list **symbol_stack, enum e_symbol tok_type);
 void		ft_io_file(t_list **symbol_stack, enum e_symbol tok_type);
 void		ft_io_here(t_list **symbol_stack, enum e_symbol tok_type);
 void		ft_epsilon(t_list **symbol_stack, enum e_symbol tok_type);
+enum e_symbol	*ft_new_symbol(enum e_symbol symbol);
 /*
 * Transition table creation and initialization
 */
-void		***ft_fill_transition_table(void (***tt)(t_list **, enum e_symbol));
-void		ft_init_tt_start_and_or(void ***trans_tbl);
-void		ft_init_tt_pipeline_subshell(void ***trans_tbl);
-void		ft_init_tt_command_io_file_here(void ***trans_tbl);
-void		ft_init_tt_simple_cmd(void ***trans_tbl);
-void		ft_init_tt_prefix_redirect(void ***trans_tbl);
-void		ft_init_tt_sulfix(void ***trans_tbl);
-void		ft_init_tt_redirect_list(void ***trans_tbl);
+void		ft_fill_transition_table(void (***tt)(t_list **, enum e_symbol));
+void		ft_init_tt_start_and_or(void (***tt)(t_list **, enum e_symbol));
+void		ft_init_tt_pipeline_subshell(void (***tt)(t_list **, enum e_symbol));
+void		ft_init_tt_command_io_file_here(void (***tt)(t_list **, enum e_symbol));
+void		ft_init_tt_simple_cmd(void (***tt)(t_list **, enum e_symbol));
+void		ft_init_tt_prefix_redirect(void (***tt)(t_list **, enum e_symbol));
+void		ft_init_tt_sulfix(void (***tt)(t_list **, enum e_symbol));
+void		ft_init_tt_redir_list(void (***tt)(t_list **, enum e_symbol));
 
 #endif

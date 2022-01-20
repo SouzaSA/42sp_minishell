@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:52:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/19 17:07:29 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/20 08:25:26 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include "ft_source.h"
 # include "libft.h"
 
-#define NUN_TS 14
+#define NUM_TS 14
 #define NUM_NTS 20
 
 enum e_symbol

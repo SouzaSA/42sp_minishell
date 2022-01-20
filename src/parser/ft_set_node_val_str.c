@@ -6,32 +6,21 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 18:33:16 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/13 09:46:51 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/20 09:41:30 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_parser.h"
 
-void	ft_set_node_val_str(t_ast_node *node, char *val)
+void	ft_set_node_val_str(t_ast_node *node, t_command *cmd)
 {
-	char	*val2;
-
-	node->val_type = VAL_STR;
-	if (!val)
+	node->type = AST_CMD;
+	if (!cmd)
 	{
-		node->val.str = NULL;
+		node->cmd = NULL;
 	}
 	else
 	{
-		val2 = malloc(strlen(val) + 1);
-		if (!val2)
-		{
-			node->val.str = NULL;
-		}
-		else
-		{
-			ft_strcpy(val2, val);
-			node->val.str = val2;
-		}
+		node->cmd = cmd;
 	}
 }

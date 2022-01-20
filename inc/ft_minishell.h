@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/19 20:55:33 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/20 12:17:41 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_shell
 {
 	t_list	*env_list;
 	int		error_status;
-	void	(*transition_table[NUM_NTS][NUN_TS])(t_list **, enum e_symbol);
+	void	((*transition_table)[NUM_NTS][NUM_TS])(t_list **, enum e_symbol);
 }	t_shell;
 
 typedef struct s_cmd_tbl

@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/01/19 11:41:26 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/01/20 11:06:43 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ SRCS			=	ft_main.c	\
 					ft_minishell.c	\
 					${BUILTIN_ADD_DIR}	\
 					${ERROR_ADD_DIR} \
+					${PARSER_ADD_DIR} \
 					${UTILS_ADD_DIR}	\
 					${SCANNER_ADD_DIR}	\
 					${TAPE_SOURCE_ADD_DIR} \
@@ -65,7 +66,7 @@ EXECUTOR		=	ft_checker_slash.c	\
 PARSER			=	ft_child_node.c	\
 					ft_free_node_tree.c	\
 					ft_new_node.c	\
-					ft_parse_simple_command.c	\
+					ft_parser.c	\
 					ft_set_node_val_str.c	\
 					${LL1_RULES_ADD_DIR}
 
@@ -73,9 +74,9 @@ LL1_RULES		=	ft_and_or.c	\
 					ft_cmd_prefix.c	\
 					ft_cmd_sulfix.c	\
 					ft_command.c	\
-					ft_epsilon.c	\
-					ft_init_transitions_table.c	\
-					ft_init_transitions_table1.c	\
+					ft_epslon.c	\
+					ft_init_transition_table.c	\
+					ft_init_transition_table1.c	\
 					ft_io_file.c	\
 					ft_io_here.c	\
 					ft_io_redirect.c	\

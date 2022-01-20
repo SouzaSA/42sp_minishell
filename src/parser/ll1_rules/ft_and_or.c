@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 10:58:53 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/19 08:40:28 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/20 09:42:58 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_and_or(t_list **symbol_stack, enum e_symbol tok_type)
 {
-	if (tok_type > -1)
+	if (tok_type >= 0)
 	{
 		free(ft_lstpop(symbol_stack));
 		ft_lstpush(symbol_stack, ft_new_symbol(NTS_AND_OR1));
@@ -24,7 +24,7 @@ void	ft_and_or(t_list **symbol_stack, enum e_symbol tok_type)
 
 void	ft_and_or1(t_list **symbol_stack, enum e_symbol tok_type)
 {
-	if (tok_type > -1)
+	if (tok_type >= 0)
 	{
 		free(ft_lstpop(symbol_stack));
 		ft_lstpush(symbol_stack, ft_new_symbol(NTS_AND_OR));
