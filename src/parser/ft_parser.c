@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:18:16 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/20 21:25:24 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/21 09:09:04 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,18 @@ static int	ft_syntax(t_list *tokens, void	(***tt)(t_list **, enum e_symbol))
 		}
 		else
 		{
-			printf("ss: %d token: %d\n", *symbol, ((t_token *)tokens->content)->tok_type);
-			production = tt[*symbol][((t_token *)tokens->content)->tok_type - 20];
+			//printf("ss: %d token: %d\n", *symbol, ((t_token *)tokens->content)->tok_type);
+			production = NULL;
+			if (*symbol < NUM_NTS)
+				production = tt[*symbol][((t_token *)tokens->content)->tok_type - NUM_NTS];
 			if (production)
 				production(&symbol_stack, ((t_token *)tokens->content)->tok_type);
 			else
 				is_valid = 0;
 		}
 	}
+	if (!is_valid)
+		printf("syntax error near unexpected token `%s'\n", ((t_token *)tokens->content)->text); //remove
 	return (is_valid);
 }
 
