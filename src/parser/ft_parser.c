@@ -6,16 +6,16 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:18:16 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/21 19:43:15 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/24 12:34:12 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_parser.h"
 
-static t_ast	*ft_syntax(t_list *toks, void (***tt)(t_list **, enum e_symbol));
-static void		ft_set_source(t_source *src, char *line);
+static int	*ft_syntax(t_list *toks, void (***tt)(t_list **, enum e_symbol));
+static void	ft_set_source(t_source *src, char *line);
 
-t_ast	*ft_parser(char *line, void	(***tt)(t_list **, enum e_symbol))
+int	*ft_parser(char *line, void	(***tt)(t_list **, enum e_symbol))
 {
 	t_ast		*ast;
 	t_list		*tokens;
@@ -24,13 +24,13 @@ t_ast	*ft_parser(char *line, void	(***tt)(t_list **, enum e_symbol))
 	ast = NULL;
 	ft_set_source(&src, line);
 	tokens = ft_lexer(&src);
-	ast = ft_syntax(tokens, tt);
+	if (ft_syntax(tokens, tt))
+		ft_semantic();
 	return (ast);
 }
 
-static t_ast	*ft_syntax(t_list *toks, void (***tt)(t_list **, enum e_symbol))
+static int	*ft_syntax(t_list *toks, void (***tt)(t_list **, enum e_symbol))
 {
-	t_ast			*ast;
 	t_list			*symbol_stack;
 	void			(*production)(t_list **, enum e_symbol);
 	enum e_symbol	*symbol;
@@ -70,4 +70,60 @@ static void	ft_set_source(t_source *src, char *line)
 	src->buffer = ft_strdup(line);
 	src->bufsize = ft_strlen(line);
 	src->curpos = INIT_SRC_POS;
+}
+
+static t_ast	ft_semantic(t_list *tokens)
+{
+	t_list	*command_list;
+	t_list	*cmd_temp;
+
+	ast = (t_ast *)malloc(sizeof(t_ast));
+	ast_head = ast;
+	ast->cmd = NULL;
+	ast->children = 0;
+	ast->first_child = NULL;
+	ast->next_sibling = NULL;
+	ast->prev_sibling = NULL;
+	while (((t_token *)tokens->content)->tok_type != TS_EOF)
+	{
+		if (((t_token *)tokens->content)->tok_type == TS_WORD \
+			|| ((t_token *)tokens->content)->tok_type != TS_ASSIGNMENT \
+			|| ((t_token *)tokens->content)->tok_type != TS_LESS \
+			|| ((t_token *)tokens->content)->tok_type != TS_DLESS \
+			|| ((t_token *)tokens->content)->tok_type != TS_GREAT \
+			|| ((t_token *)tokens->content)->tok_type != TS_DGREAT \
+			|| ((t_token *)tokens->content)->tok_type != TS_LESSGREAT)
+		{
+			ast->type = AST_CMD;
+			if (ast->cmd == NULL)
+			{
+				ast->cmd = (t_command *)malloc(sizeof(t_command));
+				ast->cmd->assign = NULL;
+				ast->cmd->cmd = NULL;
+				ast->cmd->redir = NULL;
+			}
+			ast->type = AST_CMD;
+			if (((t_token *)tokens->content)->tok_type == TS_WORD)
+				ft_lstadd_back(&ast->cmd->cmd, ft_lstnew(tokens->content));
+			else if (((t_token *)tokens->content)->tok_type == TS_ASSIGNMENT)
+				ft_lstadd_back(&ast->cmd->assign, ft_lstnew(tokens->content));
+			else
+			{
+				ft_lstadd_back(&ast->cmd->redir, ft_lstnew(tokens->content));
+				tokens = tokens->next;
+				ft_lstadd_back(&ast->cmd->redir, ft_lstnew(tokens->content));
+			}
+		}
+		else
+		{
+			if (((t_token *)tokens->content)->tok_type == TS_PIPE \
+			|| ((t_token *)tokens->content)->tok_type != TS_LBRACE \
+			|| ((t_token *)tokens->content)->tok_type != TS_RBRACE \
+			|| ((t_token *)tokens->content)->tok_type != TS_AND_IF \
+			|| ((t_token *)tokens->content)->tok_type != TS_OR_IF)
+			{
+
+			}
+		}
+	}
 }
