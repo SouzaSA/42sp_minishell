@@ -6,33 +6,31 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:18:16 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/21 09:09:04 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/21 19:43:15 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_parser.h"
 
-static int	ft_syntax(t_list *tokens, void	(***tt)(t_list **, enum e_symbol));
-static void	ft_set_source(t_source *src, char *line);
+static t_ast	*ft_syntax(t_list *toks, void (***tt)(t_list **, enum e_symbol));
+static void		ft_set_source(t_source *src, char *line);
 
-int	ft_parser(char *line, void	(***tt)(t_list **, enum e_symbol))
+t_ast	*ft_parser(char *line, void	(***tt)(t_list **, enum e_symbol))
 {
+	t_ast		*ast;
 	t_list		*tokens;
 	t_source	src;
-	int			is_valid;
 
+	ast = NULL;
 	ft_set_source(&src, line);
 	tokens = ft_lexer(&src);
-	is_valid = ft_syntax(tokens, tt);
-	if (is_valid)
-		printf("É valida\n");
-	else
-		printf("Não valida\n");
-	return (is_valid);
+	ast = ft_syntax(tokens, tt);
+	return (ast);
 }
 
-static int	ft_syntax(t_list *tokens, void	(***tt)(t_list **, enum e_symbol))
+static t_ast	*ft_syntax(t_list *toks, void (***tt)(t_list **, enum e_symbol))
 {
+	t_ast			*ast;
 	t_list			*symbol_stack;
 	void			(*production)(t_list **, enum e_symbol);
 	enum e_symbol	*symbol;
@@ -45,9 +43,9 @@ static int	ft_syntax(t_list *tokens, void	(***tt)(t_list **, enum e_symbol))
 	while (is_valid && ft_lstsize(symbol_stack) > 0)
 	{
 		symbol = (enum e_symbol *)ft_lsttop(symbol_stack);
-		if (((t_token *)tokens->content)->tok_type == *symbol)
+		if (((t_token *)toks->content)->tok_type == *symbol)
 		{
-			tokens = tokens->next;
+			toks = toks->next;
 			free(ft_lstpop(&symbol_stack));
 		}
 		else
@@ -55,15 +53,15 @@ static int	ft_syntax(t_list *tokens, void	(***tt)(t_list **, enum e_symbol))
 			//printf("ss: %d token: %d\n", *symbol, ((t_token *)tokens->content)->tok_type);
 			production = NULL;
 			if (*symbol < NUM_NTS)
-				production = tt[*symbol][((t_token *)tokens->content)->tok_type - NUM_NTS];
+				production = tt[*symbol][((t_token *)toks->content)->tok_type - NUM_NTS];
 			if (production)
-				production(&symbol_stack, ((t_token *)tokens->content)->tok_type);
+				production(&symbol_stack, ((t_token *)toks->content)->tok_type);
 			else
 				is_valid = 0;
 		}
 	}
 	if (!is_valid)
-		printf("syntax error near unexpected token `%s'\n", ((t_token *)tokens->content)->text); //remove
+		printf("syntax error near unexpected token `%s'\n", ((t_token *)toks->content)->text); //remove
 	return (is_valid);
 }
 

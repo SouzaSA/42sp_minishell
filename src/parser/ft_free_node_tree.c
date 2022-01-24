@@ -6,16 +6,16 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 18:33:03 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/20 09:04:25 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/21 18:10:39 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_parser.h"
 
-void	ft_free_node_tree(t_ast_node *node)
+void	ft_free_node_tree(t_ast *node)
 {
-	t_ast_node	*child;
-	t_ast_node	*next;
+	t_ast	*child;
+	t_ast	*next;
 
 	if (!node)
 		return ;
