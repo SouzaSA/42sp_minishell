@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:18:16 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/24 21:02:23 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/25 12:18:30 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,23 @@ int	*ft_parser(char *line, void	(***tt)(t_list **, enum e_symbol))
 
 static int	*ft_syntax(t_list *toks, void (***tt)(t_list **, enum e_symbol))
 {
-	t_list			*symbol_stack;
-	t_ast			*ast;
+	t_syntax		*syntax_vars;
 	void			(*production)(t_list **, enum e_symbol);
 	enum e_symbol	*symbol;
 	int				is_valid;
 
-	symbol_stack = NULL;
-	ft_lstpush(&symbol_stack, ft_new_symbol(TS_EOF));
-	ft_lstpush(&symbol_stack, ft_new_symbol(NTS_START));
+	syntax_vars->symbol_stack = NULL;
+	ft_lstpush(&syntax_vars->symbol_stack, ft_new_symbol(TS_EOF));
+	ft_lstpush(&syntax_vars->symbol_stack, ft_new_symbol(NTS_START));
 	is_valid = 1;
-	while (is_valid && ft_lstsize(symbol_stack) > 0)
+	while (is_valid && ft_lstsize(syntax_vars->symbol_stack) > 0)
 	{
-		symbol = (enum e_symbol *)ft_lsttop(symbol_stack);
+		symbol = (enum e_symbol *)ft_lsttop(syntax_vars->symbol_stack);
 		if (((t_token *)toks->content)->tok_type == *symbol)
 		{
 			toks = toks->next;
 			//add to ast
-			free(ft_lstpop(&symbol_stack));
+			free(ft_lstpop(&syntax_vars->symbol_stack));
 		}
 		else
 		{
@@ -57,7 +56,7 @@ static int	*ft_syntax(t_list *toks, void (***tt)(t_list **, enum e_symbol))
 			if (*symbol < NUM_NTS)
 				production = tt[*symbol][((t_token *)toks->content)->tok_type - NUM_NTS];
 			if (production)
-				production(&symbol_stack, ((t_token *)toks->content)->tok_type);
+				production(&syntax_vars->symbol_stack, ((t_token *)toks->content)->tok_type);
 			else
 				is_valid = 0;
 		}
