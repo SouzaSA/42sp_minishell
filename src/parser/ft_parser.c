@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:18:16 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/24 12:34:12 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/24 21:02:23 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	*ft_parser(char *line, void	(***tt)(t_list **, enum e_symbol))
 static int	*ft_syntax(t_list *toks, void (***tt)(t_list **, enum e_symbol))
 {
 	t_list			*symbol_stack;
+	t_ast			*ast;
 	void			(*production)(t_list **, enum e_symbol);
 	enum e_symbol	*symbol;
 	int				is_valid;
@@ -46,11 +47,12 @@ static int	*ft_syntax(t_list *toks, void (***tt)(t_list **, enum e_symbol))
 		if (((t_token *)toks->content)->tok_type == *symbol)
 		{
 			toks = toks->next;
+			//add to ast
 			free(ft_lstpop(&symbol_stack));
 		}
 		else
 		{
-			//printf("ss: %d token: %d\n", *symbol, ((t_token *)tokens->content)->tok_type);
+			//look at production rules to create node of the tree.
 			production = NULL;
 			if (*symbol < NUM_NTS)
 				production = tt[*symbol][((t_token *)toks->content)->tok_type - NUM_NTS];
@@ -74,11 +76,12 @@ static void	ft_set_source(t_source *src, char *line)
 
 static t_ast	ft_semantic(t_list *tokens)
 {
-	t_list	*command_list;
-	t_list	*cmd_temp;
+	t_list		*command_list;
+	t_list		*cmd_temp;
 
-	ast = (t_ast *)malloc(sizeof(t_ast));
-	ast_head = ast;
+	command_list = NULL;
+	ft_lstadd_back(&command_list, ft_lstnew(malloc(sizeof(t_command))));
+	((t_command *)command_list->content)->cmd = NULL;
 	ast->cmd = NULL;
 	ast->children = 0;
 	ast->first_child = NULL;
