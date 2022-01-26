@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:43 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/25 12:18:24 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/25 19:30:29 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ enum e_node_type
 	AST_LBRACE,
 	AST_RBRACE,
 	AST_PIPE,
+	AST_AND_OR,
 	AST_AND,
 	AST_OR,
 };
@@ -37,9 +38,9 @@ typedef struct s_ast
 	enum e_node_type	type;
 	t_command			*cmd;
 	int					children;
-	struct s_ast_node	*first_child;
-	struct s_ast_node	*next_sibling;
-	struct s_ast_node	*prev_sibling;
+	struct s_ast		*first_child;
+	struct s_ast		*next_sibling;
+	struct s_ast		*prev_sibling;
 }	t_ast;
 
 typedef struct s_syntax
@@ -48,13 +49,18 @@ typedef struct s_syntax
 	t_list	*symbol_stack;
 }	t_syntax;
 
+typedef struct s_stk_node
+{
+	enum e_symbol	tok_type;
+	t_ast			*ast_node;
+}	t_stk_node;
 /*
 * Parser worker
 */
 int		*ft_parser(char *line, void	(***tt)(t_list **, enum e_symbol));
 void	ft_add_child_node(t_ast *parent, t_ast *child);
 void	ft_free_node_tree(t_ast *node);
-t_ast	*ft_new_node(enum e_symbol type);
+t_ast	*ft_new_node(enum e_node_type type);
 void	ft_set_node_val_str(t_ast *node, t_command *cmd);
 /*
 *  LL(1) RULES
@@ -80,9 +86,9 @@ void	ft_io_redirect(t_syntax *stx_vars, enum e_symbol tok_type);
 void	ft_io_file(t_syntax *stx_vars, enum e_symbol tok_type);
 void	ft_io_here(t_syntax *stx_vars, enum e_symbol tok_type);
 void	ft_epsilon(t_syntax *stx_vars, enum e_symbol tok_type);
-void	*ft_new_symbol(enum e_symbol symbol);
+void	*ft_stk_node(enum e_symbol symbol);
 /*
-* Transition table creation and initialization
+*  Transition table creation and initialization
 */
 void	ft_fill_transition_table(void (***tt)(t_list **, enum e_symbol));
 void	ft_init_tt_start_and_or(void (***tt)(t_list **, enum e_symbol));
