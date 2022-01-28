@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:43 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/26 12:42:41 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/27 21:06:17 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ enum e_node_type
 	AST_LBRACE,
 	AST_RBRACE,
 	AST_PIPE,
+	AST_REDIR,
 	AST_AND,
 	AST_OR,
 	AST_TMP,

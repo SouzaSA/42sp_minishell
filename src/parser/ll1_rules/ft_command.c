@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:03:04 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/27 12:46:55 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/27 21:06:33 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ void	ft_command(t_syntax *stx_vars, enum e_symbol tok_type)
 		stk_node_old->ast_node->type = AST_TMP;
 		if (tok_type == TS_LBRACE)
 		{
-			ft_lstpush(&stx_vars->symbol_stack, ft_stk_node(NTS_COMMAND1));
-			ft_lstpush(&stx_vars->symbol_stack, ft_stk_node(NTS_SUBSHELL));
+			ft_stk_set_node(&stk_node, stk_node_old, NTS_COMMAND1);
+			ft_lstpush(&stx_vars->symbol_stack, stk_node);
+			ft_stk_set_node_send(&stk_node, stk_node_old, NTS_SUBSHELL);
+			ft_lstpush(&stx_vars->symbol_stack, stk_node);
 		}
 		else
 		{
-			stk_node_old->ast_node->first_child = ft_new_node(AST_CMD);
-			stk_node = (t_stk_node *)ft_stk_node(NTS_SIMPLE_CMD);
-			stk_node->ast_node = stk_node_old->ast_node;
+			ft_stk_set_node(&stk_node, stk_node_old, NTS_SIMPLE_CMD);
 			ft_lstpush(&stx_vars->symbol_stack, stk_node);
 		}
 		free(stk_node_old);
