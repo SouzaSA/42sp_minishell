@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:43 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/30 11:08:33 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/01/31 15:34:57 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 enum e_node_type
 {
 	AST_CMD,
-	AST_LBRACE,
-	AST_RBRACE,
 	AST_PIPE,
 	AST_REDIR,
 	AST_AND,
@@ -52,16 +50,11 @@ typedef struct s_ast
 	struct s_ast		*prev_sibling;
 }	t_ast;
 
-typedef struct s_syntax //remove
-{
-	t_ast	*ast;
-	t_list	*symbol_stack;
-}	t_syntax;
-
 typedef struct s_stk_node
 {
-	enum e_symbol	tok_type;
-	t_ast			*ast_node;
+	enum e_symbol		tok_type;
+	enum e_node_type	ast_type;
+	t_ast				*ast_node;
 }	t_stk_node;
 /*
 * Parser worker
