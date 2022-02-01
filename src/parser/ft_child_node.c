@@ -6,13 +6,13 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 18:32:52 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/21 18:17:30 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/01 11:43:54 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_parser.h"
 
-void	ft_add_child_node(t_ast *parent, t_ast *child)
+t_ast	*ft_add_child_node(t_ast *parent, t_ast *child)
 {
 	t_ast	*sibling;
 
@@ -31,4 +31,5 @@ void	ft_add_child_node(t_ast *parent, t_ast *child)
 		child->prev_sibling = sibling;
 	}
 	parent->children++;
+	return (child);
 }

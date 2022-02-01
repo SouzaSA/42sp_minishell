@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:43 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/31 15:34:57 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/01 11:44:33 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ enum e_node_type
 	AST_CMD,
 	AST_PIPE,
 	AST_REDIR,
+	AST_AND_OR,
 	AST_AND,
 	AST_OR,
 	AST_TMP,
@@ -60,7 +61,7 @@ typedef struct s_stk_node
 * Parser worker
 */
 int		*ft_parser(char *line, void	(***tt)(t_list **, enum e_symbol));
-void	ft_add_child_node(t_ast *parent, t_ast *child);
+t_ast	*ft_add_child_node(t_ast *parent, t_ast *child);
 void	ft_free_node_tree(t_ast *node);
 t_ast	*ft_new_node(enum e_node_type type);
 void	ft_set_node_val_str(t_ast *node, t_command *cmd);

@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 10:58:53 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/30 11:08:13 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/01 10:30:32 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ void	ft_and_or1(t_list **symbol_stack, t_token *token)
 			stk_node_old->ast_node->type = AST_OR;
 		ft_stk_set_nxt_child(&stk_node, stk_node_old, NTS_AND_OR);
 		ft_lstpush(symbol_stack, stk_node);
-		ft_lstpush(symbol_stack, ft_stk_node(token->tok_type));
+		ft_stk_set_node(&stk_node, stk_node_old, token->tok_type);
+		stk_node->ast_type = AST_AND_OR;
+		ft_lstpush(symbol_stack, stk_node);
 		free(stk_node_old);
 	}
 }
