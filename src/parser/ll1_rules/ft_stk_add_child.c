@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stk_set_node_send.c                             :+:      :+:    :+:   */
+/*   ft_stk_add_child.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/27 20:37:41 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/29 11:02:19 by sde-alva         ###   ########.fr       */
+/*   Created: 2022/01/27 20:59:48 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/02/02 10:12:35 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_parser.h"
 
-void	ft_stk_set_child(t_stk_node **new, t_stk_node *old, int type)
+void	*ft_stk_add_child(t_stk_node **new, t_stk_node *old, t_token *token, \
+	enum e_symbol stk_type)
 {
-	*new = (t_stk_node *)ft_stk_node(type);
-	old->ast_node->first_child = ft_new_node(AST_TMP);
-	old->ast_node->children++;
-	(*new)->ast_node = old->ast_node->first_child;
+	t_ast	*sibling;
+
+	*new = (t_stk_node *)ft_stk_node(stk_type);
+	(*new)->token = token;
+	sibling = ft_add_child_node(old->ast_node, ft_new_node(AST_TMP));
+	(*new)->ast_node = sibling;
 }

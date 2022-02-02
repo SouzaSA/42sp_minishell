@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:43 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/01 11:44:33 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/02 10:11:09 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ typedef struct s_ast
 
 typedef struct s_stk_node
 {
-	enum e_symbol		tok_type;
+	enum e_symbol		stk_type;
+	t_token				*token;
 	enum e_node_type	ast_type;
 	t_ast				*ast_node;
 }	t_stk_node;
@@ -89,7 +90,7 @@ void	ft_io_redirect(t_list **symbol_stack, t_token *token);
 void	ft_io_file(t_list **symbol_stack, t_token *token);
 void	ft_io_here(t_list **symbol_stack, t_token *token);
 void	ft_epsilon(t_list **symbol_stack, t_token *token);
-void	*ft_stk_node(enum e_symbol symbol);
+void	*ft_stk_node(enum e_symbol stk_type);
 /*
 *  Transition table creation and initialization
 */
