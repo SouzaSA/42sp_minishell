@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 18:32:52 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/01 11:43:54 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/03 15:39:53 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_ast	*ft_add_child_node(t_ast *parent, t_ast *child)
 	t_ast	*sibling;
 
 	if (!parent || !child)
-		return ;
+		return (NULL);
 	if (!parent->first_child)
 	{
 		parent->first_child = child;

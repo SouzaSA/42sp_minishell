@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:43 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/03 12:32:27 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/03 17:54:26 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ enum e_node_type
 	AST_AND_OR,
 	AST_AND,
 	AST_OR,
-	AST_TMP,
 	AST_ASSIGN,
+	AST_TMP,
 };
 
 union u_node_val
@@ -55,14 +55,13 @@ typedef struct s_ast
 typedef struct s_stk_node
 {
 	enum e_symbol		stk_type;
-	t_token				*token;
 	enum e_node_type	ast_type;
 	t_ast				*ast_node;
 }	t_stk_node;
 /*
 * Parser worker
 */
-int		*ft_parser(char *line, void	(***tt)(t_list **, enum e_symbol));
+t_ast	*ft_parser(char *line, void	(***tt)(t_list **, enum e_symbol));
 t_ast	*ft_add_child_node(t_ast *parent, t_ast *child);
 void	ft_free_node_tree(t_ast *node);
 t_ast	*ft_new_node(enum e_node_type type);
@@ -70,28 +69,30 @@ void	ft_set_node_val_str(t_ast *node, t_command *cmd);
 /*
 *  LL(1) RULES
 */
-void	ft_start(t_list **symbol_stack, t_token *token);
-void	ft_and_or(t_list **symbol_stack, t_token *token);
-void	ft_and_or1(t_list **symbol_stack, t_token *token);
-void	ft_pipeline(t_list **symbol_stack, t_token *token);
-void	ft_pipeline1(t_list **symbol_stack, t_token *token);
-void	ft_command(t_list **symbol_stack, t_token *token);
-void	ft_command1(t_list **symbol_stack, t_token *token);
-void	ft_subshell(t_list **symbol_stack, t_token *token);
-void	ft_simple_cmd(t_list **symbol_stack, t_token *token);
-void	ft_simple_cmd1(t_list **symbol_stack, t_token *token);
-void	ft_simple_cmd2(t_list **symbol_stack, t_token *token);
-void	ft_cmd_prefix(t_list **symbol_stack, t_token *token);
-void	ft_cmd_prefix1(t_list **symbol_stack, t_token *token);
-void	ft_cmd_sulfix(t_list **symbol_stack, t_token *token);
-void	ft_cmd_sulfix1(t_list **symbol_stack, t_token *token);
-void	ft_cmd_redir_list(t_list **symbol_stack, t_token *token);
-void	ft_cmd_redir_list1(t_list **symbol_stack, t_token *token);
-void	ft_io_redirect(t_list **symbol_stack, t_token *token);
-void	ft_io_file(t_list **symbol_stack, t_token *token);
-void	ft_io_here(t_list **symbol_stack, t_token *token);
-void	ft_epsilon(t_list **symbol_stack, t_token *token);
+void	ft_start(t_list **symbol_stack, enum e_symbol tok_type);
+void	ft_and_or(t_list **symbol_stack, enum e_symbol tok_type);
+void	ft_and_or1(t_list **symbol_stack, enum e_symbol tok_type);
+void	ft_pipeline(t_list **symbol_stack, enum e_symbol tok_type);
+void	ft_pipeline1(t_list **symbol_stack, enum e_symbol tok_type);
+void	ft_command(t_list **symbol_stack, enum e_symbol tok_type);
+void	ft_command1(t_list **symbol_stack, enum e_symbol tok_type);
+void	ft_subshell(t_list **symbol_stack, enum e_symbol tok_type);
+void	ft_simple_cmd(t_list **symbol_stack, enum e_symbol tok_type);
+void	ft_simple_cmd1(t_list **symbol_stack, enum e_symbol tok_type);
+void	ft_simple_cmd2(t_list **symbol_stack, enum e_symbol tok_type);
+void	ft_cmd_prefix(t_list **symbol_stack, enum e_symbol tok_type);
+void	ft_cmd_prefix1(t_list **symbol_stack, enum e_symbol tok_type);
+void	ft_cmd_sulfix(t_list **symbol_stack, enum e_symbol tok_type);
+void	ft_cmd_sulfix1(t_list **symbol_stack, enum e_symbol tok_type);
+void	ft_cmd_redir_list(t_list **symbol_stack, enum e_symbol tok_type);
+void	ft_cmd_redir_list1(t_list **symbol_stack, enum e_symbol tok_type);
+void	ft_io_redirect(t_list **symbol_stack, enum e_symbol tok_type);
+void	ft_io_file(t_list **symbol_stack, enum e_symbol tok_type);
+void	ft_io_here(t_list **symbol_stack, enum e_symbol tok_type);
+void	ft_epsilon(t_list **symbol_stack, enum e_symbol tok_type);
 void	*ft_stk_node(enum e_symbol stk_type);
+void	*ft_stk_add_child(t_stk_node **new, t_stk_node *old, int stk_type);
+void	ft_stk_set_node(t_stk_node **new, t_stk_node *old, int type);
 /*
 *  Transition table creation and initialization
 */

@@ -6,23 +6,23 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:06:32 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/03 12:16:38 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/03 17:55:25 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_parser.h"
 
-void	ft_cmd_prefix(t_list **symbol_stack, t_token *token)
+void	ft_cmd_prefix(t_list **symbol_stack, enum e_symbol tok_type)
 {
 	t_stk_node	*stk_node;
 	t_stk_node	*stk_node_old;
 
-	if (token->tok_type >= 0)
+	if (tok_type >= 0)
 	{
 		stk_node_old = (t_stk_node *)ft_lstpop(symbol_stack);
 		ft_stk_set_node(&stk_node, stk_node_old, NTS_PREFIX1);
 		ft_lstpush(symbol_stack, stk_node);
-		if (token->tok_type == TS_ASSIGNMENT)
+		if (tok_type == TS_ASSIGNMENT)
 		{
 			ft_stk_set_node(&stk_node, stk_node_old, TS_ASSIGNMENT);
 			stk_node->ast_type = AST_ASSIGN;
@@ -36,12 +36,12 @@ void	ft_cmd_prefix(t_list **symbol_stack, t_token *token)
 	}
 }
 
-void	ft_cmd_prefix1(t_list **symbol_stack, t_token *token)
+void	ft_cmd_prefix1(t_list **symbol_stack, enum e_symbol tok_type)
 {
 	t_stk_node	*stk_node;
 	t_stk_node	*stk_node_old;
 
-	if (token->tok_type >= 0)
+	if (tok_type >= 0)
 	{
 		stk_node_old = (t_stk_node *)ft_lstpop(symbol_stack);
 		ft_stk_set_node(&stk_node, stk_node_old, NTS_PREFIX1);

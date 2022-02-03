@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/02/02 11:59:00 by edpaulin         ###   ########.fr        #
+#    Updated: 2022/02/03 18:03:27 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,11 +82,13 @@ LL1_RULES		=	ft_and_or.c	\
 					ft_io_file.c	\
 					ft_io_here.c	\
 					ft_io_redirect.c	\
-					ft_new_symbol_node.c	\
 					ft_pipeline.c	\
 					ft_redirect_list.c	\
 					ft_simple_cmd.c	\
 					ft_start.c	\
+					ft_stk_add_child.c	\
+					ft_stk_node.c	\
+					ft_stk_set_node.c	\
 					ft_subshell.c
 
 PROMPT			=
