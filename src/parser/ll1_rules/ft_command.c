@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:03:04 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/30 11:21:23 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/02 18:49:39 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_command(t_list **symbol_stack, t_token *token)
 		{
 			ft_stk_set_node(&stk_node, stk_node_old, NTS_COMMAND1);
 			ft_lstpush(symbol_stack, stk_node);
-			ft_stk_set_child(&stk_node, stk_node_old, NTS_SUBSHELL);
+			ft_stk_add_child(&stk_node, stk_node_old, token, NTS_SUBSHELL);
 			ft_lstpush(symbol_stack, stk_node);
 		}
 		else
@@ -39,9 +39,14 @@ void	ft_command(t_list **symbol_stack, t_token *token)
 
 void	ft_command1(t_list **symbol_stack, t_token *token)
 {
+	t_stk_node	*stk_node;
+	t_stk_node	*stk_node_old;
+
 	if (token->tok_type >= 0)
 	{
-		free(ft_lstpop(symbol_stack));
-		ft_lstpush(symbol_stack, ft_stk_node(NTS_REDIR_LST));
+		stk_node_old = (t_stk_node *)ft_lstpop(symbol_stack);
+		ft_stk_set_node(&stk_node, stk_node_old, NTS_REDIR_LST);
+		ft_lstpush(symbol_stack, stk_node);
+		free(stk_node_old);
 	}
 }
