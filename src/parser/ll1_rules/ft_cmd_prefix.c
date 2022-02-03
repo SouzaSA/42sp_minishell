@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:06:32 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/31 11:04:35 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/03 12:16:38 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_cmd_prefix(t_list **symbol_stack, t_token *token)
 		if (token->tok_type == TS_ASSIGNMENT)
 		{
 			ft_stk_set_node(&stk_node, stk_node_old, TS_ASSIGNMENT);
+			stk_node->ast_type = AST_ASSIGN;
 		}
 		else
 		{
