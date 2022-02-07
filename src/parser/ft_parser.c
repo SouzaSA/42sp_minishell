@@ -6,11 +6,84 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:18:16 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/06 21:15:59 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/07 11:47:28 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_parser.h"
+
+
+static void ft_imprime(t_ast *ast) //remove, test only
+{
+	if (ast->type == AST_PIPE)
+		printf(" | ");
+	else if (ast->type == AST_AND)
+		printf(" && ");
+	else if (ast->type == AST_OR)
+		printf(" || ");
+	else if (ast->type == AST_CMD)
+	{
+		printf(" Command: ");
+		while (ast->cmd->cmd)
+		{
+			printf(" %s ", (char *)ast->cmd->cmd->content);
+			ast->cmd->cmd->next;
+		}
+		printf(", Assign: ");
+		while (ast->cmd->assign)
+		{
+			printf(" %s ", (char *)ast->cmd->cmd->content);
+			ast->cmd->cmd->next;
+		}
+		printf(", Redir: ");
+		while (ast->cmd->assign)
+		{
+			printf(" %s ", (char *)ast->cmd->cmd->content);
+			ast->cmd->cmd->next;
+		}
+
+	}
+}
+
+static void printlist(t_list **list) //remove, test only
+{
+	t_ast	*node;
+	t_list	*list_node_tmp;
+
+	if (list)
+	{
+		if ((*list)->content)
+		{
+			list_node_tmp = *list;
+			node = (*list)->content;
+			ft_imprime(node);
+			node = node->first_child;
+			while (node)
+			{
+				ft_lstadd_back(list, ft_lstnew(node));
+				node = node->next_sibling;
+			}
+			*list = (*list)->next;
+			free(list_node_tmp);
+			printlist(list);
+		}
+	}
+}
+
+static void ft_printast(t_ast *ast) //remove, test only
+{
+	t_list *list;
+
+	if (ast)
+	{
+		ft_lstadd_back(&list, ft_lstnew(ast));
+		printlist(&list);
+	}
+}
+
+
+
+
 
 static t_ast	*ft_syntax(t_list *toks, void (***tt)(t_list **, enum e_symbol));
 static void		ft_set_source(t_source *src, char *line);
@@ -24,8 +97,8 @@ t_ast	*ft_parser(char *line, void	(***tt)(t_list **, enum e_symbol))
 	ast = NULL;
 	ft_set_source(&src, line);
 	tokens = ft_lexer(&src);
-	if (ft_syntax(tokens, tt))
-		printf("deu certo\n");
+	if (ast = ft_syntax(tokens, tt))
+		ft_imprime(ast);
 	return (ast);
 }
 
@@ -88,29 +161,5 @@ static void	ft_set_source(t_source *src, char *line)
 	src->curpos = INIT_SRC_POS;
 }
 
-static void ft_printast(t_ast *ast) //tirar
-{
-	if (ast)
-		printf("")
-}
 
-static void printlist(t_list *list)
-{
 
-}
-
-static void ft_imprime(t_ast *ast)
-{
-	if (ast->type == AST_PIPE)
-		printf(" | ");
-	else if (ast->type == AST_AND)
-		printf(" && ");
-	else if (ast->type == AST_OR)
-		printf(" || ");
-	else if (ast->type == AST_CMD)
-		while (ast->cmd->cmd)
-		{
-			printf(" %s ", ast->cmd->cmd->content);
-			ast->cmd->cmd->next;
-		}
-}
