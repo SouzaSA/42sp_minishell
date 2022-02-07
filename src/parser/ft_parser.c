@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:18:16 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/04 11:01:27 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/06 21:15:59 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,31 @@ static void	ft_set_source(t_source *src, char *line)
 	src->buffer = ft_strdup(line);
 	src->bufsize = ft_strlen(line);
 	src->curpos = INIT_SRC_POS;
+}
+
+static void ft_printast(t_ast *ast) //tirar
+{
+	if (ast)
+		printf("")
+}
+
+static void printlist(t_list *list)
+{
+
+}
+
+static void ft_imprime(t_ast *ast)
+{
+	if (ast->type == AST_PIPE)
+		printf(" | ");
+	else if (ast->type == AST_AND)
+		printf(" && ");
+	else if (ast->type == AST_OR)
+		printf(" || ");
+	else if (ast->type == AST_CMD)
+		while (ast->cmd->cmd)
+		{
+			printf(" %s ", ast->cmd->cmd->content);
+			ast->cmd->cmd->next;
+		}
 }
