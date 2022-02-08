@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 11:03:04 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/03 17:56:31 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/08 09:51:16 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_command(t_list **symbol_stack, enum e_symbol tok_type)
 	if (tok_type >= 0)
 	{
 		stk_node_old = (t_stk_node *)ft_lstpop(symbol_stack);
-		stk_node_old->ast_node->type = AST_TMP;
+		stk_node_old->ast_node->type = AST_CMD;
 		if (tok_type == TS_LBRACE)
 		{
 			ft_stk_set_node(&stk_node, stk_node_old, NTS_COMMAND1);

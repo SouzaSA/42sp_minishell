@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:18:16 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/07 11:47:28 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/08 09:53:53 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 static void ft_imprime(t_ast *ast) //remove, test only
 {
+	printf("%d \n", ast->type);
 	if (ast->type == AST_PIPE)
 		printf(" | ");
 	else if (ast->type == AST_AND)
@@ -27,22 +28,22 @@ static void ft_imprime(t_ast *ast) //remove, test only
 		while (ast->cmd->cmd)
 		{
 			printf(" %s ", (char *)ast->cmd->cmd->content);
-			ast->cmd->cmd->next;
+			ast->cmd->cmd = ast->cmd->cmd->next;
 		}
 		printf(", Assign: ");
 		while (ast->cmd->assign)
 		{
-			printf(" %s ", (char *)ast->cmd->cmd->content);
-			ast->cmd->cmd->next;
+			printf(" %s ", (char *)ast->cmd->assign->content);
+			ast->cmd->assign = ast->cmd->assign->next;
 		}
 		printf(", Redir: ");
-		while (ast->cmd->assign)
+		while (ast->cmd->redir)
 		{
-			printf(" %s ", (char *)ast->cmd->cmd->content);
-			ast->cmd->cmd->next;
+			printf(" %s ", (char *)ast->cmd->redir->content);
+			ast->cmd->redir = ast->cmd->redir->next;
 		}
-
 	}
+	printf("\n");
 }
 
 static void printlist(t_list **list) //remove, test only
@@ -50,7 +51,7 @@ static void printlist(t_list **list) //remove, test only
 	t_ast	*node;
 	t_list	*list_node_tmp;
 
-	if (list)
+	if (*list)
 	{
 		if ((*list)->content)
 		{
@@ -64,8 +65,8 @@ static void printlist(t_list **list) //remove, test only
 				node = node->next_sibling;
 			}
 			*list = (*list)->next;
-			free(list_node_tmp);
 			printlist(list);
+			free(list_node_tmp);
 		}
 	}
 }
@@ -74,6 +75,7 @@ static void ft_printast(t_ast *ast) //remove, test only
 {
 	t_list *list;
 
+	list = NULL;
 	if (ast)
 	{
 		ft_lstadd_back(&list, ft_lstnew(ast));
@@ -97,8 +99,9 @@ t_ast	*ft_parser(char *line, void	(***tt)(t_list **, enum e_symbol))
 	ast = NULL;
 	ft_set_source(&src, line);
 	tokens = ft_lexer(&src);
-	if (ast = ft_syntax(tokens, tt))
-		ft_imprime(ast);
+	ast = ft_syntax(tokens, tt);
+	if (ast)
+		ft_printast(ast);
 	return (ast);
 }
 
