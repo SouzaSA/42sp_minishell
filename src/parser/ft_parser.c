@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:18:16 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/08 09:53:53 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/09 11:33:24 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static void ft_imprime(t_ast *ast) //remove, test only
 {
-	printf("%d \n", ast->type);
+	printf("t: %d, c: %d\n", ast->type, ast->children);
 	if (ast->type == AST_PIPE)
 		printf(" | ");
 	else if (ast->type == AST_AND)
@@ -89,6 +89,7 @@ static void ft_printast(t_ast *ast) //remove, test only
 
 static t_ast	*ft_syntax(t_list *toks, void (***tt)(t_list **, enum e_symbol));
 static void		ft_set_source(t_source *src, char *line);
+static void		ft_clean_ast(t_ast **ast);
 
 t_ast	*ft_parser(char *line, void	(***tt)(t_list **, enum e_symbol))
 {
@@ -154,6 +155,7 @@ static t_ast	*ft_syntax(t_list *toks, void (***tt)(t_list **, enum e_symbol))
 	}
 	if (!is_valid)
 		printf("syntax error near unexpected token `%s'\n", ((t_token *)toks->content)->text); //remove
+	ft_clean_ast(&ast);
 	return (ast);
 }
 
@@ -162,6 +164,25 @@ static void	ft_set_source(t_source *src, char *line)
 	src->buffer = ft_strdup(line);
 	src->bufsize = ft_strlen(line);
 	src->curpos = INIT_SRC_POS;
+}
+
+static void	ft_clean_ast(t_ast **ast)
+{
+	t_ast *ast_tmp;
+
+	if (*ast)
+	{
+		ft_clean_ast(&(*ast)->next_sibling);
+		ft_clean_ast(&(*ast)->first_child);
+	}
+	if ((*ast) && (*ast)->children == 1)
+	{
+		ast_tmp = *ast;
+		*ast = (*ast)->first_child;
+		(*ast)->next_sibling = ast_tmp->next_sibling;
+		(*ast)->prev_sibling = ast_tmp->prev_sibling;
+		free(ast_tmp);
+	}
 }
 
 
