@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/09 21:22:15 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/10 11:24:57 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,41 @@ int	ft_executor(t_ast *ast)
 	return (rtn);
 }
 
-static int	ft_redir(t_list *redir)
+static int	ft_redir(t_list *redir, int *fd_in, int *fd_out)
 {
 	int		rtn;
+	int		open_flag;
+	char	*key;
+	char	*filename;
 	t_list	*node;
 
 	rtn = 0;
 	node = redir;
 	while (node)
 	{
-		if (ft_strcmp(">", (char *)node->content))
-			//TODO
-		if (ft_strcmp(">>", (char *)node->content))
-			//TODO
-		if (ft_strcmp("<", (char *)node->content))
-			//TODO
-		if (ft_strcmp("<<", (char *)node->content))
-			//TODO
-		if (ft_strcmp("<>", (char *)node->content))
-			//TODO
-		node = node->next;
+		key = (char *)node->content;
+		filename = (char *)node->next->content;
+		if (ft_strcmp(">", key) || ft_strcmp(">>", key))
+		{
+			if (ft_strcmp(">", key))
+				open_flag = O_CREAT | O_WRONLY | O_TRUNC;
+			if (ft_strcmp(">>", key))
+				open_flag = O_CREAT | O_WRONLY | O_APPEND;
+			//TODO a test open file?
+			fd_out = open(filename, open_flag, 0644);
+		}
+		else if (ft_strcmp("<", (char *)node->content))
+		{
+			//TODO test open file?
+			fd_in = open(filename, O_RDONLY);
+		}
+		else if (ft_strcmp("<<", (char *)node->content))
+			//TODO heredoc open
+		else if (ft_strcmp("<>", (char *)node->content))
+			//TODO open file and put in an fd and use the same filename to exchange the file content.
+		else
+
+		node = node->next->next;
 	}
 	return (rtn);
 }
