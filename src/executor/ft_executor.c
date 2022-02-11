@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/10 11:24:57 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/10 21:23:08 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,36 @@ static int	ft_redir(t_list *redir, int *fd_in, int *fd_out)
 		filename = (char *)node->next->content;
 		if (ft_strcmp(">", key) || ft_strcmp(">>", key))
 		{
+			if (fd_out > 0)
+				close(fd_out);
 			if (ft_strcmp(">", key))
 				open_flag = O_CREAT | O_WRONLY | O_TRUNC;
 			if (ft_strcmp(">>", key))
 				open_flag = O_CREAT | O_WRONLY | O_APPEND;
-			//TODO a test open file?
+			//TODO a test for open file
 			fd_out = open(filename, open_flag, 0644);
 		}
 		else if (ft_strcmp("<", (char *)node->content))
 		{
-			//TODO test open file?
+			//TODO test for open file
 			fd_in = open(filename, O_RDONLY);
 		}
 		else if (ft_strcmp("<<", (char *)node->content))
-			//TODO heredoc open
+		{
+			ft_here_doc(filename);
+			fd_in = 0;
+		}
 		else if (ft_strcmp("<>", (char *)node->content))
-			//TODO open file and put in an fd and use the same filename to exchange the file content.
-		else
+		{
+			if (fd_in > 0)
+				close(fd_in);
+			fd_in = open(filename, O_RDONLY);
+			//TODO test for open file
+			if (fd_out > 0)
+				close(fd_out);
+			fd_out = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			//TODO test for open file
+		}
 
 		node = node->next->next;
 	}
