@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:36:45 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/02/11 16:28:10 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/02/11 17:16:11 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,7 @@ t_list	*ft_expand_star(char *str);
 void	ft_del_list_content(void *content);
 int		ft_match_star(char *pattern, char *text);
 void	ft_test_expand_star(void);
+void	ft_get_expanded_list(t_list **list, t_list *dir, char *dir_to_open);
+void	ft_get_file_list(t_list **list, char *pattern, DIR *folder, char *path);
 
 #endif

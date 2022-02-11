@@ -6,7 +6,7 @@
 #    By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/02/11 11:08:07 by edpaulin         ###   ########.fr        #
+#    Updated: 2022/02/11 17:14:41 by edpaulin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -115,7 +115,9 @@ UTILS			=	ft_destroy_dictionary_element.c	\
 EXPAND			=	ft_expand_star.c \
 					ft_match_star.c \
 					ft_del_list_content.c \
-					ft_test_expand_star.c
+					ft_test_expand_star.c \
+					ft_get_expanded_list.c \
+					ft_get_file_list.c
 
 SIG				=	ft_handle_signals.c
 
