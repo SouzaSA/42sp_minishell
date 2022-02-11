@@ -6,14 +6,16 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:36:45 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/02/11 11:07:51 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/02/11 16:28:10 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_EXPAND_H
 # define FT_EXPAND_H
 
-# include "ft_minishell.h"
+# include <dirent.h>
+# include <stdio.h>
+# include "libft.h"
 
 # define STAR '*'
 

@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:02:13 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/02/11 14:48:04 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/02/11 16:29:19 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_test_expand_star(void)
 {
 	t_list	*list;
-	char	*inputs[] = { "/", "/*", "./*", "/home/*/D*/*", "home/minishell", "./*/*.c", "./../*", NULL };
+	char	*inputs[] = { "/", "Makefile", "/*", "./*", "/home/*/D*/*", "home/minishell", "./*/*.c", "./../*", NULL };
 	int		i;
 
 	i = 0;

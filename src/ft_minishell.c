@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:36:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/20 19:47:49 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/11 16:45:11 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <term.h>
 
 static int	ft_set_status(char *line);
+static void	ft_print_dir(void);
 
 int	ft_minishell(char **envp)
 {
@@ -23,13 +24,13 @@ int	ft_minishell(char **envp)
 	char		*line;
 	int			status;
 
-
 	ft_init_minishell(&shell, envp);
 	ft_env(&shell);
 	ft_destroy_vars(&shell);
 	status = 1;
 	while (status)
 	{
+		ft_print_dir();
 		line = readline("\033[0;33m$\e[0;39m ");
 		if (!line)
 		{
@@ -62,4 +63,12 @@ static int	ft_set_status(char *line)
 	if (ft_strcmp("exit", line) == 0)
 		status = 0;
 	return (status);
+}
+
+static void	ft_print_dir(void)
+{
+	char	cwd[1024];
+
+	getcwd(cwd, sizeof(cwd));
+	printf("\033[0;32m%s\e[0;39m", cwd);
 }
