@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/10 21:23:08 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/11 10:20:23 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static int	ft_redir(t_list *redir, int *fd_in, int *fd_out)
 		}
 		else if (ft_strcmp("<<", (char *)node->content))
 		{
+			//TODO clean things when error on gnl
 			ft_here_doc(filename);
 			fd_in = 0;
 		}
@@ -94,10 +95,22 @@ static char	**ft_cmd_lst_to_array(t_list *cmd)
 	return (cmd_array);
 }
 
-static int	ft_do_assign(t_list *assign)
+static void	ft_do_assign(t_shell *shell, t_list *assign)
 {
-	int	rtn;
+	int		len;
+	char	*key;
+	char	*value;
+	t_list	*node;
 
 	rtn = 0;
-
+	node = assign;
+	while (node)
+	{
+		len = ft_strchr((const char *)node->content, '=') - node->content;
+		key = ft_substr((const char *)node->content), 0, len);
+		len = ft_strchr((const char *)node->content, '\0') - ft_strchr((const char *)node->content, '=');
+		value = ft_substr((const char *)node->content), 0, len);
+		ft_export(shell, key, value);
+		node = node->next;
+	}
 }
