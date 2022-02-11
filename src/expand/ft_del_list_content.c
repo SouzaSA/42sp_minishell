@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_expand.h                                        :+:      :+:    :+:   */
+/*   ft_del_list_content.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/02 11:36:45 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/02/11 11:07:51 by edpaulin         ###   ########.fr       */
+/*   Created: 2022/02/11 09:59:57 by edpaulin          #+#    #+#             */
+/*   Updated: 2022/02/11 10:01:03 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_EXPAND_H
-# define FT_EXPAND_H
+#include "ft_expand.h"
 
-# include "ft_minishell.h"
-
-# define STAR '*'
-
-t_list	*ft_expand_star(char *str);
-void	ft_del_list_content(void *content);
-int		ft_match_star(char *pattern, char *text);
-void	ft_test_expand_star(void);
-
-#endif
+void	ft_del_list_content(void *content)
+{
+	if (!content)
+		return ;
+	free(content);
+}
