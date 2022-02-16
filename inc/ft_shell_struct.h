@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_executor.h                                      :+:      :+:    :+:   */
+/*   ft_shell_struct.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/23 20:54:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/15 09:36:28 by sde-alva         ###   ########.fr       */
+/*   Created: 2022/02/11 17:22:47 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/02/15 09:17:45 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_EXECUTOR_H
-# define FT_EXECUTOR_H
+#ifndef FT_SHELL_STRUCT_H
+# define FT_SHELL_STRUCT_H
 
-# include <fcntl.h>
-# include "ft_parser.h"
-# include "ft_utils.h"
+# include "libft.h"
 
-typedef struct s_cmd_data
+typedef struct s_dictionary
 {
-	char	**cmd;
-	int		fd_in;
-	int		fd_out;
-	int		pipe_fd[2];
-	int		pid;
-	int		status;
-}	t_cmd_data;
+	char	*key;
+	char	*value;
+}	t_dictionary;
 
-int	ft_checker_slash(char *str);
-
+typedef struct s_shell
+{
+	t_list	*env_list;
+	t_list	*vars;
+	int		error_status;
+	void	(***transition_table)(t_list **, enum e_symbol);
+}	t_shell;
 
 #endif

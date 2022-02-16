@@ -2,6 +2,7 @@
 	"files.associations": {
 		"ft_builtins.h": "c",
 		"ft_minishell.h": "c",
-		"ft_parser.h": "c"
+		"ft_parser.h": "c",
+		"ft_grammar_symbols.h": "c"
 	}
 }

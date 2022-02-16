@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_executor.h                                      :+:      :+:    :+:   */
+/*   ft_destroy_dictionary_list.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/23 20:54:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/15 09:36:28 by sde-alva         ###   ########.fr       */
+/*   Created: 2021/12/16 20:01:06 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/02/15 14:35:50 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_EXECUTOR_H
-# define FT_EXECUTOR_H
+#include "ft_minishell.h"
 
-# include <fcntl.h>
-# include "ft_parser.h"
-# include "ft_utils.h"
-
-typedef struct s_cmd_data
+void	ft_destroy_dictionary_list(t_list **dic_lst)
 {
-	char	**cmd;
-	int		fd_in;
-	int		fd_out;
-	int		pipe_fd[2];
-	int		pid;
-	int		status;
-}	t_cmd_data;
-
-int	ft_checker_slash(char *str);
-
-
-#endif
+	ft_lstclear(dic_lst, &ft_destroy_dictionary_element);
+	*dic_lst = NULL;
+}

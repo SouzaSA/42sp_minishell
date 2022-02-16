@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:36:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/11 16:45:11 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/02/15 20:04:35 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ int	ft_minishell(char **envp)
 	int			status;
 
 	ft_init_minishell(&shell, envp);
-	ft_env(&shell);
-	ft_destroy_vars(&shell);
+	//ft_env(&shell);
 	status = 1;
 	while (status)
 	{
@@ -52,6 +51,7 @@ int	ft_minishell(char **envp)
 		free(line);
 	}
 	rl_clear_history();
+	ft_destroy_shell(&shell);
 	return (0);
 }
 

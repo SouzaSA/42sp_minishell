@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/02/11 17:14:41 by edpaulin         ###   ########.fr        #
+#    Updated: 2022/02/15 14:44:57 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -105,8 +105,11 @@ TAPE_SOURCE		=	ft_next_char.c	\
 					ft_skip_white_spaces_char.c	\
 					ft_unget_char.c
 
-UTILS			=	ft_destroy_dictionary_element.c	\
-					ft_destroy_vars.c	\
+UTILS			=	ft_destroy_ast.c	\
+					ft_destroy_cmd_struct.c	\
+					ft_destroy_dictionary_element.c	\
+					ft_destroy_dictionary_list.c	\
+					ft_destroy_shell.c	\
 					ft_get_env_node_by_key.c	\
 					ft_get_env_value_by_key.c	\
 					ft_init_vars.c	\

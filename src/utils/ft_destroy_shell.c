@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_path.c                                      :+:      :+:    :+:   */
+/*   ft_destroy_shell.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/30 15:55:56 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/11/30 15:56:11 by sde-alva         ###   ########.fr       */
+/*   Created: 2022/02/15 12:30:26 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/02/15 15:18:27 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_minishell.h"
+#include "ft_utils.h"
 
-char	**ft_get_path(char **envp)
+void	ft_destroy_shell(t_shell *shell)
 {
-	int		i;
-	char	*str;
-	char	**path;
+	int	i;
 
-	i = 0;
-	str = NULL;
-	path = NULL;
-	while (envp[i])
+	if (shell)
 	{
-		if (ft_strncmp("PATH=", envp[i], 5) == 0)
-			str = ft_strdup(envp[i] + 5);
-		i++;
+		i = 0;
+		if (shell->env_list)
+			ft_destroy_dictionary_list(&shell->env_list);
+		if (shell->vars)
+			ft_destroy_dictionary_list(&shell->vars);
+		if (shell->transition_table)
+		{
+			while (i < NUM_NTS)
+			{
+				free(shell->transition_table[i]);
+				i++;
+			}
+			free(shell->transition_table);
+			shell->transition_table = NULL;
+		}
 	}
-	if (str)
-	{
-		path = ft_split(str, ':');
-		free(str);
-	}
-	return (path);
 }

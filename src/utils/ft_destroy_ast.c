@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_executor.h                                      :+:      :+:    :+:   */
+/*   ft_destroy_ast.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/23 20:54:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/15 09:36:28 by sde-alva         ###   ########.fr       */
+/*   Created: 2022/02/15 12:32:30 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/02/15 22:13:47 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_EXECUTOR_H
-# define FT_EXECUTOR_H
+#include "ft_utils.h"
 
-# include <fcntl.h>
-# include "ft_parser.h"
-# include "ft_utils.h"
+static void ft_ast_cleaner(t_ast **ast);
 
-typedef struct s_cmd_data
+void	ft_destroy_ast(t_ast **ast)
 {
-	char	**cmd;
-	int		fd_in;
-	int		fd_out;
-	int		pipe_fd[2];
-	int		pid;
-	int		status;
-}	t_cmd_data;
+	ft_ast_cleaner(ast);
+	*ast = NULL;
+}
 
-int	ft_checker_slash(char *str);
+static void ft_ast_cleaner(t_ast **ast)
+{
 
-
-#endif
+	if (!(*ast))
+		return ;
+	ft_ast_cleaner(&(*ast)->first_child);
+	ft_ast_cleaner(&(*ast)->next_sibling);
+	ft_destroy_command(&(*ast)->cmd);
+	free(*ast);
+	*ast = NULL;
+}

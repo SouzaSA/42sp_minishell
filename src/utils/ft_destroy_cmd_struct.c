@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_destroy_vars.c                                  :+:      :+:    :+:   */
+/*   ft_destroy_cmd_struct.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/16 20:01:06 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/18 16:53:04 by sde-alva         ###   ########.fr       */
+/*   Created: 2022/02/15 13:31:08 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/02/15 19:25:16 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_minishell.h"
+#include "ft_utils.h"
 
-void	ft_destroy_vars(t_shell *shell)
+void	ft_destroy_command(t_command **command)
 {
-	ft_lstclear(&shell->env_list, &ft_destroy_dictionary_element);
+	if (*command)
+	{
+		ft_lstclear(&((*command)->cmd), &free);
+		ft_lstclear(&((*command)->redir), &free);
+		ft_lstclear(&((*command)->assign), &free);
+		free(*command);
+		*command = NULL;
+	}
 }

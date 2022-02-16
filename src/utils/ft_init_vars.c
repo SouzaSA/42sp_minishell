@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:57:26 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/20 20:22:02 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/15 16:08:51 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	ft_init_minishell(t_shell *shell, char **envp)
 	int	i;
 
 	i = 0;
+	shell->vars = NULL;
 	ft_import_envp(shell, envp);
 	shell->transition_table = malloc(NUM_NTS * sizeof(shell->transition_table));
 	while (i < NUM_NTS)

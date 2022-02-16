@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:51:29 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/15 14:28:50 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/15 18:04:37 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_token	*ft_set_token(t_token *tok, t_source *src, char *str)
 	if (!str)
 	{
 		tok->tok_type = TS_EOF;
+		if (src && src->buffer)
+			free(src->buffer);
 		return (tok);
 	}
 	tok->text_len = strlen(str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/11 16:27:38 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/02/15 09:35:58 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,31 +17,16 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/stat.h>
-# include <sys/types.h>
-# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
 # include "ft_colors.h"
 # include "ft_error.h"
 # include "ft_executor.h"
-# include "libft.h"
 # include "ft_parser.h"
 # include "ft_scanner.h"
 # include "ft_expand.h"
-
-typedef struct s_dictionary
-{
-	char	*key;
-	char	*value;
-}	t_dictionary;
-
-typedef struct s_shell
-{
-	t_list	*env_list;
-	int		error_status;
-	void	(***transition_table)(t_list **, enum e_symbol);
-}	t_shell;
+# include "ft_utils.h"
 
 typedef struct s_cmd_tbl
 {
@@ -61,12 +46,7 @@ void	ft_export(t_shell *shell, char *key, char *value);
 int		ft_pwd();//t_shell *shell);
 void	ft_unset(t_shell *shell, char *key);
 
-void	ft_destroy_dictionary_element(void *dic_item);
-void	ft_destroy_vars(t_shell *shell);
-t_list	*ft_get_env_node_by_key(t_shell *shell, char *key);
-char	*ft_get_env_value_by_key(t_shell *shell, char *key);
-void	ft_init_minishell(t_shell *shell, char **envp);
-int		ft_update_env_pwds(t_shell *shell, char *new_pwd);
+
 
 void	ft_handle_sigint(int signal);
 void	ft_handle_sigquit(int signal);

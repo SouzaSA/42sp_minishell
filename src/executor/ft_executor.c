@@ -6,111 +6,135 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/11 10:20:23 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/15 21:40:45 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_executor.h"
+/*****PRINTAST**********/
 
-int	ft_executor(t_ast *ast)
+static void ft_imprime(t_ast *ast) //remove, test only
 {
-	int rtn;
-
-	rtn = 0;
-
-	return (rtn);
+	printf("t: %d, c: %d\n", ast->type, ast->children);
+	if (ast->type == AST_PIPE)
+		printf(" | ");
+	else if (ast->type == AST_AND)
+		printf(" && ");
+	else if (ast->type == AST_OR)
+		printf(" || ");
+	else if (ast->type == AST_CMD)
+	{
+		printf(" Command: ");
+		while (ast->cmd->cmd)
+		{
+			printf(" %s ", (char *)ast->cmd->cmd->content);
+			ast->cmd->cmd = ast->cmd->cmd->next;
+		}
+		printf(", Assign: ");
+		while (ast->cmd->assign)
+		{
+			printf(" %s ", (char *)ast->cmd->assign->content);
+			ast->cmd->assign = ast->cmd->assign->next;
+		}
+		printf(", Redir: ");
+		while (ast->cmd->redir)
+		{
+			printf(" %s ", (char *)ast->cmd->redir->content);
+			ast->cmd->redir = ast->cmd->redir->next;
+		}
+	}
+	printf("\n");
 }
 
-static int	ft_redir(t_list *redir, int *fd_in, int *fd_out)
+static void printlist(t_list **list) //remove, test only
+{
+	t_ast	*node;
+	t_list	*list_node_tmp;
+
+	if (*list)
+	{
+		if ((*list)->content)
+		{
+			list_node_tmp = *list;
+			node = (*list)->content;
+			ft_imprime(node);
+			node = node->first_child;
+			while (node)
+			{
+				ft_lstadd_back(list, ft_lstnew(node));
+				node = node->next_sibling;
+			}
+			*list = (*list)->next;
+			printlist(list);
+			free(list_node_tmp);
+		}
+	}
+}
+
+static void ft_printast(t_ast *ast) //remove, test only
+{
+	t_list *list;
+
+	list = NULL;
+	if (ast)
+	{
+		ft_lstadd_back(&list, ft_lstnew(ast));
+		printlist(&list);
+	}
+}
+/**********************/
+int	ft_executor(t_shell *shell, t_ast *ast)
 {
 	int		rtn;
-	int		open_flag;
-	char	*key;
-	char	*filename;
-	t_list	*node;
+	t_list	*cmd_stk;
+
+	cmd_stk = NULL;
+	ft_init_exec_stack(ast, &cmd_stk);
+	ft_run_cmds(shell, &cmd_stk);
+	return (rtn);
+}
+
+static void ft_init_exec_stack(t_ast *ast, t_list **cmd_stk)
+{
+	ft_init_exec_stack(ast->next_sibling, cmd_stk);
+	ft_init_exec_stack(ast->first_child, cmd_stk);
+	ft_lstpush(cmd_stk, ast);
+}
+
+static int	ft_run_cmds(t_shell *shell, t_list **cmd_stk)
+{
+	int			rtn;
+	t_ast		*ast;
+	t_cmd_data	cmd_data;
 
 	rtn = 0;
-	node = redir;
-	while (node)
+	while (*cmd_stk)
 	{
-		key = (char *)node->content;
-		filename = (char *)node->next->content;
-		if (ft_strcmp(">", key) || ft_strcmp(">>", key))
-		{
-			if (fd_out > 0)
-				close(fd_out);
-			if (ft_strcmp(">", key))
-				open_flag = O_CREAT | O_WRONLY | O_TRUNC;
-			if (ft_strcmp(">>", key))
-				open_flag = O_CREAT | O_WRONLY | O_APPEND;
-			//TODO a test for open file
-			fd_out = open(filename, open_flag, 0644);
-		}
-		else if (ft_strcmp("<", (char *)node->content))
-		{
-			//TODO test for open file
-			fd_in = open(filename, O_RDONLY);
-		}
-		else if (ft_strcmp("<<", (char *)node->content))
-		{
-			//TODO clean things when error on gnl
-			ft_here_doc(filename);
-			fd_in = 0;
-		}
-		else if (ft_strcmp("<>", (char *)node->content))
-		{
-			if (fd_in > 0)
-				close(fd_in);
-			fd_in = open(filename, O_RDONLY);
-			//TODO test for open file
-			if (fd_out > 0)
-				close(fd_out);
-			fd_out = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-			//TODO test for open file
-		}
-
-		node = node->next->next;
+		ast = (t_ast *)ft_lstpop(cmd_stk);
+		if (ast->type == AST_CMD)
+			rtn = ft_cmd_run(shell, &cmd_data, ast->cmd);
+		if (ast->type == AST_PIPE)
+			rtn = ft_pipe_run(shell, &cmd_data, ast->cmd);
+		if (ast->type == AST_AND || ast->type == AST_OR)
+			rtn = ft_and_or_run(shell, &cmd_data, ast->cmd);
 	}
 	return (rtn);
 }
 
-static char	**ft_cmd_lst_to_array(t_list *cmd)
+int ft_and_or_run(t_shell *shell, t_cmd_data *cmd_data, t_command *cmd)
 {
-	int		i;
-	t_list	*node;
-	t_list	*node_old;
-	char 	**cmd_array;
+	int	rtn;
+	int status;
 
-	i = 0;
-	cmd_array = (char **)malloc(ft_lstsize(cmd) * sizeof(char *));
-	node = cmd;
-	while (node)
-	{
-		node_old = node;
-		cmd_array[i] = (char *)node->content;
-		node = node->next;
-		i++;
-		free(node);
-	}
-	return (cmd_array);
+	waitpid(cmd_data->pid, &status, 0);
+	//TODO -> quit when necessary
+	if (status == 0)
+	return(rtn);
 }
 
-static void	ft_do_assign(t_shell *shell, t_list *assign)
+int ft_pipe_run(t_shell *shell, t_cmd_data *cmd_data, t_command *cmd)
 {
-	int		len;
-	char	*key;
-	char	*value;
-	t_list	*node;
+	int	rtn;
 
-	rtn = 0;
-	node = assign;
-	while (node)
-	{
-		len = ft_strchr((const char *)node->content, '=') - node->content;
-		key = ft_substr((const char *)node->content), 0, len);
-		len = ft_strchr((const char *)node->content, '\0') - ft_strchr((const char *)node->content, '=');
-		value = ft_substr((const char *)node->content), 0, len);
-		ft_export(shell, key, value);
-		node = node->next;
-	}
+	return(rtn);
 }

@@ -6,51 +6,17 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:43 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/03 17:54:26 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/15 16:35:17 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PARSER_H
 # define FT_PARSER_H
 
+# include <sys/types.h>
+# include <sys/wait.h>
+# include "ft_ast_struct.h"
 # include "ft_scanner.h"
-
-enum e_node_type
-{
-	AST_CMD,
-	AST_PIPE,
-	AST_REDIR,
-	AST_AND_OR,
-	AST_AND,
-	AST_OR,
-	AST_ASSIGN,
-	AST_TMP,
-};
-
-union u_node_val
-{
-	char	mono_symbol;
-	char	double_symbol;
-	char	**simple_command;
-	char	**assignment;
-};
-
-typedef struct s_command
-{
-	t_list	*cmd;
-	t_list	*redir;
-	t_list	*assign;
-}	t_command;
-
-typedef struct s_ast
-{
-	enum e_node_type	type;
-	t_command			*cmd;
-	int					children;
-	struct s_ast		*first_child;
-	struct s_ast		*next_sibling;
-	struct s_ast		*prev_sibling;
-}	t_ast;
 
 typedef struct s_stk_node
 {
