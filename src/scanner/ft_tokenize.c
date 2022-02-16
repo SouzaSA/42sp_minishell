@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:51:45 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/12 11:05:52 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/16 08:33:33 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	ft_create_buff(t_scanner *scan);
 static void	ft_token_parse(t_scanner *scan, t_source *src);
 static int	ft_buffer_set(t_scanner *scan, t_source *src, char nc);
-static void ft_token_separator(t_scanner *scan, t_source *src, char nc);
+static void	ft_token_separator(t_scanner *scan, t_source *src, char nc);
 
 t_token	*tokenize(t_scanner *scan, t_source *src)
 {
@@ -104,7 +104,7 @@ static int	ft_buffer_set(t_scanner *scan, t_source *src, char nc)
 	return (break_flag);
 }
 
-static void ft_token_separator(t_scanner *scan, t_source *src, char nc)
+static void	ft_token_separator(t_scanner *scan, t_source *src, char nc)
 {
 	char	nnc;
 

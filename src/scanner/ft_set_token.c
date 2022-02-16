@@ -6,13 +6,13 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:51:29 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/15 18:04:37 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/16 08:37:07 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_scanner.h"
 
-static void ft_set_token_type(t_token *tok, char *str);
+static void	ft_set_token_type(t_token *tok, char *str);
 
 t_token	*ft_set_token(t_token *tok, t_source *src, char *str)
 {
@@ -39,7 +39,7 @@ t_token	*ft_set_token(t_token *tok, t_source *src, char *str)
 	return (tok);
 }
 
-static void ft_set_token_type(t_token *tok, char *str)
+static void	ft_set_token_type(t_token *tok, char *str)
 {
 	if (ft_strcmp(str, "|") == 0)
 		tok->tok_type = TS_PIPE;

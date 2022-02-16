@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/09 10:45:40 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/16 10:35:11 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@
 extern int	g_errnum;
 
 int		ft_put_msg_error(char *msg, int error_flag);
-
+void	ft_parser_error_msg(char *tok_text);
 #endif

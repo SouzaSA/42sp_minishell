@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/02/15 14:44:57 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/02/16 10:40:23 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,8 @@ BUILTINS		=	ft_cd.c	\
 					ft_pwd.c	\
 					ft_unset.c
 
-ERROR			=	ft_put_msg_error.c
+ERROR			=	ft_put_msg_error.c	\
+					ft_parser_error_msg.c
 
 EXECUTOR		=	ft_checker_slash.c	\
 					ft_exec_simple_cmd.c	\
@@ -70,6 +71,7 @@ PARSER			=	ft_child_node.c	\
 					ft_new_node.c	\
 					ft_parser.c	\
 					ft_set_node_val_str.c	\
+					ft_syntax.c	\
 					${LL1_RULES_ADD_DIR}
 
 LL1_RULES		=	ft_and_or.c	\

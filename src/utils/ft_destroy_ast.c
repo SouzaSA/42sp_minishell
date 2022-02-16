@@ -6,13 +6,13 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 12:32:30 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/15 22:13:47 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/16 08:19:38 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_utils.h"
 
-static void ft_ast_cleaner(t_ast **ast);
+static void	ft_ast_cleaner(t_ast **ast);
 
 void	ft_destroy_ast(t_ast **ast)
 {
@@ -20,9 +20,8 @@ void	ft_destroy_ast(t_ast **ast)
 	*ast = NULL;
 }
 
-static void ft_ast_cleaner(t_ast **ast)
+static void	ft_ast_cleaner(t_ast **ast)
 {
-
 	if (!(*ast))
 		return ;
 	ft_ast_cleaner(&(*ast)->first_child);
