@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/02/16 10:40:23 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/02/16 17:16:45 by edpaulin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -122,7 +122,10 @@ EXPAND			=	ft_expand_star.c \
 					ft_del_list_content.c \
 					ft_test_expand_star.c \
 					ft_get_expanded_list.c \
-					ft_get_file_list.c
+					ft_get_file_list.c \
+					ft_is_dot_dir.c \
+					ft_split_path.c \
+					ft_pathcat.c
 
 SIG				=	ft_handle_signals.c
 
