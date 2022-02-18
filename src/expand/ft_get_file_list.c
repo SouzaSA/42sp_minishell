@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:09:27 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/02/18 09:45:20 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/02/18 11:07:04 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	ft_get_file_list(t_list **list, char *pattern, DIR *folder, char *path)
 	char			*file;
 
 	if (!pattern || !folder)
-		return ;
-	if (access(path, F_OK | R_OK | X_OK) == -1)
 		return ;
 	entry = readdir(folder);
 	while (entry)

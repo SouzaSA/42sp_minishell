@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:05:59 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/02/18 10:21:28 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/02/18 11:06:36 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	ft_get_expanded_list(t_list **list, t_list *dir, char *dir_to_open)
 	if (!dir)
 		return ;
 	folder = opendir(dir_to_open);
+	if (!folder)
+		return ;
 	if (!dir->next)
 		ft_expand(list, dir, dir_to_open, folder);
 	else
@@ -52,9 +54,6 @@ static void	ft_next_dir(t_list **list, t_list *dir, char *dir_to_open, DIR *fold
 	struct dirent	*entry;
 	char			*next_dir_to_open;
 
-	printf("dir_to_open: %s\n", dir_to_open);
-	if (access(dir_to_open, F_OK | R_OK | X_OK) == -1)
-		return ;
 	entry = readdir(folder);
 	while (entry)
 	{
