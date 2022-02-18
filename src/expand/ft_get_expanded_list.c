@@ -6,14 +6,14 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:05:59 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/02/16 17:18:44 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/02/18 10:21:28 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_expand.h"
 
 static void	ft_expand(t_list **list, t_list *dir, char *dir_to_open, DIR *folder);
-static void	ft_next(t_list **list, t_list *dir, char *dir_to_open, DIR *folder);
+static void	ft_next_dir(t_list **list, t_list *dir, char *dir_to_open, DIR *folder);
 static int	ft_is_dir(unsigned char type);
 
 void	ft_get_expanded_list(t_list **list, t_list *dir, char *dir_to_open)
@@ -26,7 +26,7 @@ void	ft_get_expanded_list(t_list **list, t_list *dir, char *dir_to_open)
 	if (!dir->next)
 		ft_expand(list, dir, dir_to_open, folder);
 	else
-		ft_next(list, dir, dir_to_open, folder);
+		ft_next_dir(list, dir, dir_to_open, folder);
 	closedir(folder);
 }
 
@@ -47,11 +47,14 @@ static void	ft_expand(t_list **list, t_list *dir, char *dir_to_open, DIR *folder
 		free(dir_to_open);
 }
 
-static void	ft_next(t_list **list, t_list *dir, char *dir_to_open, DIR *folder)
+static void	ft_next_dir(t_list **list, t_list *dir, char *dir_to_open, DIR *folder)
 {
 	struct dirent	*entry;
 	char			*next_dir_to_open;
 
+	printf("dir_to_open: %s\n", dir_to_open);
+	if (access(dir_to_open, F_OK | R_OK | X_OK) == -1)
+		return ;
 	entry = readdir(folder);
 	while (entry)
 	{
