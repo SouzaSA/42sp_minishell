@@ -6,35 +6,49 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 09:58:30 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/02/16 15:20:21 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/02/18 17:45:08 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_expand.h"
 
+static int	ft_pattern_cmp(char *ptt, char *txt);
+
 int	ft_match_star(char *pattern, char *text)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (pattern[i])
+	while (*pattern && *text)
 	{
-		while (pattern[i] == STAR && pattern[i])
-			i++;
-		if (!pattern[i])
-			break ;
-		if (i == 0 && pattern[i] != text[j])
-			return (0);
-		while (text[j] != pattern[i] && text[j])
-			j++;
-		if (!text[j])
-			return (0);
-		i++;
-		j++;
+		if (*pattern == '*')
+		{
+			while (*pattern && *pattern == '*')
+				pattern++;
+			if (!*pattern)
+				return (1);
+			text = ft_strchr(text, *pattern);
+			if (!text)
+				return (0);
+		}
+		if (ft_pattern_cmp(pattern, text))
+		{
+			if (*(pattern - 1) != '*' || !ft_match_star(pattern, text + 1))
+				return (0);
+		}
+		pattern++;
+		text++;
 	}
-	if (!pattern[i] && pattern[i - 1] != STAR && text[j])
+	if (!*text && *pattern)
 		return (0);
 	return (1);
+}
+
+static int	ft_pattern_cmp(char *ptt, char *txt)
+{
+	while (*ptt && *txt && *ptt != '*' && *ptt == *txt)
+	{
+		ptt++;
+		txt++;
+	}
+	if (*ptt == '*')
+		return (0);
+	return (*(unsigned char *)ptt - *(unsigned char *)txt);
 }

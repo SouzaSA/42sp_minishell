@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:36:45 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/02/16 17:14:32 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/02/18 13:39:45 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,7 @@ int		ft_is_dot_dir(char *dir);
 
 t_list	*ft_split_path(char *path);
 char	*ft_pathcat(char *path, char *file);
+
+int		ft_is_dir(unsigned char type);
 
 #endif

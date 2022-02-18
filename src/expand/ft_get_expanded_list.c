@@ -6,17 +6,24 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:05:59 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/02/18 11:06:36 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/02/18 17:34:22 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_expand.h"
 
-static void	ft_expand(t_list **list, t_list *dir, char *dir_to_open, DIR *folder);
-static void	ft_next_dir(t_list **list, t_list *dir, char *dir_to_open, DIR *folder);
-static int	ft_is_dir(unsigned char type);
+static void	ft_expand(t_list **list, \
+					t_list *dir, \
+					char *dir_to_open, \
+					DIR *folder);
+static void	ft_next_dir(t_list **list, \
+						t_list *dir, \
+						char *dir_to_open, \
+						DIR *folder);
 
-void	ft_get_expanded_list(t_list **list, t_list *dir, char *dir_to_open)
+void	ft_get_expanded_list(t_list **list, \
+							t_list *dir, \
+							char *dir_to_open)
 {
 	DIR				*folder;
 
@@ -32,7 +39,10 @@ void	ft_get_expanded_list(t_list **list, t_list *dir, char *dir_to_open)
 	closedir(folder);
 }
 
-static void	ft_expand(t_list **list, t_list *dir, char *dir_to_open, DIR *folder)
+static void	ft_expand(t_list **list, \
+					t_list *dir, \
+					char *dir_to_open, \
+					DIR *folder)
 {
 	char	*tmp;
 	size_t	last_char;
@@ -49,7 +59,10 @@ static void	ft_expand(t_list **list, t_list *dir, char *dir_to_open, DIR *folder
 		free(dir_to_open);
 }
 
-static void	ft_next_dir(t_list **list, t_list *dir, char *dir_to_open, DIR *folder)
+static void	ft_next_dir(t_list **list, \
+						t_list *dir, \
+						char *dir_to_open, \
+						DIR *folder)
 {
 	struct dirent	*entry;
 	char			*next_dir_to_open;
@@ -67,9 +80,4 @@ static void	ft_next_dir(t_list **list, t_list *dir, char *dir_to_open, DIR *fold
 		}
 		entry = readdir(folder);
 	}
-}
-
-static int	ft_is_dir(unsigned char type)
-{
-	return (type == 4);
 }
