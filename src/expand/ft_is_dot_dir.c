@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_main.c                                          :+:      :+:    :+:   */
+/*   ft_is_dot_dir.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/25 09:06:49 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/16 11:21:09 by edpaulin         ###   ########.fr       */
+/*   Created: 2022/02/16 11:59:17 by edpaulin          #+#    #+#             */
+/*   Updated: 2022/02/16 12:01:28 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_minishell.h"
+#include "ft_expand.h"
 
-int	main(int argc, char **argv, char **envp)
+int	ft_is_dot_dir(char *dir)
 {
-	char	*msg;
-
-	if (argc != 1)
-	{
-		msg = ft_strjoin(argv[0], ": Invalid arguments.");
-		printf("%s\n", msg);
-		free(msg);
-		return (1);
-	}
-	//signal(SIGINT, &ft_handle_sigint);
-	//signal(SIGQUIT, &ft_handle_sigquit);
-	ft_test_expand_star();
-	ft_minishell(envp);
-	return (0);
+	return (!ft_strcmp(dir, ".") || !ft_strcmp(dir, ".."));
 }
