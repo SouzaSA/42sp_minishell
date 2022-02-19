@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 21:08:41 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/19 19:14:28 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/19 19:23:45 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,5 @@ static int	ft_exec_cmd(t_shell *shell, t_cmd_data *cmd_data)
 		free(cmd[0]);
 		ft_split_destroy(envp);
 	}
-	free(cmd);
 	return (1);
 }
