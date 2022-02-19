@@ -6,135 +6,124 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/15 21:40:45 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/19 19:11:08 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_executor.h"
-/*****PRINTAST**********/
 
-static void ft_imprime(t_ast *ast) //remove, test only
-{
-	printf("t: %d, c: %d\n", ast->type, ast->children);
-	if (ast->type == AST_PIPE)
-		printf(" | ");
-	else if (ast->type == AST_AND)
-		printf(" && ");
-	else if (ast->type == AST_OR)
-		printf(" || ");
-	else if (ast->type == AST_CMD)
-	{
-		printf(" Command: ");
-		while (ast->cmd->cmd)
-		{
-			printf(" %s ", (char *)ast->cmd->cmd->content);
-			ast->cmd->cmd = ast->cmd->cmd->next;
-		}
-		printf(", Assign: ");
-		while (ast->cmd->assign)
-		{
-			printf(" %s ", (char *)ast->cmd->assign->content);
-			ast->cmd->assign = ast->cmd->assign->next;
-		}
-		printf(", Redir: ");
-		while (ast->cmd->redir)
-		{
-			printf(" %s ", (char *)ast->cmd->redir->content);
-			ast->cmd->redir = ast->cmd->redir->next;
-		}
-	}
-	printf("\n");
-}
+static void ft_init_exec_stack(t_ast *ast, t_list **cmd_stk);
+static int	ft_run_cmds(t_shell *shell, t_list **cmd_stk);
+static int ft_and_or_run(t_cmd_data *cmd_data, enum e_ast_type type);
+static int ft_pipe_run(t_cmd_data *cmd_data);
 
-static void printlist(t_list **list) //remove, test only
-{
-	t_ast	*node;
-	t_list	*list_node_tmp;
-
-	if (*list)
-	{
-		if ((*list)->content)
-		{
-			list_node_tmp = *list;
-			node = (*list)->content;
-			ft_imprime(node);
-			node = node->first_child;
-			while (node)
-			{
-				ft_lstadd_back(list, ft_lstnew(node));
-				node = node->next_sibling;
-			}
-			*list = (*list)->next;
-			printlist(list);
-			free(list_node_tmp);
-		}
-	}
-}
-
-static void ft_printast(t_ast *ast) //remove, test only
-{
-	t_list *list;
-
-	list = NULL;
-	if (ast)
-	{
-		ft_lstadd_back(&list, ft_lstnew(ast));
-		printlist(&list);
-	}
-}
-/**********************/
-int	ft_executor(t_shell *shell, t_ast *ast)
+int	ft_executor(t_shell *shell, char *line)
 {
 	int		rtn;
+	t_ast	*ast;
 	t_list	*cmd_stk;
 
+	rtn = 0;
+	ast = NULL;
 	cmd_stk = NULL;
-	ft_init_exec_stack(ast, &cmd_stk);
-	ft_run_cmds(shell, &cmd_stk);
+	ast = ft_parser(line, shell->transition_table);
+	if (ast)
+	{
+		ft_init_exec_stack(ast, &cmd_stk);
+		ft_run_cmds(shell, &cmd_stk);
+	}
+	else
+		rtn = 1;
+	//if (ast) //remove, only to test leak
+	//	ft_destroy_ast(&ast);//tirar
 	return (rtn);
 }
 
 static void ft_init_exec_stack(t_ast *ast, t_list **cmd_stk)
 {
-	ft_init_exec_stack(ast->next_sibling, cmd_stk);
-	ft_init_exec_stack(ast->first_child, cmd_stk);
+	if (!ast)
+		return ;
+	if (ast->first_child)
+		ft_init_exec_stack(ast->first_child->next_sibling, cmd_stk);
 	ft_lstpush(cmd_stk, ast);
+	ft_init_exec_stack(ast->first_child, cmd_stk);
 }
 
 static int	ft_run_cmds(t_shell *shell, t_list **cmd_stk)
 {
 	int			rtn;
+	int			in_cpy;
 	t_ast		*ast;
+	t_ast		*ast_nxt;
 	t_cmd_data	cmd_data;
 
 	rtn = 0;
-	while (*cmd_stk)
+	in_cpy = dup(0);
+	while (rtn == 0 && ft_lstsize(*cmd_stk))
 	{
 		ast = (t_ast *)ft_lstpop(cmd_stk);
-		if (ast->type == AST_CMD)
+		if (ast->type == AST_CMD && shell)
+		{
+			ast_nxt = (t_ast *)ft_lsttop(*cmd_stk);
+			cmd_data.pipe_flag = 0;
+			if (ast_nxt && ast_nxt->type == AST_PIPE)
+				cmd_data.pipe_flag = 1;
 			rtn = ft_cmd_run(shell, &cmd_data, ast->cmd);
-		if (ast->type == AST_PIPE)
-			rtn = ft_pipe_run(shell, &cmd_data, ast->cmd);
-		if (ast->type == AST_AND || ast->type == AST_OR)
-			rtn = ft_and_or_run(shell, &cmd_data, ast->cmd);
+		}
+		else if (ast->type == AST_PIPE)
+			rtn = ft_pipe_run(&cmd_data);
+		else if (ast->type == AST_AND || ast->type == AST_OR)
+			rtn = ft_and_or_run(&cmd_data, ast->type);
+		if (ast)
+		{
+			if (ast->cmd)
+				ft_destroy_command(&ast->cmd);
+			free(ast);
+		}
 	}
+	if (rtn)
+	{
+		while (ft_lstsize(*cmd_stk))
+			ft_lstpop(cmd_stk);
+	}
+	waitpid(-1, NULL, 0);
+	close(cmd_data.pipe_fd[1]);
+	dup2(in_cpy, 0);
+	close(in_cpy);
+	if (cmd_data.fd_out > 1)
+		close(cmd_data.fd_out);
 	return (rtn);
 }
 
-int ft_and_or_run(t_shell *shell, t_cmd_data *cmd_data, t_command *cmd)
+static int ft_and_or_run(t_cmd_data *cmd_data, enum e_ast_type type)
 {
 	int	rtn;
-	int status;
+	int	wstatus;
+	int	exec_status;
 
-	waitpid(cmd_data->pid, &status, 0);
-	//TODO -> quit when necessary
-	if (status == 0)
-	return(rtn);
+	rtn = 0;
+	waitpid(cmd_data->pid, &wstatus, 0);
+	exec_status = WIFEXITED(wstatus);
+	close(cmd_data->pipe_fd[1]);
+	close(cmd_data->pipe_fd[0]);
+	if (cmd_data->fd_out > 1)
+		close(cmd_data->fd_out);
+	if ((exec_status && type == AST_OR) || (!exec_status && type == AST_AND))
+		rtn = 1;
+	return (rtn);
 }
 
-int ft_pipe_run(t_shell *shell, t_cmd_data *cmd_data, t_command *cmd)
+int ft_pipe_run(t_cmd_data *cmd_data)
 {
 	int	rtn;
 
-	return(rtn);
+	rtn = 0;
+	close(cmd_data->pipe_fd[1]);
+	waitpid(cmd_data->pid, NULL, 0);
+	if (cmd_data->fd_out == 1)
+		dup2(cmd_data->pipe_fd[0], 0);
+	else if (cmd_data->fd_out > 1)
+		close(cmd_data->fd_out);
+	close(cmd_data->pipe_fd[0]);
+	return (rtn);
 }

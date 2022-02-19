@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/15 09:36:28 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/19 17:23:55 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,19 @@ typedef struct s_cmd_data
 	char	**cmd;
 	int		fd_in;
 	int		fd_out;
+	int		pipe_flag;
 	int		pipe_fd[2];
 	int		pid;
 	int		status;
 }	t_cmd_data;
 
-int	ft_checker_slash(char *str);
-
-
+int		ft_checker_slash(char *str);
+int		ft_assignments(t_shell *shell, t_list *assign);
+int		ft_redirections(t_list *redir, int *fd_in, int *fd_out);
+int		ft_cmd_run(t_shell *shell, t_cmd_data *cmd_data, t_command *cmd);
+char	**ft_construct_envp(t_list *env_lst);
+char	**ft_construct_path(char **cmd, t_list *env_lst);
+int		ft_executor(t_shell *shell, char *line);
+char	*ft_get_cmd_path(char *command, char **path_list);
+int		ft_here_doc(char *limiter);
 #endif

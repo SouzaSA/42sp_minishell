@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 14:56:57 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/15 15:19:24 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/19 09:37:02 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ enum e_symbol
 	TS_PIPE,
 	TS_LBRACE,
 	TS_RBRACE,
-	TS_AND_IF,
-	TS_OR_IF,
+	TS_AND,
+	TS_OR,
 	TS_LESS,
 	TS_GREAT,
 	TS_DGREAT,

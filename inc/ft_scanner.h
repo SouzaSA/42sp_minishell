@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:52:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/15 15:18:58 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/19 09:37:14 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 /* ************************************************************************** */
 typedef struct s_token
 {
-	enum e_symbol	tok_type;
+	enum e_symbol	type;
 	t_source		*src;
 	int				text_len;
 	char			*text;

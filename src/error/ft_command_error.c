@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_new_node.c                                      :+:      :+:    :+:   */
+/*   ft_command_error.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/23 18:33:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/16 22:50:33 by sde-alva         ###   ########.fr       */
+/*   Created: 2022/02/16 18:38:11 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/02/16 18:49:36 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_parser.h"
+#include "ft_error.h"
 
-t_ast	*ft_new_node(enum e_ast_type type)
+void	ft_command_error(char *cmd_name)
 {
-	t_ast	*node;
+	char *return_msg;
 
-	node = (t_ast *)malloc(sizeof(t_ast));
-	if (!node)
-		return (NULL);
-	node->type = type;
-	node->cmd = NULL;
-	node->children = 0;
-	node->first_child = NULL;
-	node->next_sibling = NULL;
-	node->prev_sibling = NULL;
-	return (node);
+	return_msg = ft_strjoin(cmd_name, ": command not found");
+	ft_put_msg_error(return_msg, FLAG_ERROR_OWN);
+	free(return_msg);
 }

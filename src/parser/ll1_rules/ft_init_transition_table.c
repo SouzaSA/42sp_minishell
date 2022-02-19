@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 14:15:15 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/15 17:19:37 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/19 09:39:29 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,16 @@ void	ft_init_tt_start_and_or(void (***tt)(t_list **, enum e_symbol))
 	tt[NTS_AND_OR][TS_LESSGREAT - NUM_NTS] = &ft_and_or;
 	tt[NTS_AND_OR][TS_DLESS - NUM_NTS] = &ft_and_or;
 	tt[NTS_AND_OR1][TS_EOF - NUM_NTS] = &ft_epsilon;
-	tt[NTS_AND_OR1][TS_AND_IF - NUM_NTS] = &ft_and_or1;
-	tt[NTS_AND_OR1][TS_OR_IF - NUM_NTS] = &ft_and_or1;
+	tt[NTS_AND_OR1][TS_AND - NUM_NTS] = &ft_and_or1;
+	tt[NTS_AND_OR1][TS_OR - NUM_NTS] = &ft_and_or1;
 	tt[NTS_AND_OR1][TS_RBRACE - NUM_NTS] = &ft_epsilon;
 }
 
 void	ft_init_tt_pipeline_subshell(void (***tt)(t_list **, enum e_symbol))
 {
 	tt[NTS_PIPELINE][TS_EOF - NUM_NTS] = &ft_epsilon;
-	tt[NTS_PIPELINE][TS_AND_IF - NUM_NTS] = &ft_pipeline;
-	tt[NTS_PIPELINE][TS_OR_IF - NUM_NTS] = &ft_pipeline;
+	tt[NTS_PIPELINE][TS_AND - NUM_NTS] = &ft_pipeline;
+	tt[NTS_PIPELINE][TS_OR - NUM_NTS] = &ft_pipeline;
 	tt[NTS_PIPELINE][TS_LBRACE - NUM_NTS] = &ft_pipeline;
 	tt[NTS_PIPELINE][TS_WORD - NUM_NTS] = &ft_pipeline;
 	tt[NTS_PIPELINE][TS_ASSIGNMENT - NUM_NTS] = &ft_pipeline;
@@ -75,8 +75,8 @@ void	ft_init_tt_pipeline_subshell(void (***tt)(t_list **, enum e_symbol))
 	tt[NTS_PIPELINE][TS_LESSGREAT - NUM_NTS] = &ft_pipeline;
 	tt[NTS_PIPELINE][TS_DLESS - NUM_NTS] = &ft_pipeline;
 	tt[NTS_PIPELINE1][TS_EOF - NUM_NTS] = &ft_epsilon;
-	tt[NTS_PIPELINE1][TS_AND_IF - NUM_NTS] = &ft_epsilon;
-	tt[NTS_PIPELINE1][TS_OR_IF - NUM_NTS] = &ft_epsilon;
+	tt[NTS_PIPELINE1][TS_AND - NUM_NTS] = &ft_epsilon;
+	tt[NTS_PIPELINE1][TS_OR - NUM_NTS] = &ft_epsilon;
 	tt[NTS_PIPELINE1][TS_PIPE - NUM_NTS] = &ft_pipeline1;
 	tt[NTS_PIPELINE1][TS_RBRACE - NUM_NTS] = &ft_epsilon;
 	tt[NTS_SUBSHELL][TS_LBRACE - NUM_NTS] = &ft_subshell;

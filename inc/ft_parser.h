@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:43 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/16 10:34:07 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/17 21:46:35 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@
 # include "ft_ast_struct.h"
 # include "ft_scanner.h"
 # include "ft_error.h"
+# include "ft_utils.h"
 
 typedef struct s_stk_node
 {
-	enum e_symbol		stk_type;
-	enum e_node_type	ast_type;
-	t_ast				*ast_node;
+	enum e_symbol	stk_type;
+	enum e_ast_type	ast_type;
+	t_ast			*ast_node;
 }	t_stk_node;
 /*
 * Parser worker
@@ -31,7 +32,7 @@ typedef struct s_stk_node
 t_ast	*ft_parser(char *line, void	(***tt)(t_list **, enum e_symbol));
 t_ast	*ft_add_child_node(t_ast *parent, t_ast *child);
 void	ft_free_node_tree(t_ast *node);
-t_ast	*ft_new_node(enum e_node_type type);
+t_ast	*ft_new_node(enum e_ast_type type);
 void	ft_set_node_val_str(t_ast *node, t_command *cmd);
 t_ast	*ft_syntax(t_list *toks, void (***tt)(t_list **, enum e_symbol));
 /*

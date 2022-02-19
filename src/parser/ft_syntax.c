@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 09:51:10 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/16 10:52:29 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/19 09:38:09 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,16 @@ t_ast	*ft_syntax(t_list *toks, void (***tt)(t_list **, enum e_symbol))
 	while (is_valid && ft_lstsize(command_stk) > 0)
 	{
 		stk_node = (t_stk_node *)ft_lsttop(command_stk);
-		if (((t_token *)toks->content)->tok_type == stk_node->stk_type)
+		if (((t_token *)toks->content)->type == stk_node->stk_type)
 			ft_term_prod(&toks, stk_node, &command_stk);
 		else
 			is_valid = ft_nonterm_prod(toks, stk_node, &command_stk, tt);
 	}
 	if (!is_valid)
+	{
 		ft_parser_error_msg(((t_token *)toks->content)->text);
+		ft_destroy_ast(&ast);
+	}
 	ft_clean_ast(&ast);
 	return (ast);
 }
@@ -77,11 +80,11 @@ static int	ft_nonterm_prod(t_list *toks, t_stk_node *node, t_list **cmd_stk, \
 
 	is_valid = 1;
 	production = NULL;
-	token_type = ((t_token *)toks->content)->tok_type;
+	token_type = ((t_token *)toks->content)->type;
 	if (node->stk_type < NUM_NTS)
 		production = tt[node->stk_type][token_type - NUM_NTS];
 	if (production)
-		production(cmd_stk, ((t_token *)toks->content)->tok_type);
+		production(cmd_stk, ((t_token *)toks->content)->type);
 	else
 		is_valid = 0;
 	if (!is_valid)

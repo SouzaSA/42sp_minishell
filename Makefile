@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/02/16 10:40:23 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/02/16 18:46:29 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRCS			=	ft_main.c	\
 					${BUILTIN_ADD_DIR}	\
 					${ERROR_ADD_DIR} \
 					${PARSER_ADD_DIR} \
+					${EXECUTOR_ADD_DIR} \
 					${UTILS_ADD_DIR}	\
 					${SCANNER_ADD_DIR}	\
 					${TAPE_SOURCE_ADD_DIR} \
@@ -57,14 +58,19 @@ BUILTINS		=	ft_cd.c	\
 					ft_pwd.c	\
 					ft_unset.c
 
-ERROR			=	ft_put_msg_error.c	\
+ERROR			=	ft_command_error.c	\
+					ft_put_msg_error.c	\
 					ft_parser_error_msg.c
 
 EXECUTOR		=	ft_checker_slash.c	\
-					ft_exec_simple_cmd.c	\
-					ft_execute_command.c	\
+					ft_cmd_assignments.c	\
+					ft_cmd_redirections.c	\
+					ft_cmd_run.c	\
+					ft_construct_envp.c	\
+					ft_construct_path.c	\
+					ft_executor.c	\
 					ft_get_cmd_path.c	\
-					ft_get_path.c
+					ft_here_doc.c
 
 PARSER			=	ft_child_node.c	\
 					ft_free_node_tree.c	\

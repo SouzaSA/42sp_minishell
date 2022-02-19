@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 09:51:02 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/15 09:51:37 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/17 14:30:32 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	**ft_construct_envp(t_list *env_lst)
 	t_list	*node;
 
 	i = 0;
-	envp = (char **)malloc(ft_lstsize(env_lst) * (sizeof(char *) + 1));
+	envp = (char **)malloc((ft_lstsize(env_lst) + 1)* sizeof(char *));
 	node = env_lst;
 	while (node)
 	{

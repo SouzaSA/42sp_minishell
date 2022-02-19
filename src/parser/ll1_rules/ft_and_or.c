@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 10:58:53 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/08 09:44:10 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/19 09:38:41 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_and_or1(t_list **symbol_stack, enum e_symbol tok_type)
 	if (tok_type >= 0)
 	{
 		stk_node_old = (t_stk_node *)ft_lstpop(symbol_stack);
-		if (tok_type == TS_AND_IF)
+		if (tok_type == TS_AND)
 			stk_node_old->ast_node->type = AST_AND;
 		else
 			stk_node_old->ast_node->type = AST_OR;

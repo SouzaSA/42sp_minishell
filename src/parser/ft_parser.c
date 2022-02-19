@@ -6,12 +6,11 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:18:16 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/16 09:58:32 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/19 11:21:09 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_parser.h"
-#include "ft_utils.h"
 
 static void		ft_set_source(t_source *src, char *line);
 
@@ -24,10 +23,11 @@ t_ast	*ft_parser(char *line, void (***tt)(t_list **, enum e_symbol))
 	ast = NULL;
 	ft_set_source(&src, line);
 	tokens = ft_lexer(&src);
-	ast = ft_syntax(tokens, tt);
-	ft_lstclear(&tokens, &ft_del_token);
-	if (ast) //remove, only to test leak
-		ft_destroy_ast(&ast);//tirar
+	if (tokens)
+	{
+		ast = ft_syntax(tokens, tt);
+		ft_lstclear(&tokens, &ft_del_token);
+	}
 	return (ast);
 }
 
