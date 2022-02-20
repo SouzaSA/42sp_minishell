@@ -6,12 +6,14 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 09:32:33 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/15 15:13:31 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/19 20:38:22 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_UTILS_H
 # define FT_UTILS_H
+# include <readline/readline.h>
+# include <readline/history.h>
 # include "ft_ast_struct.h"
 # include "ft_grammar_symbols.h"
 # include "libft.h"

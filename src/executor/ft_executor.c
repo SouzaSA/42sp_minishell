@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/19 19:11:08 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/19 21:03:47 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,12 @@ static int ft_and_or_run(t_cmd_data *cmd_data, enum e_ast_type type)
 
 	rtn = 0;
 	waitpid(cmd_data->pid, &wstatus, 0);
-	exec_status = WIFEXITED(wstatus);
+	exec_status = WEXITSTATUS(wstatus);
 	close(cmd_data->pipe_fd[1]);
 	close(cmd_data->pipe_fd[0]);
 	if (cmd_data->fd_out > 1)
 		close(cmd_data->fd_out);
-	if ((exec_status && type == AST_OR) || (!exec_status && type == AST_AND))
+	if ((!exec_status && type == AST_OR) || (exec_status && type == AST_AND))
 		rtn = 1;
 	return (rtn);
 }

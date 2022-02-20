@@ -6,15 +6,15 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 21:08:41 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/19 19:23:45 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/19 20:51:06 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_executor.h"
 
 static char	**ft_cmd_lst_to_array(t_list *cmd);
-static int	ft_forker(t_shell *shell, t_cmd_data *cmd_data);
-static int	ft_exec_cmd(t_shell *shell, t_cmd_data *cmd_data);
+static int	ft_forker(t_shell *shell, t_cmd_data *cmd_data, t_command *cmd);
+static int	ft_exec_cmd(t_shell *shell, t_cmd_data *cmd_data, t_command *cmd);
 
 int	ft_cmd_run(t_shell *shell, t_cmd_data *cmd_data, t_command *cmd)
 {
@@ -30,7 +30,7 @@ int	ft_cmd_run(t_shell *shell, t_cmd_data *cmd_data, t_command *cmd)
 	if (!cmd_data->cmd)
 		rtn = 1;
 	if (rtn == 0)
-		rtn = ft_forker(shell, cmd_data);
+		rtn = ft_forker(shell, cmd_data, cmd);
 	if (cmd_data->cmd)
 		free(cmd_data->cmd);
 	return(rtn);
@@ -62,7 +62,7 @@ static char	**ft_cmd_lst_to_array(t_list *cmd)
 	return (cmd_array);
 }
 
-static int	ft_forker(t_shell *shell, t_cmd_data *cmd_data)
+static int	ft_forker(t_shell *shell, t_cmd_data *cmd_data, t_command *cmd)
 {
 	int	rtn;
 
@@ -74,18 +74,18 @@ static int	ft_forker(t_shell *shell, t_cmd_data *cmd_data)
 	if (cmd_data->pid == -1)
 		rtn = ft_put_msg_error(NULL, FLAG_ERROR_P);
 	if (rtn == 0 && cmd_data->pid == 0)
-		rtn = ft_exec_cmd(shell, cmd_data);
+		rtn = ft_exec_cmd(shell, cmd_data, cmd);
 	return(rtn);
 }
 
-static int	ft_exec_cmd(t_shell *shell, t_cmd_data *cmd_data)
+static int	ft_exec_cmd(t_shell *shell, t_cmd_data *cmd_data, t_command *cmd)
 {
-	char	**cmd;
+	char	**cmd_args;
 	char	**envp;
 
 	close(cmd_data->pipe_fd[0]);
-	cmd = ft_construct_path(cmd_data->cmd, shell->env_list);
-	if (cmd[0])
+	cmd_args = ft_construct_path(cmd_data->cmd, shell->env_list);
+	if (cmd_args[0])
 	{
 		if (cmd_data->fd_in > 0)
 		{
@@ -99,10 +99,15 @@ static int	ft_exec_cmd(t_shell *shell, t_cmd_data *cmd_data)
 			dup2(cmd_data->fd_out, 1);
 		close(cmd_data->pipe_fd[1]);
 		envp = ft_construct_envp(shell->env_list);
-		if (execve(cmd[0], cmd, envp) == -1)
+		if (execve(cmd_args[0], cmd_args, envp) == -1)
 			ft_put_msg_error("execve error", FLAG_ERROR_OWN);
-		free(cmd[0]);
+		free(cmd_args[0]);
 		ft_split_destroy(envp);
 	}
+	free(cmd_args);
+	ft_destroy_command(&cmd);
+	rl_clear_history();
+	ft_destroy_shell(shell);
+	exit(127);//tirar vazamentos
 	return (1);
 }
