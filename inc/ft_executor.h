@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/19 17:23:55 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/20 12:22:19 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ typedef struct s_cmd_data
 	int		pipe_flag;
 	int		pipe_fd[2];
 	int		pid;
-	int		status;
 }	t_cmd_data;
 
 int		ft_checker_slash(char *str);

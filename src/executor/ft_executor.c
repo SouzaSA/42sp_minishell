@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/19 21:03:47 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/20 13:39:18 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	ft_run_cmds(t_shell *shell, t_list **cmd_stk)
 			cmd_data.pipe_flag = 0;
 			if (ast_nxt && ast_nxt->type == AST_PIPE)
 				cmd_data.pipe_flag = 1;
-			rtn = ft_cmd_run(shell, &cmd_data, ast->cmd);
+			ft_cmd_run(shell, &cmd_data, ast->cmd);
 		}
 		else if (ast->type == AST_PIPE)
 			rtn = ft_pipe_run(&cmd_data);
@@ -84,10 +84,15 @@ static int	ft_run_cmds(t_shell *shell, t_list **cmd_stk)
 	if (rtn)
 	{
 		while (ft_lstsize(*cmd_stk))
-			ft_lstpop(cmd_stk);
+		{
+			ast = ft_lstpop(cmd_stk);
+			if (ast->cmd)
+				ft_destroy_command(&ast->cmd);
+			free(ast);
+		}
 	}
-	waitpid(-1, NULL, 0);
-	close(cmd_data.pipe_fd[1]);
+	if (cmd_data.pid > 0)
+		waitpid(-1, NULL, 0);
 	dup2(in_cpy, 0);
 	close(in_cpy);
 	if (cmd_data.fd_out > 1)
@@ -104,7 +109,6 @@ static int ft_and_or_run(t_cmd_data *cmd_data, enum e_ast_type type)
 	rtn = 0;
 	waitpid(cmd_data->pid, &wstatus, 0);
 	exec_status = WEXITSTATUS(wstatus);
-	close(cmd_data->pipe_fd[1]);
 	close(cmd_data->pipe_fd[0]);
 	if (cmd_data->fd_out > 1)
 		close(cmd_data->fd_out);
@@ -118,7 +122,6 @@ int ft_pipe_run(t_cmd_data *cmd_data)
 	int	rtn;
 
 	rtn = 0;
-	close(cmd_data->pipe_fd[1]);
 	waitpid(cmd_data->pid, NULL, 0);
 	if (cmd_data->fd_out == 1)
 		dup2(cmd_data->pipe_fd[0], 0);

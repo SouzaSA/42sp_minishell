@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 21:08:41 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/19 20:51:06 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/20 15:21:43 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,10 @@ int	ft_cmd_run(t_shell *shell, t_cmd_data *cmd_data, t_command *cmd)
 	cmd_data->cmd = NULL;
 	cmd_data->fd_in = 0;
 	cmd_data->fd_out = 1;
+	cmd_data->pid = -1;
 	rtn = ft_assignments(shell, cmd->assign); // TODO CLEAN and print error msg
 	rtn = ft_redirections(cmd->redir, &cmd_data->fd_in, &cmd_data->fd_out);
-	cmd_data->cmd = ft_cmd_lst_to_array(cmd->cmd);
-	if (!cmd_data->cmd)
-		rtn = 1;
-	if (rtn == 0)
-		rtn = ft_forker(shell, cmd_data, cmd);
+	rtn = ft_forker(shell, cmd_data, cmd);
 	if (cmd_data->cmd)
 		free(cmd_data->cmd);
 	return(rtn);
@@ -75,6 +72,8 @@ static int	ft_forker(t_shell *shell, t_cmd_data *cmd_data, t_command *cmd)
 		rtn = ft_put_msg_error(NULL, FLAG_ERROR_P);
 	if (rtn == 0 && cmd_data->pid == 0)
 		rtn = ft_exec_cmd(shell, cmd_data, cmd);
+	waitpid(-1, NULL, WNOHANG);
+	close(cmd_data->pipe_fd[1]);
 	return(rtn);
 }
 
@@ -83,9 +82,12 @@ static int	ft_exec_cmd(t_shell *shell, t_cmd_data *cmd_data, t_command *cmd)
 	char	**cmd_args;
 	char	**envp;
 
+	cmd_args = NULL;
 	close(cmd_data->pipe_fd[0]);
-	cmd_args = ft_construct_path(cmd_data->cmd, shell->env_list);
-	if (cmd_args[0])
+	cmd_data->cmd = ft_cmd_lst_to_array(cmd->cmd);
+	if (cmd_data->cmd)
+		cmd_args = ft_construct_path(cmd_data->cmd, shell->env_list);
+	if (cmd_args && cmd_args[0])
 	{
 		if (cmd_data->fd_in > 0)
 		{
