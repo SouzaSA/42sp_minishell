@@ -6,6 +6,7 @@
 		"ft_grammar_symbols.h": "c",
 		"ft_executor.h": "c",
 		"ft_error.h": "c",
-		"ft_colors.h": "c"
+		"ft_colors.h": "c",
+		"type_traits": "c"
 	}
 }

@@ -6,57 +6,58 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 12:20:09 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/22 19:45:30 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/21 21:45:27 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-static void		ft_env_add_size1(t_shell *shell, t_list *new_node);
+static void		ft_export_print(t_shell *shell);
 static void		ft_search_and_add(t_shell *shell, t_list *new_node);
 static t_list	*ft_search_right_pos(t_list *list, t_list *new_node);
 static void		ft_exchange_node(t_shell *shell, t_list *old, t_list *new);
 
-void	ft_export(t_shell *shell, char *key, char *value)
+void	ft_export(t_shell *shell, t_list *assigns)
 {
+	long			idx;
+	char			*assign;
 	t_dictionary	*dic_item;
 	t_list			*new_node;
-	t_list			*list;
 
-	if (shell && key)
+	shell->error_status = 0;
+	if (!assigns)
+		ft_export_print(shell);
+	while (assigns)
 	{
 		dic_item = (t_dictionary *)malloc(sizeof(t_dictionary));
-		dic_item->key = key;
-		dic_item->value = value;
+		if (!dic_item)
+			return ;
+		assign = (char *)assigns->content;
+		idx = (long)(ft_strchr(assign, '=') - &assign[0]);
+		dic_item->key = ft_substr(assign, 0, idx);
+		dic_item->value = ft_substr(assign, idx + 1, ft_strlen(assign));
 		new_node = ft_lstnew(dic_item);
-		list = shell->env_list;
-		if (!list && new_node)
+		if (!shell->env_list && new_node)
 			ft_lstadd_front(&shell->env_list, new_node);
-		else if (ft_lstsize(list) == 1)
-			ft_env_add_size1(shell, new_node);
 		else
 			ft_search_and_add(shell, new_node);
+		assigns = assigns->next;
 	}
 }
 
-static void	ft_env_add_size1(t_shell *shell, t_list *new_node)
+static void	ft_export_print(t_shell *shell)
 {
-	char	*new_node_key;
-	char	*dic_key;
+	t_list *env_node;
 
-	if (shell)
+	env_node = shell->env_list;
+	while (env_node)
 	{
-		if (shell->env_list && new_node)
-		{
-			dic_key = ((t_dictionary *)shell->env_list->content)->key;
-			new_node_key = ((t_dictionary *)new_node->content)->key;
-			if (ft_strcmp(dic_key, new_node_key) == 0)
-				ft_exchange_node(shell, shell->env_list, new_node);
-			else if (ft_strcmp(dic_key, new_node_key) < 0)
-				ft_lstadd_back(&shell->env_list, new_node);
-			else
-				ft_lstadd_front(&shell->env_list, new_node);
-		}
+		ft_putstr_fd(((t_dictionary *)env_node->content)->key, 1);
+		ft_putstr_fd("=", 1);
+		ft_putstr_fd("\"", 1);
+		ft_putstr_fd(((t_dictionary *)env_node->content)->value, 1);
+		ft_putstr_fd("\"\n", 1);
+		env_node = env_node->next;
 	}
 }
 

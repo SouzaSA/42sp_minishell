@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:57:26 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/16 08:25:41 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/21 20:11:46 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,16 @@ void	ft_init_minishell(t_shell *shell, char **envp)
 static void	ft_import_envp(t_shell *shell, char **envp)
 {
 	int		i;
-	long	idx;
-	char	*key;
-	char	*value;
+	t_list	element;
 
 	i = 0;
 	shell->env_list = NULL;
 	shell->error_status = 0;
+	element.next = NULL;
 	while (envp && envp[i])
 	{
-		idx = (long)(ft_strchr(envp[i], '=') - &envp[i][0]);
-		key = ft_substr(envp[i], 0, idx);
-		value = ft_substr(envp[i], idx + 1, ft_strlen(envp[i]));
-		ft_export(shell, key, value);
+		element.content = envp[i];
+		ft_export(shell, &element);
 		i++;
 	}
 }

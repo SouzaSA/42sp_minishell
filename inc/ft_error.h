@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/16 18:45:59 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/21 10:31:52 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include "libft.h"
 # include "ft_base_macros.h"
+# include "ft_shell_struct.h"
 
 # define FLAG_ERROR_P 0
 # define FLAG_ERROR_STR 1
@@ -37,6 +38,7 @@
 
 extern int	g_errnum;
 
+int		ft_cd_error(t_shell *shell, char *msg, int error_flag);
 void	ft_command_error(char *cmd_name);
 int		ft_put_msg_error(char *msg, int error_flag);
 void	ft_parser_error_msg(char *tok_text);

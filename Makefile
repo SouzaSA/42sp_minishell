@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/02/19 19:18:20 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/02/21 12:23:25 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,8 @@ BUILTINS		=	ft_cd.c	\
 					ft_pwd.c	\
 					ft_unset.c
 
-ERROR			=	ft_command_error.c	\
+ERROR			=	ft_cd_errors.c	\
+					ft_command_error.c	\
 					ft_put_msg_error.c	\
 					ft_parser_error_msg.c
 

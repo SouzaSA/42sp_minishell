@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/20 09:09:48 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/21 19:42:40 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ typedef struct s_cmd_tbl
 char	**ft_get_path(char **envp);
 int		ft_minishell(char **envp);
 
-int		ft_cd(t_shell *shell, char **cmd);
+int		ft_cd(t_shell *shell, t_list *cmd);
 int		ft_env(t_shell *shell);
-void	ft_export(t_shell *shell, char *key, char *value);
-int		ft_pwd();//t_shell *shell);
+void	ft_export(t_shell *shell, t_list *assigns);
+int		ft_pwd();
 void	ft_unset(t_shell *shell, char *key);
 
 

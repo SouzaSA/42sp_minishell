@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:43:00 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/09 10:51:09 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/21 16:16:58 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,25 @@
 static int	ft_cd_home(t_shell *shell);
 static int	ft_cd_swap(t_shell *shell);
 static int	ft_cd_path(t_shell *shell, char *path);
-static int	ft_cd_error(t_shell *shell, char *msg, int error_flag);
 
-int g_errnum = 0;
+int	g_errnum = 0;
 
-int	ft_cd(t_shell *shell, char **cmd)
+int	ft_cd(t_shell *shell, t_list *cmds)
 {
+	int		len;
+
+	len = ft_lstsize(cmds);
 	shell->error_status = 0;
-	if (cmd && !ft_strcmp("cd", cmd[0]))
+	if (cmds && !ft_strcmp("cd", (char *)cmds->content))
 	{
-		if (!cmd[1])
+		if (len == 1)
 			return (ft_cd_home(shell));
-		else if (cmd[1] && cmd[2])
+		else if (len > 2)
 			return (ft_cd_error(shell, "too many arguments", FLAG_ERROR_OWN));
-		else if (!ft_strcmp("-", cmd[1]))
+		else if (!ft_strcmp("-", (char *)cmds->next->content))
 			return (ft_cd_swap(shell));
 		else
-			return (ft_cd_path(shell, cmd[1]));
+			return (ft_cd_path(shell, (char *)cmds->next->content));
 	}
 	return (1);
 }
@@ -88,15 +90,4 @@ static int	ft_cd_path(t_shell *shell, char *path)
 	ft_update_env_pwds(shell, ft_strdup(path));
 	shell->error_status = 0;
 	return (0);
-}
-
-static int	ft_cd_error(t_shell *shell, char *msg, int error_flag)
-{
-	char	*cd_err_msg;
-
-	cd_err_msg = ft_strjoin("cd: ", msg);
-	ft_put_msg_error(cd_err_msg, error_flag);
-	free(cd_err_msg);
-	shell->error_status = 1;
-	return (1);
 }

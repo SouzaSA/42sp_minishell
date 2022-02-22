@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:36:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/19 11:26:55 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/21 19:45:53 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_minishell(char **envp)
 	int			status;
 
 	ft_init_minishell(&shell, envp);
-	//ft_env(&shell);
+	ft_env(&shell);
 	status = 1;
 	while (status)
 	{
