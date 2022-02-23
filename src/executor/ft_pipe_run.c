@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_shell_struct.h                                  :+:      :+:    :+:   */
+/*   ft_pipe_run.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/11 17:22:47 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/22 15:06:10 by sde-alva         ###   ########.fr       */
+/*   Created: 2022/02/22 11:00:26 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/02/22 11:05:06 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SHELL_STRUCT_H
-# define FT_SHELL_STRUCT_H
+#include "ft_executor.h"
 
-# include "libft.h"
-# include "ft_grammar_symbols.h"
-
-typedef struct s_dictionary
+int	ft_pipe_run(t_cmd_data *cmd_data)
 {
-	char	*key;
-	char	*value;
-}	t_dictionary;
+	int	rtn;
 
-typedef struct s_shell
-{
-	t_list	*env_list;
-	t_list	*vars;
-	int		error_status;
-	void	(***transition_table)(t_list **, enum e_symbol);
-}	t_shell;
-
-#endif
+	rtn = 0;
+	waitpid(cmd_data->pid, NULL, 0);
+	if (cmd_data->fd_out == 1)
+		dup2(cmd_data->pipe_fd[0], 0);
+	else if (cmd_data->fd_out > 1)
+		close(cmd_data->fd_out);
+	close(cmd_data->pipe_fd[0]);
+	return (rtn);
+}

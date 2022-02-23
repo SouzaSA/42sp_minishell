@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/20 13:39:18 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/23 19:46:35 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static void ft_init_exec_stack(t_ast *ast, t_list **cmd_stk);
 static int	ft_run_cmds(t_shell *shell, t_list **cmd_stk);
-static int ft_and_or_run(t_cmd_data *cmd_data, enum e_ast_type type);
-static int ft_pipe_run(t_cmd_data *cmd_data);
 
 int	ft_executor(t_shell *shell, char *line)
 {
@@ -68,7 +66,12 @@ static int	ft_run_cmds(t_shell *shell, t_list **cmd_stk)
 			cmd_data.pipe_flag = 0;
 			if (ast_nxt && ast_nxt->type == AST_PIPE)
 				cmd_data.pipe_flag = 1;
-			ft_cmd_run(shell, &cmd_data, ast->cmd);
+			cmd_data.cmd_stk = cmd_stk;
+			if (ast->cmd->cmd && ast->cmd->cmd->content && ft_isbuiltin((char *)ast->cmd->cmd->content))
+				ft_builtin_run(shell, &cmd_data, ast);
+			else
+				ft_cmd_run(shell, &cmd_data, ast);
+			ast = NULL;
 		}
 		else if (ast->type == AST_PIPE)
 			rtn = ft_pipe_run(&cmd_data);
@@ -82,51 +85,12 @@ static int	ft_run_cmds(t_shell *shell, t_list **cmd_stk)
 		}
 	}
 	if (rtn)
-	{
-		while (ft_lstsize(*cmd_stk))
-		{
-			ast = ft_lstpop(cmd_stk);
-			if (ast->cmd)
-				ft_destroy_command(&ast->cmd);
-			free(ast);
-		}
-	}
+		ft_destroy_ast_stk(cmd_stk);
 	if (cmd_data.pid > 0)
 		waitpid(-1, NULL, 0);
 	dup2(in_cpy, 0);
 	close(in_cpy);
 	if (cmd_data.fd_out > 1)
 		close(cmd_data.fd_out);
-	return (rtn);
-}
-
-static int ft_and_or_run(t_cmd_data *cmd_data, enum e_ast_type type)
-{
-	int	rtn;
-	int	wstatus;
-	int	exec_status;
-
-	rtn = 0;
-	waitpid(cmd_data->pid, &wstatus, 0);
-	exec_status = WEXITSTATUS(wstatus);
-	close(cmd_data->pipe_fd[0]);
-	if (cmd_data->fd_out > 1)
-		close(cmd_data->fd_out);
-	if ((!exec_status && type == AST_OR) || (exec_status && type == AST_AND))
-		rtn = 1;
-	return (rtn);
-}
-
-int ft_pipe_run(t_cmd_data *cmd_data)
-{
-	int	rtn;
-
-	rtn = 0;
-	waitpid(cmd_data->pid, NULL, 0);
-	if (cmd_data->fd_out == 1)
-		dup2(cmd_data->pipe_fd[0], 0);
-	else if (cmd_data->fd_out > 1)
-		close(cmd_data->fd_out);
-	close(cmd_data->pipe_fd[0]);
 	return (rtn);
 }

@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_shell_struct.h                                  :+:      :+:    :+:   */
+/*   ft_export_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/11 17:22:47 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/22 15:06:10 by sde-alva         ###   ########.fr       */
+/*   Created: 2022/02/23 17:46:47 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/02/23 18:10:28 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SHELL_STRUCT_H
-# define FT_SHELL_STRUCT_H
+#include "ft_error.h"
 
-# include "libft.h"
-# include "ft_grammar_symbols.h"
-
-typedef struct s_dictionary
+int	ft_export_error(char *msg, int error_flag)
 {
-	char	*key;
-	char	*value;
-}	t_dictionary;
+	char	*error_msg;
+	char	*aux;
 
-typedef struct s_shell
-{
-	t_list	*env_list;
-	t_list	*vars;
-	int		error_status;
-	void	(***transition_table)(t_list **, enum e_symbol);
-}	t_shell;
-
-#endif
+	error_msg = ft_strjoin("export: `", msg);
+	aux = error_msg;
+	error_msg = ft_strjoin(error_msg, "': not a valid identifier");
+	ft_put_msg_error(error_msg, error_flag);
+	free(aux);
+	free(error_msg);
+	return (1);
+}

@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 13:58:02 by sde-alva          #+#    #+#              #
-#    Updated: 2022/01/19 11:13:12 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/02/22 11:13:58 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -132,7 +132,7 @@ CFLAGS			=	-Wall -Wextra -Werror
 
 RM				=	rm -rf
 
-DIR_GUARD		=	mkdir -p ${@D}
+DIR_GUARD		=	@mkdir -p ${@D}
 
 ${OBJ_DIR}/%.o:	${SRC_DIR}/%.c
 				${DIR_GUARD}

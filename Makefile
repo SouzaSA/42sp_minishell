@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/02/21 12:23:25 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/02/23 18:11:08 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,18 +52,26 @@ SRCS			=	ft_main.c	\
 					${SIG_ADD_DIR} \
 					${EXPAND_ADD_DIR}
 
-BUILTINS		=	ft_cd.c	\
+BUILTINS		=	ft_builtins_parser.c	\
+					ft_cd.c	\
+					ft_echo.c	\
 					ft_env.c \
+					ft_exit.c \
 					ft_export.c	\
+					ft_isbuiltin.c	\
 					ft_pwd.c	\
 					ft_unset.c
 
 ERROR			=	ft_cd_errors.c	\
 					ft_command_error.c	\
+					ft_export_error.c	\
 					ft_put_msg_error.c	\
-					ft_parser_error_msg.c
+					ft_parser_error_msg.c	\
+					ft_unset_error.c
 
-EXECUTOR		=	ft_checker_slash.c	\
+EXECUTOR		=	ft_and_or_run.c	\
+					ft_builtin_run.c	\
+					ft_checker_slash.c	\
 					ft_cmd_assignments.c	\
 					ft_cmd_redirections.c	\
 					ft_cmd_run.c	\
@@ -71,7 +79,8 @@ EXECUTOR		=	ft_checker_slash.c	\
 					ft_construct_path.c	\
 					ft_executor.c	\
 					ft_get_cmd_path.c	\
-					ft_here_doc.c
+					ft_here_doc.c	\
+					ft_pipe_run.c
 
 PARSER			=	ft_child_node.c	\
 					ft_free_node_tree.c	\
@@ -114,7 +123,8 @@ TAPE_SOURCE		=	ft_next_char.c	\
 					ft_skip_white_spaces_char.c	\
 					ft_unget_char.c
 
-UTILS			=	ft_destroy_ast.c	\
+UTILS			=	ft_destroy_ast_stk.c	\
+					ft_destroy_ast.c	\
 					ft_destroy_cmd_struct.c	\
 					ft_destroy_dictionary_element.c	\
 					ft_destroy_dictionary_list.c	\
@@ -122,6 +132,7 @@ UTILS			=	ft_destroy_ast.c	\
 					ft_get_env_node_by_key.c	\
 					ft_get_env_value_by_key.c	\
 					ft_init_vars.c	\
+					ft_isidentifier.c	\
 					ft_update_env_pwd.c
 
 EXPAND			=	ft_expand_star.c \

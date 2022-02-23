@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_shell_struct.h                                  :+:      :+:    :+:   */
+/*   ft_isidentifier.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/11 17:22:47 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/22 15:06:10 by sde-alva         ###   ########.fr       */
+/*   Created: 2022/02/23 16:38:43 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/02/23 17:10:01 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SHELL_STRUCT_H
-# define FT_SHELL_STRUCT_H
+#include "ft_utils.h"
 
-# include "libft.h"
-# include "ft_grammar_symbols.h"
-
-typedef struct s_dictionary
+int	ft_isidentifier(char *str)
 {
-	char	*key;
-	char	*value;
-}	t_dictionary;
+	int	i;
+	int	rtn;
 
-typedef struct s_shell
-{
-	t_list	*env_list;
-	t_list	*vars;
-	int		error_status;
-	void	(***transition_table)(t_list **, enum e_symbol);
-}	t_shell;
-
-#endif
+	if (!str)
+		return (0);
+	i = 1;
+	rtn = 1;
+	if (!ft_isalpha(str[0]) || str[0] != '_')
+		rtn = 0;
+	while (rtn && str[i])
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			rtn = 0;
+		i++;
+	}
+	return (rtn);
+}

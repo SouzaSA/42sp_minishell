@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_shell_struct.h                                  :+:      :+:    :+:   */
+/*   ft_destroy_ast_stk.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/11 17:22:47 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/22 15:06:10 by sde-alva         ###   ########.fr       */
+/*   Created: 2022/02/22 13:35:25 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/02/22 14:42:12 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SHELL_STRUCT_H
-# define FT_SHELL_STRUCT_H
+#include "ft_utils.h"
 
-# include "libft.h"
-# include "ft_grammar_symbols.h"
-
-typedef struct s_dictionary
+void	ft_destroy_ast_stk(t_list **ast_stk)
 {
-	char	*key;
-	char	*value;
-}	t_dictionary;
+	t_ast	*ast;
+	t_list	*node;
 
-typedef struct s_shell
-{
-	t_list	*env_list;
-	t_list	*vars;
-	int		error_status;
-	void	(***transition_table)(t_list **, enum e_symbol);
-}	t_shell;
-
-#endif
+	if (ast_stk && *ast_stk)
+	{
+		node = *ast_stk;
+		while (ft_lstsize(node))
+		{
+			ast = (t_ast *)ft_lstpop(&node);
+			if (ast->cmd)
+				ft_destroy_command(&ast->cmd);
+			free(ast);
+		}
+		*ast_stk = NULL;
+	}
+}

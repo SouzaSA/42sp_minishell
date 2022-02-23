@@ -6,19 +6,18 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 10:51:42 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/21 16:22:51 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/23 17:53:53 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-void	ft_echo(t_list *cmds)
+int	ft_echo(t_list *cmds)
 {
 	int		i;
 	int		flag;
 	int		num_words;
 	char	*word;
-	t_list	*node;
 
 	flag = 0;
 	num_words = ft_lstsize(cmds);
@@ -27,7 +26,7 @@ void	ft_echo(t_list *cmds)
 	i = 1 + flag;
 	while (i < num_words)
 	{
-		word = ((char *)cmds->content)[i];
+		word = ((char *)cmds->content);
 		write(1, word, ft_strlen(word));
 		if (i < num_words - 1)
 			write(1, " ", 1);
@@ -35,4 +34,5 @@ void	ft_echo(t_list *cmds)
 	}
 	if (flag == 0)
 		write(1, "\n", 1);
+	return (0);
 }

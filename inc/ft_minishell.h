@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/21 19:42:40 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/22 10:10:08 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <sys/stat.h>
 # include <signal.h>
+# include "ft_builtins.h"
 # include "ft_colors.h"
 # include "ft_error.h"
 # include "ft_executor.h"
@@ -37,12 +38,6 @@ typedef struct s_cmd_tbl
 
 char	**ft_get_path(char **envp);
 int		ft_minishell(char **envp);
-
-int		ft_cd(t_shell *shell, t_list *cmd);
-int		ft_env(t_shell *shell);
-void	ft_export(t_shell *shell, t_list *assigns);
-int		ft_pwd();
-void	ft_unset(t_shell *shell, char *key);
 
 
 

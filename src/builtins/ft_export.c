@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 12:20:09 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/21 21:45:27 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/23 16:07:04 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void		ft_search_and_add(t_shell *shell, t_list *new_node);
 static t_list	*ft_search_right_pos(t_list *list, t_list *new_node);
 static void		ft_exchange_node(t_shell *shell, t_list *old, t_list *new);
 
-void	ft_export(t_shell *shell, t_list *assigns)
+int	ft_export(t_shell *shell, t_list *assigns)
 {
 	long			idx;
 	char			*assign;
@@ -31,7 +31,7 @@ void	ft_export(t_shell *shell, t_list *assigns)
 	{
 		dic_item = (t_dictionary *)malloc(sizeof(t_dictionary));
 		if (!dic_item)
-			return ;
+			return (1);
 		assign = (char *)assigns->content;
 		idx = (long)(ft_strchr(assign, '=') - &assign[0]);
 		dic_item->key = ft_substr(assign, 0, idx);
@@ -43,6 +43,7 @@ void	ft_export(t_shell *shell, t_list *assigns)
 			ft_search_and_add(shell, new_node);
 		assigns = assigns->next;
 	}
+	return (0);
 }
 
 static void	ft_export_print(t_shell *shell)

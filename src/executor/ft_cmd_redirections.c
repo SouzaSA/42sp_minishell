@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 14:14:23 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/17 17:47:20 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/22 09:42:01 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,18 +109,19 @@ static int	ft_redir_in_out(char *filename, int *fd_in, int *fd_out)
 	int	open_flag;
 
 	rtn = 0;
-	if (*fd_in < 0)
-	{
-		open_flag = O_CREAT | O_WRONLY | O_APPEND;
-		*fd_out = open(filename, open_flag, 0664);
-		close(*fd_out);
-		*fd_out = 0;
-	}
 	if (filename)
 	{
+		if (*fd_out > 1)
+			close(*fd_out);
+		open_flag = O_CREAT | O_WRONLY | O_APPEND;
+		*fd_out = open(filename, open_flag, 0664);
+		if (*fd_out > 1)
+			close(*fd_out);
 		*fd_in = open(filename, O_RDONLY);
-		if (*fd_in < 0)
-			rtn = 1;
 	}
+	if (*fd_in < 0 || *fd_out < 0)
+		rtn = 1;
+	if (rtn)
+		ft_put_msg_error(filename, FLAG_ERROR_P);
 	return (rtn);
 }

@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_shell_struct.h                                  :+:      :+:    :+:   */
+/*   ft_isbuiltin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/11 17:22:47 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/22 15:06:10 by sde-alva         ###   ########.fr       */
+/*   Created: 2022/02/23 11:03:48 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/02/23 11:11:49 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SHELL_STRUCT_H
-# define FT_SHELL_STRUCT_H
+#include "ft_builtins.h"
 
-# include "libft.h"
-# include "ft_grammar_symbols.h"
-
-typedef struct s_dictionary
+int	ft_isbuiltin(char *cmd)
 {
-	char	*key;
-	char	*value;
-}	t_dictionary;
+	int	is_builtin;
 
-typedef struct s_shell
-{
-	t_list	*env_list;
-	t_list	*vars;
-	int		error_status;
-	void	(***transition_table)(t_list **, enum e_symbol);
-}	t_shell;
-
-#endif
+	is_builtin = 0;
+	if (!ft_strcmp(cmd, "cd") || !ft_strcmp(cmd, "echo") \
+		|| !ft_strcmp(cmd, "env") || !ft_strcmp(cmd, "exit") \
+		|| !ft_strcmp(cmd, "export") || !ft_strcmp(cmd, "pwd") \
+		|| !ft_strcmp(cmd, "unset"))
+	{
+		is_builtin = 1;
+	}
+	return (is_builtin);
+}

@@ -6,13 +6,31 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 10:52:06 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/08 20:08:12 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/23 17:47:59 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-void	ft_unset(t_shell *shell, char *key)
+static void	ft_unset_worker(t_shell *shell, char *key);
+
+int	ft_unset(t_shell *shell, t_list *cmds)
+{
+	while (cmds)
+	{
+		if (ft_isidentifier((char *)cmds->content))
+			ft_unset_worker(shell, (char *)cmds->content);
+		else
+		{
+			shell->error_status = 1;
+			ft_unset_error((char *)cmds->content, FLAG_ERROR_OWN);
+		}
+		cmds = cmds->next;
+	}
+	return (0);
+}
+
+static void	ft_unset_worker(t_shell *shell, char *key)
 {
 	char	*dic_key;
 	t_list	*node;

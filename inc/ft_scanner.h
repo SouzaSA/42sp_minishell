@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:52:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/19 09:37:14 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/23 18:08:39 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "ft_grammar_symbols.h"
 # include "libft.h"
 # include "ft_source.h"
+# include "ft_utils.h"
 
 /* ************************************************************************** */
 /* ---    src      -->  source of input                                   --- */
