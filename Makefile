@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/02/23 18:11:08 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/02/24 10:13:25 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -180,10 +180,17 @@ EXPAND_ADD_DIR	=	${addprefix ${EXPAND_DIR}/,${EXPAND}}
 
 RM				=	@rm -rf
 
-DIR_GUARD		=	@mkdir -p ${@D}
+DIR_GUARD		=	@mkdir -p $@
 
-${OBJ_DIR}/%.o:	${SRC_DIR}/%.c
-				${DIR_GUARD}
+${OBJ_DIR}/.:
+					${DIR_GUARD}
+
+${OBJ_DIR}%/.:
+					${DIR_GUARD}
+
+.SECONDEXPANSION:
+
+${OBJ_DIR}/%.o:	${SRC_DIR}/%.c | $${@D}/.
 				${CC} ${CFLAGS} ${INCS} -c $< -o $@
 
 ${NAME}:		${OBJS}
@@ -215,3 +222,5 @@ fclean: 		clean
 re:				fclean all
 
 .PHONY:			all bonus san clean fclean re
+
+.PRECIOUS:		${OBJ_DIR}/. ${OBJ_DIR}%/.

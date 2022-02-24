@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 13:58:02 by sde-alva          #+#    #+#              #
-#    Updated: 2022/02/22 11:13:58 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/02/24 10:31:38 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -132,16 +132,23 @@ CFLAGS			=	-Wall -Wextra -Werror
 
 RM				=	rm -rf
 
-DIR_GUARD		=	@mkdir -p ${@D}
+DIR_GUARD		=	mkdir -p $@
 
-${OBJ_DIR}/%.o:	${SRC_DIR}/%.c
-				${DIR_GUARD}
+${OBJ_DIR}/.:
+					${DIR_GUARD}
+
+${OBJ_DIR}%/.:
+					${DIR_GUARD}
+
+.SECONDEXPANSION:
+
+${OBJ_DIR}/%.o:	${SRC_DIR}/%.c | $${@D}/.
 				${CC} ${CFLAGS} ${INCS} -c $< -o $@
 
 ${NAME}:		${LIB_FILE}
 
 ${LIB_FILE}:	${OBJS}
-				${DIR_GUARD}
+				mkdir -p ${@D}
 				ar rcs ${LIB_FILE} ${OBJS}
 
 all:			${NAME}
@@ -155,3 +162,5 @@ fclean: 		clean
 re:				fclean all
 
 .PHONY:			all clean fclean re ${NAME}
+
+.PRECIOUS:		${OBJ_DIR}/. ${OBJ_DIR}%/.
