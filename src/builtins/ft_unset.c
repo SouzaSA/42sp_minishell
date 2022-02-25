@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 10:52:06 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/23 17:47:59 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/24 21:28:55 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	ft_unset_worker(t_shell *shell, char *key);
 
 int	ft_unset(t_shell *shell, t_list *cmds)
 {
+	cmds = cmds->next;
 	while (cmds)
 	{
 		if (ft_isidentifier((char *)cmds->content))
@@ -40,20 +41,20 @@ static void	ft_unset_worker(t_shell *shell, char *key)
 	{
 		node = shell->env_list;
 		prev_node = NULL;
-		dic_key = ((t_dictionary *)shell->env_list)->key;
+		dic_key = ((t_dictionary *)shell->env_list->content)->key;
 		while (node && ft_strcmp(dic_key, key) != 0)
 		{
 			prev_node = node;
 			node = node->next;
 			if (node)
-				dic_key = ((t_dictionary *)node)->key;
+				dic_key = ((t_dictionary *)node->content)->key;
 		}
 		if (node)
 		{
 			if (node == shell->env_list)
-				ft_lstadd_front(&shell->env_list, node->next);
+				shell->env_list = node->next;
 			else
-				ft_lstadd_back(&prev_node, node->next);
+				prev_node->next = node->next;
 			ft_lstdelone(node, &ft_destroy_dictionary_element);
 		}
 	}

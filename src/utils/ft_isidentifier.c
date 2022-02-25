@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 16:38:43 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/23 17:10:01 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/24 21:21:19 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_isidentifier(char *str)
 		return (0);
 	i = 1;
 	rtn = 1;
-	if (!ft_isalpha(str[0]) || str[0] != '_')
+	if (!ft_isalpha(str[0]) && str[0] != '_')
 		rtn = 0;
 	while (rtn && str[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 09:45:11 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/21 21:00:12 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/24 21:01:56 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	ft_env(t_shell *shell)
 		ft_lstiter(shell->env_list, &ft_print_dictionary);
 		shell->error_status = EXIT_SHELL_SUCCESS;
 	}
+	shell->error_status = 0;
 	return (0);
 }
 

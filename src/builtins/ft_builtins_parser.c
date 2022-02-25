@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 16:05:11 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/21 19:40:58 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/24 20:53:27 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	ft_builin_parser(t_shell *shell, t_command *command)
 {
 	int		rtn;
 	char	*cmd;
-
 	rtn = 0;
 	cmd = NULL;
 	if (command && command->cmd)
@@ -30,7 +29,7 @@ int	ft_builin_parser(t_shell *shell, t_command *command)
 	else if (command && ft_strcmp(cmd, "exit") == 0)
 		ft_exit(shell, command->cmd);
 	else if (command && ft_strcmp(cmd, "export") == 0)
-		ft_export(shell, command->assign);
+		ft_export(shell, command->cmd);
 	else if (command && ft_strcmp(cmd, "pwd") == 0)
 		ft_pwd();
 	else if (command && ft_strcmp(cmd, "unset") == 0)

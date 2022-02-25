@@ -6,13 +6,12 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 20:40:18 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/23 19:57:20 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/24 14:31:22 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_executor.h"
 
-static int	ft_exec_cd_builtin(t_shell *shell, t_command *cmd);
 static int	ft_forker_builtin(t_shell *shell, t_cmd_data *cmd_data, t_command *cmd);
 static int	ft_exec_builtin(t_shell *shell, t_cmd_data *cmd_data, t_command *cmd);
 static void	ft_pipe_worker(t_cmd_data *cmd_data);
@@ -29,25 +28,12 @@ int	ft_builtin_run(t_shell *shell, t_cmd_data *cmd_data, t_ast *ast)
 	cmd_data->fd_in = 0;
 	cmd_data->fd_out = 1;
 	cmd_data->pid = -1;
-	rtn = ft_assignments(shell, cmd->assign); // TODO CLEAN and print error msg
+	rtn = ft_assignments(shell, cmd->assign);
 	rtn = ft_redirections(cmd->redir, &cmd_data->fd_in, &cmd_data->fd_out);
-	if (cmd->cmd && cmd->cmd->content && !ft_strcmp((char *)(cmd->cmd->content), "cd"))
-		rtn = ft_exec_cd_builtin(shell, cmd);
-	else
-		rtn = ft_forker_builtin(shell, cmd_data, cmd);
+	rtn = ft_forker_builtin(shell, cmd_data, cmd);
 	if (cmd_data->cmd)
 		free(cmd_data->cmd);
 	ft_destroy_command(&cmd);
-	return (rtn);
-}
-
-static int	ft_exec_cd_builtin(t_shell *shell, t_command *cmd)
-{
-	int	rtn;
-
-	rtn = 0;
-	ft_cd(shell, cmd->cmd);
-	ft_lstclear(&cmd->cmd, &free);
 	return (rtn);
 }
 

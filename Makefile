@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/02/24 10:13:25 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/02/24 10:36:30 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -151,31 +151,18 @@ SIG				=	ft_handle_signals.c
 BONUS			=
 
 OBJS			=	${addprefix ./${OBJ_DIR}/,${SRCS:.c=.o}}
-
 BONUS_OBJS		=	${addprefix ./${OBJ_DIR}/,${BONUS:.c=.o}}
-
 UTILS_ADD_DIR	=	${addprefix ${UTILS_DIR}/,${UTILS}}
-
 BUILTIN_ADD_DIR	=	${addprefix ${BUILTINS_DIR}/,${BUILTINS}}
-
 ERROR_ADD_DIR	=	${addprefix ${ERROR_DIR}/,${ERROR}}
-
 EXECUTOR_ADD_DIR	=	${addprefix ${EXECUTOR_DIR}/,${EXECUTOR}}
-
 PARSER_ADD_DIR	=	${addprefix ${PARSER_DIR}/,${PARSER}}
-
 LL1_RULES_ADD_DIR	=	${addprefix ${LL1_RULES_DIR}/,${LL1_RULES}}
-
 PROMPT_ADD_DIR	=	${addprefix ${PROMPT_DIR}/,${PROMPT}}
-
 SCANNER_ADD_DIR	=	${addprefix ${SCANNER_DIR}/,${SCANNER}}
-
 TAPE_SOURCE_ADD_DIR	=	${addprefix ${TAPE_SOURCE_DIR}/,${TAPE_SOURCE}}
-
 UTILS_ADD_DIR	=	${addprefix ${UTILS_DIR}/,${UTILS}}
-
 SIG_ADD_DIR	=	${addprefix ${SIG_DIR}/,${SIG}}
-
 EXPAND_ADD_DIR	=	${addprefix ${EXPAND_DIR}/,${EXPAND}}
 
 RM				=	@rm -rf

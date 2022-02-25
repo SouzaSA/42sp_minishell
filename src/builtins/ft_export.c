@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 12:20:09 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/23 16:07:04 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/24 21:15:59 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void		ft_search_and_add(t_shell *shell, t_list *new_node);
 static t_list	*ft_search_right_pos(t_list *list, t_list *new_node);
 static void		ft_exchange_node(t_shell *shell, t_list *old, t_list *new);
 
-int	ft_export(t_shell *shell, t_list *assigns)
+int	ft_export(t_shell *shell, t_list *exp_var)
 {
 	long			idx;
 	char			*assign;
@@ -25,23 +25,25 @@ int	ft_export(t_shell *shell, t_list *assigns)
 	t_list			*new_node;
 
 	shell->error_status = 0;
-	if (!assigns)
-		ft_export_print(shell);
-	while (assigns)
+	if (!ft_strcmp((char *)exp_var->content, "export"))
+	{
+		if (exp_var && ft_lstsize(exp_var) == 1)
+			ft_export_print(shell);
+		exp_var = exp_var->next;
+	}
+	while (exp_var)
 	{
 		dic_item = (t_dictionary *)malloc(sizeof(t_dictionary));
 		if (!dic_item)
 			return (1);
-		assign = (char *)assigns->content;
+		assign = (char *)exp_var->content;
 		idx = (long)(ft_strchr(assign, '=') - &assign[0]);
 		dic_item->key = ft_substr(assign, 0, idx);
 		dic_item->value = ft_substr(assign, idx + 1, ft_strlen(assign));
 		new_node = ft_lstnew(dic_item);
-		if (!shell->env_list && new_node)
-			ft_lstadd_front(&shell->env_list, new_node);
-		else
+		if (new_node)
 			ft_search_and_add(shell, new_node);
-		assigns = assigns->next;
+		exp_var = exp_var->next;
 	}
 	return (0);
 }
@@ -68,22 +70,21 @@ static void	ft_search_and_add(t_shell *shell, t_list *new_node)
 	char	*dic_key;
 	t_list	*element;
 
-	if (shell)
+	if (shell->env_list)
 	{
-		if (shell->env_list && new_node)
-		{
-			element = ft_search_right_pos(shell->env_list, new_node);
-			if (element)
-				dic_key = ((t_dictionary *)element->content)->key;
-			new_node_key = ((t_dictionary *)new_node->content)->key;
-			if (!element)
-				ft_lstadd_front(&shell->env_list, new_node);
-			else if (ft_strcmp(dic_key, new_node_key) == 0)
-				ft_exchange_node(shell, element, new_node);
-			else
-				ft_lstadd_after(element, new_node);
-		}
+		element = ft_search_right_pos(shell->env_list, new_node);
+		if (element)
+			dic_key = ((t_dictionary *)element->content)->key;
+		new_node_key = ((t_dictionary *)new_node->content)->key;
+		if (!element)
+			ft_lstadd_front(&shell->env_list, new_node);
+		else if (ft_strcmp(dic_key, new_node_key) == 0)
+			ft_exchange_node(shell, element, new_node);
+		else
+			ft_lstadd_after(element, new_node);
 	}
+	else
+		ft_lstadd_front(&shell->env_list, new_node);
 }
 
 static t_list	*ft_search_right_pos(t_list *list, t_list *new_node)
