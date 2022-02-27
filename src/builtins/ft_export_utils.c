@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 09:17:31 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/26 22:25:50 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/27 10:52:59 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	ft_env_search_and_add(t_shell *shell, t_list *new_node)
 		if (element)
 			dic_key = ((t_dictionary *)element->content)->key;
 		new_node_key = ((t_dictionary *)new_node->content)->key;
-		printf("%s %s\n", dic_key, new_node_key);
 		if (!element)
 			ft_lstadd_front(&shell->env_list, new_node);
 		else if (ft_strcmp(dic_key, new_node_key) == 0)
