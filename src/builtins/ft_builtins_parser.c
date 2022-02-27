@@ -6,11 +6,11 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/20 16:05:11 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/24 20:53:27 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/25 11:35:45 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_minishell.h"
+#include "ft_builtins.h"
 
 int	ft_builin_parser(t_shell *shell, t_command *command)
 {

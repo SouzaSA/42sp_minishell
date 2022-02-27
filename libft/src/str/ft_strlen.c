@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/23 14:18:56 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/08/02 18:38:01 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/26 14:39:38 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen(const char *s)
 	size_t	size;
 
 	size = 0;
-	while (s[size] != '\0')
+	while (s && s[size] != '\0')
 	{
 		size++;
 	}

@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 12:30:26 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/22 15:07:19 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/26 18:52:10 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,8 @@ void	ft_destroy_shell(t_shell *shell)
 			free(shell->transition_table);
 			shell->transition_table = NULL;
 		}
+		if (shell->line)
+			free(shell->line);
+		shell->line = NULL;
 	}
 }

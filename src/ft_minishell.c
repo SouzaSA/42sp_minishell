@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:36:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/24 21:03:59 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/26 18:55:03 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,38 +21,38 @@ static void	ft_print_dir(void);
 int	ft_minishell(char **envp)
 {
 	t_shell		shell;
-	char		*line;
 	int			status;
 
 	ft_init_minishell(&shell, envp);
-	ft_env(&shell);
-	write(1, "\n\n", 2);
 	ft_env(&shell);
 	status = 1;
 	while (status)
 	{
 		ft_print_dir();
-		line = readline("\033[0;33m$\e[0;39m ");
-		if (!line)
+		shell.line = readline("\033[0;33m$\e[0;39m ");
+		if (!shell.line)
 		{
 			write(1, "\n", 1);
 			exit(EXIT_SUCCESS);
 		}
-		if (line && !ft_set_status(line))
+		if (shell.line && !ft_set_status(shell.line))
 		{
 			write(2, "exit\n", 5);
 			status = 0;
-			free(line);
+			free(shell.line);
+			shell.line = NULL;
 			break ;
 		}
-		if (line && ft_strlen(line) == 0)
+		if (shell.line && ft_strlen(shell.line) == 0)
 		{
-			free(line);
+			free(shell.line);
+			shell.line = NULL;
 			continue ;
 		}
-		add_history(line);
-		ft_executor(&shell, line);
-		free(line);
+		add_history(shell.line);
+		ft_executor(&shell, shell.line);
+		free(shell.line);
+		shell.line = NULL;
 	}
 	rl_clear_history();
 	ft_destroy_shell(&shell);

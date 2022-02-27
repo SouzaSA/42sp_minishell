@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/23 17:23:53 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/26 18:20:55 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_cmd_data
 	char	**cmd;
 	int		fd_in;
 	int		fd_out;
+	int		builtin_flag;
 	int		pipe_flag;
 	int		pipe_fd[2];
 	int		pid;

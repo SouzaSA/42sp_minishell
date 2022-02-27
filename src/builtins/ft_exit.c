@@ -6,11 +6,11 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 10:51:26 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/21 16:24:45 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/25 11:38:41 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_minishell.h"
+#include "ft_builtins.h"
 
 static int	ft_is_num(char *num);
 

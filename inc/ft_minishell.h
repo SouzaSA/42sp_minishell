@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/22 10:10:08 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/25 11:37:51 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <sys/stat.h>
 # include <signal.h>
 # include "ft_builtins.h"
 # include "ft_colors.h"

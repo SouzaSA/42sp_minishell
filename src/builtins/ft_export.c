@@ -6,23 +6,20 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 12:20:09 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/24 21:15:59 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/26 21:07:39 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_minishell.h"
+#include "ft_builtins.h"
 
 static void		ft_export_print(t_shell *shell);
-static void		ft_search_and_add(t_shell *shell, t_list *new_node);
-static t_list	*ft_search_right_pos(t_list *list, t_list *new_node);
-static void		ft_exchange_node(t_shell *shell, t_list *old, t_list *new);
+static void 	ft_export_worker(t_shell *shell, t_list *exp_var);
+static t_list	*ft_search_local(t_shell *shell, char *key);
 
 int	ft_export(t_shell *shell, t_list *exp_var)
 {
-	long			idx;
-	char			*assign;
-	t_dictionary	*dic_item;
-	t_list			*new_node;
+	char	*assign;
+	char	*key;
 
 	shell->error_status = 0;
 	if (!ft_strcmp((char *)exp_var->content, "export"))
@@ -33,16 +30,16 @@ int	ft_export(t_shell *shell, t_list *exp_var)
 	}
 	while (exp_var)
 	{
-		dic_item = (t_dictionary *)malloc(sizeof(t_dictionary));
-		if (!dic_item)
-			return (1);
 		assign = (char *)exp_var->content;
-		idx = (long)(ft_strchr(assign, '=') - &assign[0]);
-		dic_item->key = ft_substr(assign, 0, idx);
-		dic_item->value = ft_substr(assign, idx + 1, ft_strlen(assign));
-		new_node = ft_lstnew(dic_item);
-		if (new_node)
-			ft_search_and_add(shell, new_node);
+		key = ft_substr(assign, 0, (ft_strchr(assign, '=') - &assign[0]));
+		if (ft_isidentifier(key))
+			ft_export_worker(shell, exp_var);
+		else
+		{
+			shell->error_status = 1;
+			ft_export_error((char *)exp_var->content, FLAG_ERROR_OWN);
+		}
+		free(key);
 		exp_var = exp_var->next;
 	}
 	return (0);
@@ -64,72 +61,45 @@ static void	ft_export_print(t_shell *shell)
 	}
 }
 
-static void	ft_search_and_add(t_shell *shell, t_list *new_node)
+static void ft_export_worker(t_shell *shell, t_list *exp_var)
 {
-	char	*new_node_key;
-	char	*dic_key;
-	t_list	*element;
+	char	*assign;
+	char	*key;
+	t_list	*local_var;
 
-	if (shell->env_list)
+	assign = (char *)exp_var->content;
+	key = ft_substr(assign, 0, (ft_strchr(assign, '=') - &assign[0]));
+	if (ft_strchr(assign, '='))
 	{
-		element = ft_search_right_pos(shell->env_list, new_node);
-		if (element)
-			dic_key = ((t_dictionary *)element->content)->key;
-		new_node_key = ((t_dictionary *)new_node->content)->key;
-		if (!element)
-			ft_lstadd_front(&shell->env_list, new_node);
-		else if (ft_strcmp(dic_key, new_node_key) == 0)
-			ft_exchange_node(shell, element, new_node);
+		ft_export_exec(shell, exp_var);
+	}
+	else
+	{
+		local_var = ft_search_local(shell, key);
+		if (local_var)
+			ft_env_search_and_add(shell, local_var);
+	}
+	free(key);
+}
+
+static t_list	*ft_search_local(t_shell *shell, char *key)
+{
+	t_list	*node;
+	t_list	*previous;
+
+	node = shell->vars;
+	previous = NULL;
+	while (node && ft_strcmp(key, ((t_dictionary *)node->content)->key))
+	{
+		previous = node;
+		node = node->next;
+	}
+	if (node)
+	{
+		if (!previous)
+			shell->vars = node->next;
 		else
-			ft_lstadd_after(element, new_node);
+			previous->next = node->next;
 	}
-	else
-		ft_lstadd_front(&shell->env_list, new_node);
-}
-
-static t_list	*ft_search_right_pos(t_list *list, t_list *new_node)
-{
-	t_list	*element;
-	char	*new_node_key;
-	char	*dic_key;
-
-	element = NULL;
-	dic_key = ((t_dictionary *)list->content)->key;
-	new_node_key = ((t_dictionary *)new_node->content)->key;
-	while (list && ft_strcmp(dic_key, new_node_key) < 0)
-	{
-		element = list;
-		list = list->next;
-		if (list)
-		{
-			dic_key = ((t_dictionary *)list->content)->key;
-			new_node_key = ((t_dictionary *)new_node->content)->key;
-		}
-	}
-	return (element);
-}
-
-static void	ft_exchange_node(t_shell *shell, t_list *old, t_list *new)
-{
-	t_list	*tmp_node;
-	t_list	*prev_node;
-
-	tmp_node = shell->env_list;
-	prev_node = NULL;
-	while (tmp_node && tmp_node != old)
-	{
-		prev_node = tmp_node;
-		tmp_node = tmp_node->next;
-	}
-	if (!prev_node)
-	{
-		new->next = shell->env_list;
-		shell->env_list = new;
-	}
-	else
-	{
-		new->next = old->next;
-		prev_node->next = new;
-	}
-	ft_lstdelone(old, &ft_destroy_dictionary_element);
+	return (node);
 }

@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 21:08:41 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/23 19:46:44 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/26 18:52:26 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,8 @@ static int	ft_exec_cmd(t_shell *shell, t_cmd_data *cmd_data, t_command *cmd)
 		ft_split_destroy(envp);
 	}
 	free(cmd_args);
-	ft_destroy_ast_stk(cmd_data->cmd_stk);
+	if (ft_lstsize(*cmd_data->cmd_stk))
+		ft_destroy_ast_stk(cmd_data->cmd_stk);
 	ft_destroy_command(&cmd);
 	rl_clear_history();
 	ft_destroy_shell(shell);

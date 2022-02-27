@@ -6,11 +6,11 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:29:00 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/21 16:19:43 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/02/25 11:39:05 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_minishell.h"
+#include "ft_builtins.h"
 
 int	ft_pwd()
 {

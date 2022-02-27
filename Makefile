@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/02/24 10:36:30 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/02/26 21:12:11 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ BUILTINS		=	ft_builtins_parser.c	\
 					ft_env.c \
 					ft_exit.c \
 					ft_export.c	\
+					ft_export_utils.c	\
 					ft_isbuiltin.c	\
 					ft_pwd.c	\
 					ft_unset.c
