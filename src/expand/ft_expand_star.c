@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:36:40 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/02/16 17:19:40 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/01 10:29:13 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ t_list	*ft_expand_star(char *str)
 
 	expanded = NULL;
 	path = ft_split_path(str);
-	ft_get_expanded_list(&expanded, path->next, (char *)path->content);
+	if (!path->next)
+		ft_get_expanded_list(&expanded, path, ".");
+	else
+		ft_get_expanded_list(&expanded, path->next, (char *)path->content);
 	return (expanded);
 }
