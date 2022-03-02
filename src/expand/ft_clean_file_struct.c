@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_del_list_content.c                              :+:      :+:    :+:   */
+/*   ft_clean_file_struct.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/11 09:59:57 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/02/11 10:01:03 by edpaulin         ###   ########.fr       */
+/*   Created: 2022/03/02 18:19:30 by edpaulin          #+#    #+#             */
+/*   Updated: 2022/03/02 18:19:54 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_expand.h"
 
-void	ft_del_list_content(void *content)
+void	ft_clean_file_struct(t_file *fl)
 {
-	if (!content)
-		return ;
-	free(content);
+	if (fl->name)
+		free(fl->name);
+	fl->name = NULL;
+	free(fl);
 }

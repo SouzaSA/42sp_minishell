@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pathcat.c                                       :+:      :+:    :+:   */
+/*   ft_del_content.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/02 18:26:30 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/02 18:28:16 by edpaulin         ###   ########.fr       */
+/*   Created: 2022/03/02 18:19:35 by edpaulin          #+#    #+#             */
+/*   Updated: 2022/03/02 18:19:36 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_expand.h"
 
-char	*ft_pathcat(char *path_buffer, char *path)
+void	ft_del_content_file_struct(void *content)
 {
-	char	*cat;
-	char	*aux;
+	ft_clean_file_struct((t_file *)content);
+}
 
-	if (path_buffer[ft_strlen(path_buffer) - 1] == '/')
-		cat = ft_strjoin(path_buffer, path);
-	else
-	{
-		aux = ft_strjoin(path_buffer, "/");
-		cat = ft_strjoin(aux, path);
-		if (aux)
-			free(aux);
-	}
-	return (cat);
+void	ft_del_content(void *content)
+{
+	free(content);
 }

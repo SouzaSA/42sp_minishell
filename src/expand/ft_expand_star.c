@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/02 11:36:40 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/01 10:29:13 by edpaulin         ###   ########.fr       */
+/*   Created: 2022/03/02 17:50:25 by edpaulin          #+#    #+#             */
+/*   Updated: 2022/03/02 18:54:47 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,21 @@
 
 t_list	*ft_expand_star(char *str)
 {
-	t_list	*expanded;
-	t_list	*path;
+	t_list	*split;
+	t_list	*list;
+	t_file	*fl;
 
-	expanded = NULL;
-	path = ft_split_path(str);
-	if (!path->next)
-		ft_get_expanded_list(&expanded, path, ".");
+	if (!str)
+		return (NULL);
+	split = ft_get_splitted_path(str);
+	if (!split)
+		return (NULL);
+	fl = (t_file *)split->content;
+	list = NULL;
+	if (!split->next)
+		ft_add_expansion_to_list(&list, split, NULL);
 	else
-		ft_get_expanded_list(&expanded, path->next, (char *)path->content);
-	return (expanded);
+		ft_expand_list(&list, split, fl->name);
+	ft_lstclear(&split, &ft_del_content_file_struct);
+	return (list);
 }

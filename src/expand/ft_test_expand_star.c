@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:02:13 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/01 10:28:08 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/02 18:47:45 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void		ft_print_list(t_list *list);
 void	ft_test_expand_star(void)
 {
 	t_list		*list;
-	const char	*inputs[] = {"./*/*/*/*str*.c", "*/", "../*/", "/home/*/Do*n*/", NULL};
+	char	*inputs[] = {"./*/*/*/*str*.c", "*/", "../*/", "/home/*/Do*n*/", NULL};
 	// const char	*inputs[] = {"/*/*/*/*", NULL};
 	int			i;
 
@@ -31,12 +31,12 @@ void	ft_test_expand_star(void)
 		ft_putendl_fd("------------------------------------------------\n", 1);
 		printf("input: [%s]\n", inputs[i]);
 		printf("list: \n");
-		list = ft_expand_star((char *)inputs[i]);
+		list = ft_expand_star(inputs[i]);
 		if (!list)
 			break ;
 		ft_print_list(list);
 		printf("\n\nList size = %d\n\n", ft_lstsize(list));
-		ft_lstclear(&list, &ft_del_list_content);
+		ft_lstclear(&list, &ft_del_content);
 		i++;
 	}
 	ft_putendl_fd("===================================================\n", 1);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/02/26 21:12:11 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/03/02 18:49:41 by edpaulin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -137,15 +137,16 @@ UTILS			=	ft_destroy_ast_stk.c	\
 					ft_update_env_pwd.c
 
 EXPAND			=	ft_expand_star.c \
+					ft_get_splitted_path.c \
+					ft_clean_file_struct.c \
+					ft_del_content.c \
+					ft_add_expansion_to_list.c \
 					ft_match_star.c \
-					ft_del_list_content.c \
-					ft_test_expand_star.c \
-					ft_get_expanded_list.c \
-					ft_get_file_list.c \
 					ft_is_dot_dir.c \
-					ft_split_path.c \
 					ft_pathcat.c \
-					ft_is_dir.c
+					ft_is_dir.c \
+					ft_expand_list.c \
+					ft_test_expand_star.c
 
 SIG				=	ft_handle_signals.c
 
@@ -163,7 +164,7 @@ PROMPT_ADD_DIR	=	${addprefix ${PROMPT_DIR}/,${PROMPT}}
 SCANNER_ADD_DIR	=	${addprefix ${SCANNER_DIR}/,${SCANNER}}
 TAPE_SOURCE_ADD_DIR	=	${addprefix ${TAPE_SOURCE_DIR}/,${TAPE_SOURCE}}
 UTILS_ADD_DIR	=	${addprefix ${UTILS_DIR}/,${UTILS}}
-SIG_ADD_DIR	=	${addprefix ${SIG_DIR}/,${SIG}}
+SIG_ADD_DIR	=		${addprefix ${SIG_DIR}/,${SIG}}
 EXPAND_ADD_DIR	=	${addprefix ${EXPAND_DIR}/,${EXPAND}}
 
 RM				=	@rm -rf
