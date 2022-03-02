@@ -6,14 +6,14 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 12:20:09 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/26 21:07:39 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/02 16:18:01 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_builtins.h"
 
 static void		ft_export_print(t_shell *shell);
-static void 	ft_export_worker(t_shell *shell, t_list *exp_var);
+static void		ft_export_worker(t_shell *shell, t_list *exp_var);
 static t_list	*ft_search_local(t_shell *shell, char *key);
 
 int	ft_export(t_shell *shell, t_list *exp_var)
@@ -47,7 +47,7 @@ int	ft_export(t_shell *shell, t_list *exp_var)
 
 static void	ft_export_print(t_shell *shell)
 {
-	t_list *env_node;
+	t_list	*env_node;
 
 	env_node = shell->env_list;
 	while (env_node)
@@ -61,7 +61,7 @@ static void	ft_export_print(t_shell *shell)
 	}
 }
 
-static void ft_export_worker(t_shell *shell, t_list *exp_var)
+static void	ft_export_worker(t_shell *shell, t_list *exp_var)
 {
 	char	*assign;
 	char	*key;

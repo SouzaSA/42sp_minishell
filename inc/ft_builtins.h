@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 10:07:06 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/26 20:03:45 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/02 16:17:01 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		ft_exit(t_shell *shell, t_list *cmds);
 int		ft_export_exec(t_shell *shell, t_list *exp_var);
 int		ft_export(t_shell *shell, t_list *assigns);
 int		ft_isbuiltin(char *cmd);
-int		ft_pwd();
+int		ft_pwd(void);
 int		ft_unset(t_shell *shell, t_list *cmds);
 
 #endif

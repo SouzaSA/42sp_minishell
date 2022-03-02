@@ -6,14 +6,14 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 10:52:06 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/27 10:50:25 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/02 16:19:09 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_builtins.h"
 
 static void	ft_unset_worker(t_shell *shell, char *key);
-static void ft_remove_from_list(t_list **list, char *key);
+static void	ft_remove_from_list(t_list **list, char *key);
 
 int	ft_unset(t_shell *shell, t_list *cmds)
 {
@@ -38,7 +38,7 @@ static void	ft_unset_worker(t_shell *shell, char *key)
 	ft_remove_from_list(&shell->vars, key);
 }
 
-static void ft_remove_from_list(t_list **list, char *key)
+static void	ft_remove_from_list(t_list **list, char *key)
 {
 	char	*dic_key;
 	t_list	*node;
