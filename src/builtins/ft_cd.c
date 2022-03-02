@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:43:00 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/25 11:38:04 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/02 16:32:31 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	ft_cd_swap(t_shell *shell)
 	if (chdir(old_pwd) != 0)
 		return (ft_cd_error(shell, old_pwd, FLAG_ERROR_P));
 	ft_update_env_pwds(shell, ft_strdup(old_pwd));
-	ft_pwd(shell);
+	ft_pwd();
 	shell->error_status = 0;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/25 11:37:51 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/02 16:23:11 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,6 @@ typedef struct s_cmd_tbl
 
 char	**ft_get_path(char **envp);
 int		ft_minishell(char **envp);
-
-
-
 void	ft_handle_sigint(int signal);
 void	ft_handle_sigquit(int signal);
 #endif

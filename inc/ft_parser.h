@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:43 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/17 21:46:35 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/02 16:22:55 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_stk_node
 /*
 * Parser worker
 */
-t_ast	*ft_parser(char *line, void	(***tt)(t_list **, enum e_symbol));
+t_ast	*ft_parser(char *line, void (***tt)(t_list **, enum e_symbol));
 t_ast	*ft_add_child_node(t_ast *parent, t_ast *child);
 void	ft_free_node_tree(t_ast *node);
 t_ast	*ft_new_node(enum e_ast_type type);

@@ -6,12 +6,12 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 10:07:06 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/02 16:17:01 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/02 16:22:07 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_BUILTIN_H
-# define FT_BUILTIN_H
+#ifndef FT_BUILTINS_H
+# define FT_BUILTINS_H
 
 # include <sys/stat.h>
 # include "ft_ast_struct.h"

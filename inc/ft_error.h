@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/23 17:49:56 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/02 16:31:26 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <string.h>
 # include <stdio.h>
 # include "libft.h"
-# include "ft_base_macros.h"
 # include "ft_shell_struct.h"
 
 # define FLAG_ERROR_P 0
