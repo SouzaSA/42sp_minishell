@@ -6,39 +6,33 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 10:51:26 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/25 11:38:41 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/02 10:05:51 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_builtins.h"
 
 static int	ft_is_num(char *num);
+static int	ft_exit_messages(int code, char *msg);
 
 int	ft_exit(t_shell *shell, t_list *cmds)
 {
 	int	rtn;
 	int	len;
 
-	rtn = 2;
+	rtn = 0;
 	len = ft_lstsize(cmds);
-	shell->error_status = 1;
-	ft_putstr_fd("exit ", 2);
-	if (len > 2)
-	{
-		shell->error_status = 2;
-		ft_putendl_fd("minishell: exit: too many arguments", 2);
-	}
-	else if (len == 2 && !ft_is_num((char *)cmds->next->content))
-	{
-		rtn = 2;
-		ft_putstr_fd("minishell: exit: ", 2);
-		ft_putstr_fd((char *)cmds->next->content, 2);
-		ft_putendl_fd(": numeric argument required", 2);
-	}
+	if (len >= 2 && !ft_is_num((char *)cmds->next->content))
+		rtn = ft_exit_messages(2, (char *)cmds->next->content);
+	else if (len > 2)
+		rtn = ft_exit_messages(1, NULL);
 	else if (len == 2)
-		rtn = ft_atoi((char *)cmds->next->content) % 256;
+		rtn = ft_exit_messages(ft_atoi((char *)cmds->next->content), NULL);
 	else
-		rtn = 0;
+		rtn = ft_exit_messages(0, NULL);
+	shell->error_status = rtn;
+	if (rtn != 2)
+		exit (rtn);
 	return (rtn);
 }
 
@@ -56,4 +50,33 @@ static int	ft_is_num(char *num)
 		i++;
 	}
 	return (is_digit);
+}
+
+static int	ft_exit_messages(int code, char *msg)
+{
+	int	rtn;
+
+	if (code == 0)
+	{
+		rtn = 0;
+		ft_putendl_fd("exit", 2);
+	}
+	else if (code == 1)
+	{
+		rtn = 1;
+		ft_putendl_fd("minishell: exit: too many arguments", 2);
+	}
+	else if (code == 2)
+	{
+		rtn = 2;
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(msg, 2);
+		ft_putendl_fd(": numeric argument required", 2);
+	}
+	else
+	{
+		rtn = code % 256;
+		ft_putendl_fd("exit", 2);
+	}
+	return (rtn);
 }
