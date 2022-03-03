@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 09:51:10 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/19 09:38:09 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/03 18:35:16 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,21 +51,21 @@ static void	ft_term_prod(t_list **toks, t_stk_node *node, t_list **cmd_stk)
 {
 	if ((node->ast_type == AST_CMD || node->ast_type == AST_ASSIGN \
 		|| node->ast_type == AST_REDIR) && node->ast_node && \
-		!node->ast_node->cmd)
+		!node->ast_node->blk)
 	{
-		node->ast_node->cmd = (t_command *)malloc(sizeof(t_command));
-		node->ast_node->cmd->cmd = NULL;
-		node->ast_node->cmd->redir = NULL;
-		node->ast_node->cmd->assign = NULL;
+		node->ast_node->blk = (t_cmd_blk *)malloc(sizeof(t_cmd_blk));
+		node->ast_node->blk->cmd = NULL;
+		node->ast_node->blk->redir = NULL;
+		node->ast_node->blk->assign = NULL;
 	}
 	if (node->ast_type == AST_CMD)
-		ft_lstadd_back(&node->ast_node->cmd->cmd, \
+		ft_lstadd_back(&node->ast_node->blk->cmd, \
 		ft_lstnew(ft_strdup(((t_token *)(*toks)->content)->text)));
 	if (node->ast_type == AST_ASSIGN)
-		ft_lstadd_back(&node->ast_node->cmd->assign, \
+		ft_lstadd_back(&node->ast_node->blk->assign, \
 		ft_lstnew(ft_strdup(((t_token *)(*toks)->content)->text)));
 	if (node->ast_type == AST_REDIR)
-		ft_lstadd_back(&node->ast_node->cmd->redir, \
+		ft_lstadd_back(&node->ast_node->blk->redir, \
 		ft_lstnew(ft_strdup(((t_token *)(*toks)->content)->text)));
 	*toks = (*toks)->next;
 	free(ft_lstpop(cmd_stk));

@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:36:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/26 18:55:03 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/03 20:03:09 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <curses.h>
 #include <term.h>
 
-static int	ft_set_status(char *line);
+// static int	ft_set_status(char *line);
 static void	ft_print_dir(void);
 
 int	ft_minishell(char **envp)
@@ -24,7 +24,7 @@ int	ft_minishell(char **envp)
 	int			status;
 
 	ft_init_minishell(&shell, envp);
-	ft_env(&shell);
+	//ft_env(&shell);
 	status = 1;
 	while (status)
 	{
@@ -34,14 +34,6 @@ int	ft_minishell(char **envp)
 		{
 			write(1, "\n", 1);
 			exit(EXIT_SUCCESS);
-		}
-		if (shell.line && !ft_set_status(shell.line))
-		{
-			write(2, "exit\n", 5);
-			status = 0;
-			free(shell.line);
-			shell.line = NULL;
-			break ;
 		}
 		if (shell.line && ft_strlen(shell.line) == 0)
 		{
@@ -59,15 +51,15 @@ int	ft_minishell(char **envp)
 	return (0);
 }
 
-static int	ft_set_status(char *line)
-{
-	int		status;
+// static int	ft_set_status(char *line)
+// {
+// 	int		status;
 
-	status = 1;
-	if (ft_strcmp("exit", line) == 0)
-		status = 0;
-	return (status);
-}
+// 	status = 1;
+// 	if (ft_strcmp("exit", line) == 0)
+// 		status = 0;
+// 	return (status);
+// }
 
 static void	ft_print_dir(void)
 {

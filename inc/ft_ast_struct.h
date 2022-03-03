@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:08:23 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/16 21:10:14 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/03 18:25:24 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,17 @@ enum e_ast_type
 	AST_TMP,
 };
 
-typedef struct s_command
+typedef struct s_cmd_blk
 {
 	t_list	*cmd;
 	t_list	*redir;
 	t_list	*assign;
-}	t_command;
+}	t_cmd_blk;
 
 typedef struct s_ast
 {
 	enum e_ast_type	type;
-	t_command		*cmd;
+	t_cmd_blk		*blk;
 	int				children;
 	struct s_ast	*first_child;
 	struct s_ast	*next_sibling;

@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:43 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/02 16:22:55 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/03 18:22:21 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_ast	*ft_parser(char *line, void (***tt)(t_list **, enum e_symbol));
 t_ast	*ft_add_child_node(t_ast *parent, t_ast *child);
 void	ft_free_node_tree(t_ast *node);
 t_ast	*ft_new_node(enum e_ast_type type);
-void	ft_set_node_val_str(t_ast *node, t_command *cmd);
+void	ft_set_node_val_str(t_ast *node, t_cmd_blk *cmd);
 t_ast	*ft_syntax(t_list *toks, void (***tt)(t_list **, enum e_symbol));
 /*
 *  LL(1) RULES

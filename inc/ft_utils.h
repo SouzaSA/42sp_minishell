@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 09:32:33 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/02 16:31:01 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/03 18:31:00 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 void	ft_destroy_ast_stk(t_list **ast_stk);
 void	ft_destroy_ast(t_ast **ast);
-void	ft_destroy_command(t_command **command);
+void	ft_destroy_command(t_cmd_blk **blk);
 void	ft_destroy_dictionary_element(void *dic_item);
 void	ft_destroy_dictionary_list(t_list **dic_lst);
 void	ft_destroy_shell(t_shell *shell);

@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 18:33:03 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/21 18:10:39 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/03 18:58:50 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_free_node_tree(t_ast *node)
 		ft_free_node_tree(child);
 		child = next;
 	}
-	if (node->cmd)
-		free(node->cmd);
+	if (node->blk)
+		free(node->blk);
 	free(node);
 }

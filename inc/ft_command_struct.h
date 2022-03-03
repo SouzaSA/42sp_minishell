@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_destroy_ast_stk.c                               :+:      :+:    :+:   */
+/*   ft_command_struct.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/22 13:35:25 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/03 19:03:34 by sde-alva         ###   ########.fr       */
+/*   Created: 2022/03/03 18:07:49 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/03/03 18:10:04 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_utils.h"
+#ifndef FT_COMMAND_STRUCT_H
+# define FT_COMMAND_STRUCT_H
 
-void	ft_destroy_ast_stk(t_list **ast_stk)
+# include "libft.h"
+
+typedef struct s_cmd_data
 {
-	t_ast	*ast;
-	t_list	*node;
+	char	**cmd;
+	int		fd_in;
+	int		fd_out;
+	int		builtin_flag;
+	int		pipe_flag;
+	int		pipe_fd[2];
+	int		pid;
+	t_list	**cmd_stk;
+}	t_cmd_data;
 
-	if (ast_stk && *ast_stk)
-	{
-		node = *ast_stk;
-		while (ft_lstsize(node))
-		{
-			ast = (t_ast *)ft_lstpop(&node);
-			if (ast->blk)
-				ft_destroy_command(&ast->blk);
-			free(ast);
-		}
-		*ast_stk = NULL;
-	}
-}
+#endif
