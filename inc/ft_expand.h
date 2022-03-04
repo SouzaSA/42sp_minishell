@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:36:45 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/04 09:13:06 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/04 12:10:16 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ typedef struct s_file
 	char		*name;
 	enum e_type	type;
 }	t_file;
+
+typedef struct s_star
+{
+	char	*str;
+	ssize_t	len;
+	ssize_t	i;
+}	t_star;
 
 void	ft_test_expand_star(void);
 

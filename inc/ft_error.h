@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/04 08:07:39 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/04 12:10:13 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@
 # include "ft_shell_struct.h"
 
 # define FLAG_ERROR_P 0
-# define FLAG_ERROR_STR 1
-# define FLAG_ERROR_OWN 2
+# define FLAG_ERROR_OWN 1
 
 # define EXIT_SHELL_SUCCESS 0
 # define EXIT_SHELL_ERROR_GENERIC 1
