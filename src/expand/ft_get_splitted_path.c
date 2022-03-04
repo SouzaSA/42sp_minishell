@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 17:53:28 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/02 18:43:28 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/04 17:31:14 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int		ft_add_root_dir(t_list **list);
 static int		ft_fill_split_list(t_list **list, char **split);
 static t_file	*ft_create_file_struct(char *file, enum e_type type);
-static 	void	ft_change_last_type_to_file(t_list *list);
+static void		ft_change_last_type_to_file(t_list *list);
 
 t_list	*ft_get_splitted_path(char *path)
 {

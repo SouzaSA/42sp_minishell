@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 18:19:23 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/02 18:29:12 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/04 17:29:57 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,21 @@ void	ft_add_expansion_to_list(t_list **list, t_list *dir, char *dir_to_open)
 	{
 		fl = (t_file *)dir->content;
 		if (ft_check_file(fl->type, entry->d_type) \
-			&& ft_match_star(fl->name, entry->d_name))
+		&& ft_match_star(fl->name, entry->d_name))
+		{
+			if (!dir_to_open)
+				concat = ft_strdup(entry->d_name);
+			else
+				concat = ft_pathcat(dir_to_open, entry->d_name);
+			new = ft_lstnew(concat);
+			if (!new)
 			{
-				if (!dir_to_open)
-					concat = ft_strdup(entry->d_name);
-				else
-					concat = ft_pathcat(dir_to_open, entry->d_name);
-				new = ft_lstnew(concat);
-				if (!new)
-				{
-					free(concat);
-					ft_lstclear(list, ft_del_content);
-					return ;
-				}
-				ft_lstadd_back(list, new);
+				free(concat);
+				ft_lstclear(list, ft_del_content);
+				return ;
 			}
+			ft_lstadd_back(list, new);
+		}
 		entry = readdir(folder);
 	}
 	closedir(folder);

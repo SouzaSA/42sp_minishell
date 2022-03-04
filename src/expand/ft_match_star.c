@@ -6,153 +6,61 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 18:24:11 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/04 09:13:08 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/04 17:29:11 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_expand.h"
+#include <string.h>
 
-static t_star	*ft_create_source(char *str);
-static int		ft_clean_and_return (t_star *s1, t_star *s2, int ret);
-static void		ft_clean_source(t_star *src);
-static int		ft_get_next_char(t_star *src);
-// static int		ft_peek_next_char(t_star *src);
-// static void		ft_skip_star(t_star *src);
-// static int		ft_get_previous_char(t_star *src);
-static int		ft_peek_previous_char(t_star *src);
-
-#define true 1
-#define false 0
-#define end_of_source 3
+static int		ft_recursive_match(char *pattern, char *text);
+static size_t	ft_block_size(char *block);
 
 int	ft_match_star(char *pattern, char *text)
 {
-	t_star	*p;
-	t_star	*t;
-	char		pc;
-	char		tc;
-
-	// printf("pattern: %s\n", pattern);
-	// printf("text: %s\n", text);
 	if (!pattern || !text)
 		return (0);
-	if (!ft_strcmp(pattern, text))
+	if (ft_strcmp(pattern, text) == 0)
 		return (1);
 	if (ft_is_dot_dir(text))
 		return (0);
-	p = ft_create_source(pattern);
-	if (!p)
-		return (0);
-	t = ft_create_source(text);
-	if (!t)
+	return (ft_recursive_match(pattern, text));
+}
+
+static int	ft_recursive_match(char *pattern, char *text)
+{
+	char	*block;
+
+	if (*pattern == '*')
 	{
-		ft_clean_source(p);
-		return (0);
+		while (*pattern == '*')
+			pattern++;
+		if (!*pattern)
+			return (1);
+		block = ft_substr(pattern, 0, ft_block_size(pattern));
+		text = strstr(text, block); // change to ft_strstr
+		free(block);
+		if (!text)
+			return (0);
 	}
-	pc = ft_get_next_char(p);
-	tc = ft_get_next_char(t);
-	while (pc != end_of_source && tc != end_of_source)
+	while (*pattern && *text && *pattern == *text)
 	{
-		// printf("pc: %c\n", pc);
-		// printf("tc: %c\n", tc);
-		if (pc == '*')
-		{
-			while (pc == '*')
-				pc = ft_get_next_char(p);
-			if (pc == end_of_source)
-				return (ft_clean_and_return(p, t, true));
-			while (tc != pc && tc != end_of_source)
-				tc = ft_get_next_char(t);
-			if (tc == end_of_source)
-				return (ft_clean_and_return(p, t, false));
-		}
-		if (pc == tc)
-		{
-			pc = ft_get_next_char(p);
-			tc = ft_get_next_char(t);
-		}
-		else
-		{
-			// the problem is here!!!
-			tc = ft_get_next_char(t);
-			while (tc != pc && tc != end_of_source)
-				tc = ft_get_next_char(t);
-			if (tc == end_of_source)
-				return (ft_clean_and_return(p, t, false));
-		}
+		pattern++;
+		text++;
 	}
-	if ((t->i < t->len && ft_peek_previous_char(p) != '*') || p->i < p->len)
-		return (ft_clean_and_return(p, t, false));
-	return (ft_clean_and_return(p, t, true));
+	if ((!*pattern && !*text) || (*pattern == '*' && *(pattern + 1) == '\0'))
+		return (1);
+	if (*pattern == '*')
+		return (ft_recursive_match(pattern, text));
+	return (0);
 }
 
-static int	ft_clean_and_return (t_star *s1, t_star *s2, int ret)
+static size_t	ft_block_size(char *block)
 {
-	ft_clean_source(s1);
-	ft_clean_source(s2);
-	// printf("------------------------------------\n");
-	return (ret);
-}
+	size_t	size;
 
-static t_star	*ft_create_source(char *str)
-{
-	t_star	*src;
-
-	src = malloc(sizeof(t_star));
-	if (!src)
-		return (NULL);
-	src->str = ft_strdup(str);
-	if (!src->str)
-	{
-		free(src);
-		return (NULL);
-	}
-	src->len = ft_strlen(src->str);
-	src->i = -1;
-	return (src);
-}
-
-static void	ft_clean_source(t_star *src)
-{
-	if (!src)
-		return ;
-	if (src->str)
-		free(src->str);
-	free(src);
-}
-
-static int	ft_get_next_char(t_star *src)
-{
-	if (src->i >= src->len)
-		return (end_of_source);
-	src->i++;
-	return (src->str[src->i]);
-}
-
-// static int	ft_peek_next_char(t_source *src)
-// {
-// 	if ((src->i + 1) >= src->len)
-// 		return (end_of_source);
-// 	return (src->str[src->i + 1]);
-// }
-
-// static void	ft_skip_star(t_source *src)
-// {
-// 	while (ft_peek_next_char(src) == '*')
-// 		src->i++;
-// }
-
-// static int	ft_get_previous_char(t_source *src)
-// {
-// 	if ((src->i - 1) < 0)
-// 		return (end_of_source);
-// 	src->i--;
-// 	return (src->str[src->i]);
-// }
-
-static int	ft_peek_previous_char(t_star *src)
-{
-	if ((src->i - 1) < 0)
-		return (end_of_source);
-	return (src->str[src->i - 1]);
+	size = 0;
+	while (block[size] != '*' && block[size] != '\0')
+		size++;
+	return (size);
 }
