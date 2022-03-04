@@ -6,21 +6,18 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 18:19:23 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/04 17:29:57 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/04 18:00:09 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_expand.h"
 
 static int	ft_check_file(enum e_type target_type, int file_type);
+static void	ft_loop_to_add(DIR *folder, t_list **list, t_list *dir, char *path);
 
 void	ft_add_expansion_to_list(t_list **list, t_list *dir, char *dir_to_open)
 {
-	struct dirent	*entry;
-	DIR				*folder;
-	char			*concat;
-	t_list			*new;
-	t_file			*fl;
+	DIR	*folder;
 
 	if (!dir_to_open)
 		folder = opendir(".");
@@ -28,6 +25,17 @@ void	ft_add_expansion_to_list(t_list **list, t_list *dir, char *dir_to_open)
 		folder = opendir(dir_to_open);
 	if (!folder)
 		return ;
+	ft_loop_to_add(folder, list, dir, dir_to_open);
+	closedir(folder);
+}
+
+static void	ft_loop_to_add(DIR *folder, t_list **list, t_list *dir, char *path)
+{
+	struct dirent	*entry;
+	char			*concat;
+	t_list			*new;
+	t_file			*fl;
+
 	entry = readdir(folder);
 	while (entry)
 	{
@@ -35,22 +43,15 @@ void	ft_add_expansion_to_list(t_list **list, t_list *dir, char *dir_to_open)
 		if (ft_check_file(fl->type, entry->d_type) \
 		&& ft_match_star(fl->name, entry->d_name))
 		{
-			if (!dir_to_open)
+			if (!path)
 				concat = ft_strdup(entry->d_name);
 			else
-				concat = ft_pathcat(dir_to_open, entry->d_name);
+				concat = ft_pathcat(path, entry->d_name);
 			new = ft_lstnew(concat);
-			if (!new)
-			{
-				free(concat);
-				ft_lstclear(list, ft_del_content);
-				return ;
-			}
 			ft_lstadd_back(list, new);
 		}
 		entry = readdir(folder);
 	}
-	closedir(folder);
 }
 
 static int	ft_check_file(enum e_type target_type, int file_type)
