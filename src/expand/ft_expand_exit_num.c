@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 09:06:49 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/04 17:59:42 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/04 18:07:57 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	ft_change_symbol(t_shell *shell, t_list **list)
 	}
 }
 
-static void ft_change_dquote(t_shell *shell, t_list **list)
+static void	ft_change_dquote(t_shell *shell, t_list **list)
 {
 	char	*aux;
 	char	**splited;
