@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_main.c                                          :+:      :+:    :+:   */
+/*   ft_handle_process_signals.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/25 09:06:49 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/04 20:02:29 by edpaulin         ###   ########.fr       */
+/*   Created: 2022/01/17 15:23:12 by edpaulin          #+#    #+#             */
+/*   Updated: 2022/03/04 20:03:33 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
+#include <signal.h>
 
-int	main(int argc, char **argv, char **envp)
+void	ft_process_cancel(int signal);
+void	ft_process_quit(int signal);
+
+void	ft_handle_process_signals(void)
 {
-	char	*msg;
+	signal(SIGINT, &ft_process_cancel);
+	signal(SIGQUIT, &ft_process_quit);
+}
 
-	if (argc != 1 || !envp)
-	{
-		msg = ft_strjoin(argv[0], ": Invalid arguments.");
-		printf("%s\n", msg);
-		free(msg);
-		return (1);
-	}
-	ft_handle_prompt_signals();
-	ft_minishell(envp);
-	return (0);
+void	ft_process_cancel(int signal)
+{
+	if (signal)
+		return ;
+}
+
+void	ft_process_quit(int signal)
+{
+	if (signal)
+		return ;
 }

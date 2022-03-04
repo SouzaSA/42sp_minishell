@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_handle_signals.c                                :+:      :+:    :+:   */
+/*   ft_handle_prompt_signals.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/17 15:23:12 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/01/17 16:31:54 by edpaulin         ###   ########.fr       */
+/*   Created: 2022/03/04 19:56:26 by edpaulin          #+#    #+#             */
+/*   Updated: 2022/03/04 20:00:33 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 #include <signal.h>
 
-void	ft_handle_sigint(int signal)
+void	ft_prompt_cancel(int signal);
+
+void	ft_handle_prompt_signals(void)
 {
-	if (signal)
-		printf("\n\033[0;33m$\e[0;39m ");
+	signal(SIGINT, &ft_prompt_cancel);
+	signal(SIGQUIT, SIG_IGN);
 }
 
-void	ft_handle_sigquit(int signal)
+void	ft_prompt_cancel(int signal)
 {
 	if (signal)
-		return ;
+	{
+		write(1, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		ft_print_dir();
+		rl_redisplay();
+	}
 }

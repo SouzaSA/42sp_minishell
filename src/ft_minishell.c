@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:36:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/03 20:03:09 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/04 19:31:49 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <term.h>
 
 // static int	ft_set_status(char *line);
-static void	ft_print_dir(void);
 
 int	ft_minishell(char **envp)
 {
@@ -60,11 +59,3 @@ int	ft_minishell(char **envp)
 // 		status = 0;
 // 	return (status);
 // }
-
-static void	ft_print_dir(void)
-{
-	char	cwd[1024];
-
-	getcwd(cwd, sizeof(cwd));
-	printf("\033[0;32m%s\e[0;39m", cwd);
-}

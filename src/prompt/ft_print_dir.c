@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_main.c                                          :+:      :+:    :+:   */
+/*   ft_print_dir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/25 09:06:49 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/04 20:02:29 by edpaulin         ###   ########.fr       */
+/*   Created: 2022/03/04 19:30:05 by edpaulin          #+#    #+#             */
+/*   Updated: 2022/03/04 19:31:26 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+void	ft_print_dir(void)
 {
-	char	*msg;
+	char	cwd[1024];
 
-	if (argc != 1 || !envp)
-	{
-		msg = ft_strjoin(argv[0], ": Invalid arguments.");
-		printf("%s\n", msg);
-		free(msg);
-		return (1);
-	}
-	ft_handle_prompt_signals();
-	ft_minishell(envp);
-	return (0);
+	getcwd(cwd, sizeof(cwd));
+	printf("\033[0;32m%s\e[0;39m", cwd);
 }
