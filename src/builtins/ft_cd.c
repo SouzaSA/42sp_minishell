@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:43:00 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/02 16:32:31 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/04 08:10:31 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 static int	ft_cd_home(t_shell *shell);
 static int	ft_cd_swap(t_shell *shell);
 static int	ft_cd_path(t_shell *shell, char *path);
-
-int	g_errnum = 0;
 
 int	ft_cd(t_shell *shell, t_list *cmds)
 {
@@ -81,13 +79,11 @@ static int	ft_cd_path(t_shell *shell, char *path)
 	if (!S_ISDIR(stats.st_mode))
 	{
 		shell->error_status = 1;
-		g_errnum = ENOTDIR;
 		return (ft_cd_error(shell, path, FLAG_ERROR_P));
 	}
 	if (chdir(path) != 0)
 	{
 		shell->error_status = 2;
-		g_errnum = ENOENT;
 		return (ft_cd_error(shell, path, FLAG_ERROR_P));
 	}
 	ft_update_env_pwds(shell, ft_strdup(path));

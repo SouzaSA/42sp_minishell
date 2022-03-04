@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 21:08:19 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/22 17:52:41 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/04 08:17:22 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	ft_peek_char(t_source *src)
 	pos = src->curpos;
 	if (!src || !src->buffer)
 	{
-		g_errnum = ENODATA;
 		return (ERRCHAR);
 	}
 	if (pos == INIT_SRC_POS)

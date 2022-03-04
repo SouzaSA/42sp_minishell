@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:51:19 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/08 20:14:34 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/04 08:16:14 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	ft_add_to_buf(t_scanner *scan, char c)
 		tmp = ft_expand_mem(tmp, scan->tok_bufsize, scan->tok_bufsize * 2);
 		if (!tmp)
 		{
-			g_errnum = ENOMEM;
 			return ;
 		}
 		scan->tok_buf = tmp;
@@ -43,7 +42,6 @@ static char	*ft_expand_mem(void *old_ptr, int old_size, int new_size)
 		new_ptr = malloc(new_size);
 		if (!new_ptr)
 		{
-			g_errnum = ENOMEM;
 			return (NULL);
 		}
 		if (old_ptr)

@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:51:45 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/16 08:33:33 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/04 08:13:43 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ t_token	*tokenize(t_scanner *scan, t_source *src)
 
 	tok = ft_init_token();
 	if (!src || !src->buffer || !src->bufsize)
-	{
-		g_errnum = ENODATA;
 		return (ft_set_token(tok, src, NULL));
-	}
 	if (!scan->tok_buf)
 		ft_create_buff(scan);
 	if (!scan->tok_buf)
@@ -49,10 +46,7 @@ static void	ft_create_buff(t_scanner *scan)
 	scan->tok_bufsize = 1024;
 	scan->tok_buf = malloc(scan->tok_bufsize);
 	if (!scan->tok_buf)
-	{
-		g_errnum = ENOMEM;
 		return ;
-	}
 }
 
 static void	ft_token_parse(t_scanner *scan, t_source *src)

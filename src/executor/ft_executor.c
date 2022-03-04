@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/03 20:34:13 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/04 08:01:12 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,17 @@ static int	ft_run_cmds(t_shell *shell, t_list **cmd_stk)
 	if (ft_lstsize(*cmd_stk) == 1)
 	{
 		ast = (t_ast *)ft_lsttop(*cmd_stk);
-		if (ast->blk && ast->blk->cmd && ft_isbuiltin((char *)(ast->blk->cmd->content)))
+		blk = ast->blk;
+		if (blk && blk->cmd && ft_isbuiltin((char *)(blk->cmd->content)))
 		{
 			cmd_data.builtin_flag = 1;
 			ast = ft_lstpop(cmd_stk);
 			ft_assignments(shell, ast->blk->assign);
 			ft_redirections(ast->blk->redir, &cmd_data.fd_in, &cmd_data.fd_out);
-			blk = ast->blk;
 			free(ast);
 			ft_builin_parser(shell, &cmd_data, blk);
-			if (ast->blk)
-				ft_destroy_command(&ast->blk);
+			if (blk)
+				ft_destroy_command(&blk);
 		}
 	}
 	rtn = ft_cmd_iter(shell, &cmd_data);

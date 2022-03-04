@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/02 16:31:26 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/04 08:07:39 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@
 # define ENOMEM 12
 # define ENOTDIR 20
 # define ENODATA 61
-
-extern int	g_errnum;
 
 int		ft_cd_error(t_shell *shell, char *msg, int error_flag);
 void	ft_command_error(char *cmd_name);
