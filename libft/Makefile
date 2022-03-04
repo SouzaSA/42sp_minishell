@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 13:58:02 by sde-alva          #+#    #+#              #
-#    Updated: 2022/02/24 10:31:38 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/03/04 17:40:58 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,6 +97,7 @@ STR				=	ft_atoi.c	\
 					ft_strncmp.c	\
 					ft_strnstr.c	\
 					ft_strrchr.c	\
+					ft_strstr.c	\
 					ft_strtolower.c	\
 					ft_strtrim.c	\
 					ft_substr.c	\
