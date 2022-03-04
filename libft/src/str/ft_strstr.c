@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 17:10:45 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/04 17:42:41 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/04 17:45:53 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_strstr( char *str, char *substr)
 		if (*str != *substr)
 		{
 			str++;
-			continue;
+			continue ;
 		}
 		tmp1 = str;
 		while (1)
