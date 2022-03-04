@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 18:24:11 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/04 18:02:09 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/04 18:27:44 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	ft_recursive_match(char *pattern, char *text)
 		if (!*pattern)
 			return (1);
 		block = ft_substr(pattern, 0, ft_block_size(pattern));
-		text = strstr(text, block); // change this
+		text = ft_strstr(text, block); // change this
 		free(block);
 		if (!text)
 			return (0);
