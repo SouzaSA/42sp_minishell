@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 11:02:13 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/02 18:47:45 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/04 17:31:45 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@ static void		ft_print_list(t_list *list);
 
 void	ft_test_expand_star(void)
 {
-	t_list		*list;
+	t_list	*list;
 	char	*inputs[] = {"./*/*/*/*str*.c", "*/", "../*/", "/home/*/Do*n*/", NULL};
-	// const char	*inputs[] = {"/*/*/*/*", NULL};
-	int			i;
+	int		i;
 
 	i = 0;
 	ft_putendl_fd("===================================================\n", 1);
