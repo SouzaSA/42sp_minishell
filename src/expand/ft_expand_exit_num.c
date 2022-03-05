@@ -6,11 +6,15 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 09:06:49 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 11:30:13 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:34:49 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_expand.h"
+
+static void	ft_change_symbol(t_shell *shell, t_list **list);
+static char	*ft_change_dquote(t_shell *shell, char *str);
+static void	ft_change_splited(char *num, char **splited);
 
 void	ft_expand_exit_num(t_shell *shell, t_cmd_blk *blk)
 {
@@ -30,26 +34,42 @@ static void	ft_change_symbol(t_shell *shell, t_list **list)
 		if (ft_strcmp((char *)node->content, "$?") == 0)
 		{
 			aux = node->content;
-			node->content = ft_itoa(shell->error_status);
+			if (((char *)node->content)[0] == '\"')
+				node->content = ft_change_dquote(shell, (char *)node->content);
+			else
+				node->content = ft_itoa(shell->status);
 			free(aux);
 		}
 		node = node->next;
 	}
 }
 
-static void	ft_change_dquote(t_shell *shell, t_list **list)
+static char	*ft_change_dquote(t_shell *shell, char *str)
 {
-	char	*aux;
-	char	**splited;
-	t_list	*node;
+	char	*new;
+	char	**splitted;
 
-	node = *list;
-	while (node)
+	splitted = ft_split(str, '$');
+	ft_change_splited(ft_itoa(shell->status), splitted);
+	new = ft_split_join(splitted);
+	ft_split_destroy(splitted);
+	return (new);
+}
+
+static void	ft_change_splited(char *num, char **splited)
+{
+	int		i;
+	char	*aux;
+
+	i = 0;
+	while (splited[i])
 	{
-		if (ft_strstr((char *)node->content, "$?"))
+		if (splited[i][0] == '?')
 		{
-			splited = ft_split((char *)node->content, '$');
+			aux = splited[i];
+			splited[i] = ft_strjoin(num, &splited[i][1]);
+			free (aux);
 		}
-		node = node->next;
+		i++;
 	}
 }

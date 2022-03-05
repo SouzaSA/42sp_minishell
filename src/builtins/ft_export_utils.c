@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 09:17:31 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/27 10:52:59 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/04 20:50:38 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_export_exec(t_shell *shell, t_list *exp_var)
 	dic_item = (t_dictionary *)malloc(sizeof(t_dictionary));
 	if (!dic_item)
 	{
-		shell->error_status = 1;
+		shell->status = 1;
 		return (1);
 	}
 	assign = (char *)exp_var->content;
