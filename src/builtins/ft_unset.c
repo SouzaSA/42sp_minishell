@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 10:52:06 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/02 16:19:09 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/04 20:50:36 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_unset(t_shell *shell, t_list *cmds)
 			ft_unset_worker(shell, (char *)cmds->content);
 		else
 		{
-			shell->error_status = 1;
+			shell->status = 1;
 			ft_unset_error((char *)cmds->content, FLAG_ERROR_OWN);
 		}
 		cmds = cmds->next;

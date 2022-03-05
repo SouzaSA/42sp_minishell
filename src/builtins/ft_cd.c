@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:43:00 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/04 08:10:31 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/04 20:50:46 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_cd(t_shell *shell, t_list *cmds)
 	int		len;
 
 	len = ft_lstsize(cmds);
-	shell->error_status = 0;
+	shell->status = 0;
 	if (cmds && !ft_strcmp("cd", (char *)cmds->content))
 	{
 		if (len == 1)
@@ -50,7 +50,7 @@ static int	ft_cd_home(t_shell *shell)
 		if (chdir(home_path) != 0)
 			return (ft_cd_error(shell, home_path, FLAG_ERROR_P));
 		ft_update_env_pwds(shell, home_path);
-		shell->error_status = 0;
+		shell->status = 0;
 	}
 	return (0);
 }
@@ -66,7 +66,7 @@ static int	ft_cd_swap(t_shell *shell)
 		return (ft_cd_error(shell, old_pwd, FLAG_ERROR_P));
 	ft_update_env_pwds(shell, ft_strdup(old_pwd));
 	ft_pwd();
-	shell->error_status = 0;
+	shell->status = 0;
 	return (0);
 }
 
@@ -78,15 +78,15 @@ static int	ft_cd_path(t_shell *shell, char *path)
 	stat(path, &stats);
 	if (!S_ISDIR(stats.st_mode))
 	{
-		shell->error_status = 1;
+		shell->status = 1;
 		return (ft_cd_error(shell, path, FLAG_ERROR_P));
 	}
 	if (chdir(path) != 0)
 	{
-		shell->error_status = 2;
+		shell->status = 2;
 		return (ft_cd_error(shell, path, FLAG_ERROR_P));
 	}
 	ft_update_env_pwds(shell, ft_strdup(path));
-	shell->error_status = 0;
+	shell->status = 0;
 	return (0);
 }

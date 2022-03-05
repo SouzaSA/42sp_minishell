@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:57:26 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/22 15:06:50 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/04 20:50:25 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	ft_import_envp(t_shell *shell, char **envp)
 
 	i = 0;
 	shell->env_list = NULL;
-	shell->error_status = 0;
+	shell->status = 0;
 	element.next = NULL;
 	while (envp && envp[i])
 	{
