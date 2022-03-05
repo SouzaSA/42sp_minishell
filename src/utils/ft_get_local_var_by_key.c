@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_env_value_by_key.c                          :+:      :+:    :+:   */
+/*   ft_get_local_var_by_key.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/16 17:39:09 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 18:48:02 by sde-alva         ###   ########.fr       */
+/*   Created: 2022/03/05 18:47:17 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/03/05 19:14:53 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_utils.h"
 
-char	*ft_get_env_value_by_key(t_shell *shell, char *key)
+char	*ft_get_local_var_by_key(t_shell *shell, char *key)
 {
 	t_list	*node;
 	char	*value;
 
-	node = shell->env_list;
+	node = shell->vars;
 	value = NULL;
 	while (node)
 	{
