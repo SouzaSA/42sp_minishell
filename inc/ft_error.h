@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/04 12:10:13 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:05:16 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 int		ft_cd_error(t_shell *shell, char *msg, int error_flag);
 void	ft_command_error(char *cmd_name);
 int		ft_export_error(char *msg, int error_flag);
+int		ft_heredoc_error(char *eof_name, int lineno);
 int		ft_put_msg_error(char *msg, int error_flag);
 void	ft_parser_error_msg(char *tok_text);
 int		ft_unset_error(char *msg, int error_flag);

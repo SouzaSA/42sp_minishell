@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 12:21:58 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 16:58:17 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	ft_run_cmds(t_shell *shell, t_list **cmd_stk)
 			cmd_data.builtin_flag = 1;
 			ast = ft_lstpop(cmd_stk);
 			ft_assignments(shell, ast->blk->assign);
-			ft_redirections(ast->blk->redir, &cmd_data.fd_in, &cmd_data.fd_out);
+			ft_redirections(shell, ast->blk->redir, &cmd_data.fd_in, &cmd_data.fd_out);
 			free(ast);
 			ft_builin_parser(shell, &cmd_data, blk);
 			if (blk)

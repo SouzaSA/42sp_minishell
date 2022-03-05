@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_here_doc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 18:26:09 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 11:25:21 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/05 16:04:39 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_executor.h"
-#include "ft_signals.h"
 
-static void	ft_get_by_limiter(int *fd, char *limiter);
+static void	ft_get_by_limiter(int *fd, char *limiter, int lineno);
 static void	ft_free_lines(char *line1, char *line2);
 
-int	ft_here_doc(char *limiter)
+int	ft_here_doc(t_shell *shell, char *limiter)
 {
 	int	fd[2];
 	int	pid;
 	int	rtn;
+	int lineno;
 
 	rtn = 0;
 	if (pipe(fd) == -1)
@@ -30,18 +30,19 @@ int	ft_here_doc(char *limiter)
 	if (pid == -1)
 		rtn = ft_put_msg_error(NULL, FLAG_ERROR_P);
 	if (pid == 0)
-		ft_get_by_limiter(fd, limiter);
-	else
 	{
-		waitpid(pid, NULL, 0);
-		close(fd[1]);
-		dup2(fd[0], 0);
-		close(fd[0]);
+		lineno = shell->lineno;
+		ft_destroy_shell(shell);
+		ft_get_by_limiter(fd, limiter, lineno);
 	}
+	wait(NULL);
+	close(fd[1]);
+	dup2(fd[0], 0);
+	close(fd[0]);
 	return (rtn);
 }
 
-static void	ft_get_by_limiter(int *fd, char *limiter)
+static void	ft_get_by_limiter(int *fd, char *limiter, int lineno)
 {
 	char	*line;
 	char	*line_no_nl;
@@ -66,7 +67,7 @@ static void	ft_get_by_limiter(int *fd, char *limiter)
 	}
 	free(line);
 	close(fd[1]);
-	ft_put_msg_error("Error on delimiter entrace", FLAG_ERROR_OWN);
+	ft_heredoc_error(limiter, lineno);
 	exit(1);
 }
 

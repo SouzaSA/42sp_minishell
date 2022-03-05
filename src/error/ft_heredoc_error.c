@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_shell_struct.h                                  :+:      :+:    :+:   */
+/*   ft_heredoc_error.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/11 17:22:47 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 14:07:03 by sde-alva         ###   ########.fr       */
+/*   Created: 2022/03/05 14:14:29 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/03/05 15:05:05 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SHELL_STRUCT_H
-# define FT_SHELL_STRUCT_H
+#include "ft_error.h"
 
-# include "libft.h"
-# include "ft_grammar_symbols.h"
-
-typedef struct s_dictionary
+int	ft_heredoc_error(char *eof_name, int lineno)
 {
-	char	*key;
-	char	*value;
-}	t_dictionary;
+	char	*num;
 
-typedef struct s_shell
-{
-	t_list	*env_list;
-	t_list	*vars;
-	int		lineno;
-	char	*line;
-	int		status;
-	void	(***transition_table)(t_list **, enum e_symbol);
-}	t_shell;
-
-#endif
+	num = ft_itoa(lineno);
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd("warning: here-document at line ", 2);
+	ft_putstr_fd(num, 2);
+	ft_putstr_fd(" delimited by end-of-file (wanted `", 2);
+	ft_putstr_fd(eof_name, 2);
+	ft_putendl_fd("')", 2);
+	free(num);
+	return (1);
+}
