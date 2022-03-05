@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_executor.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 12:34:29 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 14:12:22 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "ft_utils.h"
 # include "ft_command_struct.h"
 # include "ft_expand.h"
+# include "ft_global_status.h"
 
 int		ft_and_or_run(t_cmd_data *data, enum e_ast_type type);
 int		ft_builtin_run(t_shell *shell, t_cmd_data *data, t_ast *ast);
