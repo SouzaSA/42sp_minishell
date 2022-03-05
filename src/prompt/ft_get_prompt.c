@@ -6,14 +6,14 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 08:22:07 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/05 09:31:12 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:29:00 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 #include "ft_colors.h"
 
-static char *ft_create_prompt(char *cwd);
+static char	*ft_create_prompt(char *cwd);
 
 char	*ft_get_prompt(void)
 {
@@ -24,7 +24,7 @@ char	*ft_get_prompt(void)
 	return (ft_create_prompt(cwd));
 }
 
-static char *ft_create_prompt(char *cwd)
+static char	*ft_create_prompt(char *cwd)
 {
 	char	*tmp;
 	char	*prompt;
@@ -33,9 +33,9 @@ static char *ft_create_prompt(char *cwd)
 	free(cwd);
 	tmp = ft_strjoin(prompt, END_COLOR);
 	free(prompt);
-	if (1)
+	if (0)
 		prompt = ft_strjoin(tmp, DOLLAR_OK);
-	else 
+	else
 		prompt = ft_strjoin(tmp, DOLLAR_ERROR);
 	free(tmp);
 	return (prompt);

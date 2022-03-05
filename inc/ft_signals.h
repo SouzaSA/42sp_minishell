@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_command_error.c                                 :+:      :+:    :+:   */
+/*   ft_signals.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/16 18:38:11 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 11:31:06 by edpaulin         ###   ########.fr       */
+/*   Created: 2022/03/05 11:14:28 by edpaulin          #+#    #+#             */
+/*   Updated: 2022/03/05 11:25:31 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_error.h"
+#ifndef FT_SIGNALS_H
+# define FT_SIGNALS_H
 
-void	ft_command_error(char *cmd_name)
-{
-	char	*return_msg;
+# include <signal.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include "libft.h"
 
-	return_msg = ft_strjoin(cmd_name, ": command not found");
-	ft_put_msg_error(return_msg, FLAG_ERROR_OWN);
-	free(return_msg);
-}
+void	ft_handle_prompt_signals(void);
+void	ft_handle_process_signals(void);
+void	ft_handle_here_doc_signals(int pid);
+
+#endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand_exit_num.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 09:06:49 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/04 18:07:57 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:30:13 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,4 @@ static void	ft_change_dquote(t_shell *shell, t_list **list)
 		}
 		node = node->next;
 	}
-
 }

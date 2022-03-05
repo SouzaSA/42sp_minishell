@@ -6,12 +6,11 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 19:56:26 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/05 09:33:13 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:24:09 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_minishell.h"
-#include <signal.h>
+#include "ft_signals.h"
 
 void	ft_prompt_cancel(int signal);
 

@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:36:45 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/04 17:33:47 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:27:54 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ typedef struct s_file
 	char		*name;
 	enum e_type	type;
 }	t_file;
-
-void	ft_test_expand_star(void);
 
 t_list	*ft_expand_star(char *str);
 t_list	*ft_get_splitted_path(char *path);

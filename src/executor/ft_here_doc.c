@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_here_doc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 18:26:09 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/10 18:51:19 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:25:21 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_executor.h"
+#include "ft_signals.h"
 
 static void	ft_get_by_limiter(int *fd, char *limiter);
 static void	ft_free_lines(char *line1, char *line2);
@@ -25,6 +26,7 @@ int	ft_here_doc(char *limiter)
 	if (pipe(fd) == -1)
 		rtn = ft_put_msg_error(NULL, FLAG_ERROR_P);
 	pid = fork();
+	ft_handle_here_doc_signals(pid);
 	if (pid == -1)
 		rtn = ft_put_msg_error(NULL, FLAG_ERROR_P);
 	if (pid == 0)

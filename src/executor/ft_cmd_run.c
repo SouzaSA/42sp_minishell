@@ -6,12 +6,12 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 21:08:41 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 09:33:59 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:29:31 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_executor.h"
-#include "ft_minishell.h"
+#include "ft_signals.h"
 
 static char	**ft_cmd_lst_to_array(t_list *cmd);
 static int	ft_forker(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd);
@@ -88,7 +88,7 @@ static int	ft_forker(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd)
 			ft_destroy_command(&cmd);
 			rl_clear_history();
 			ft_destroy_shell(shell);
-			if (data->fd_in < 0 &&data->fd_out < 0)
+			if (data->fd_in < 0 && data->fd_out < 0)
 				exit(1);
 			else
 				exit(0);
