@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:36:45 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/05 11:34:39 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:41:53 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 # include "libft.h"
 # include "ft_shell_struct.h"
 # include "ft_utils.h"
-
-# define STAR '*'
 
 enum	e_type
 {
