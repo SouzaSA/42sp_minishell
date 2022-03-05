@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_run.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 21:08:41 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 11:29:31 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/05 12:04:29 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,16 @@ static int	ft_forker(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd)
 		rtn = ft_put_msg_error(NULL, FLAG_ERROR_P);
 	if (rtn == 0 && data->pid == 0)
 	{
+		ft_destroy_tt(&shell->transition_table);
+		ft_destroy_ast_stk(data->cmd_stk);
+		rl_clear_history();
 		if (data->fd_in >= 0 && data->fd_out > 0)
 			rtn = ft_exec_cmd(shell, data, cmd);
 		else
 		{
 			close(data->pipe_fd[0]);
 			close(data->pipe_fd[1]);
-			ft_destroy_ast_stk(data->cmd_stk);
 			ft_destroy_command(&cmd);
-			rl_clear_history();
 			ft_destroy_shell(shell);
 			if (data->fd_in < 0 && data->fd_out < 0)
 				exit(1);
@@ -119,10 +120,7 @@ static int	ft_exec_cmd(t_shell *shell, t_cmd_data *data, t_cmd_blk *blk)
 		ft_split_destroy(envp);
 	}
 	free(cmd_args);
-	if (ft_lstsize(*data->cmd_stk))
-		ft_destroy_ast_stk(data->cmd_stk);
 	ft_destroy_command(&blk);
-	rl_clear_history();
 	ft_destroy_shell(shell);
 	exit(127);
 }

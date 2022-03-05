@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand_exit_num.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 09:06:49 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 11:34:49 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/05 12:29:43 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,23 @@ static void	ft_change_symbol(t_shell *shell, t_list **list);
 static char	*ft_change_dquote(t_shell *shell, char *str);
 static void	ft_change_splited(char *num, char **splited);
 
-void	ft_expand_exit_num(t_shell *shell, t_cmd_blk *blk)
+void	ft_expand_exit_num(t_shell *shell, t_list *ast_stk)
 {
-	ft_change_symbol(shell, &blk->assign);
-	ft_change_symbol(shell, &blk->cmd);
-	ft_change_symbol(shell, &blk->redir);
+	t_list		*node;
+	t_cmd_blk	*blk;
+
+	node = ast_stk;
+	while (node)
+	{
+		if (node->content && ((t_ast *)node->content)->blk)
+		{
+			blk = ((t_ast *)node->content)->blk;
+			ft_change_symbol(shell, &blk->assign);
+			ft_change_symbol(shell, &blk->redir);
+			ft_change_symbol(shell, &blk->cmd);
+		}
+		node = node->next;
+	}
 }
 
 static void	ft_change_symbol(t_shell *shell, t_list **list)

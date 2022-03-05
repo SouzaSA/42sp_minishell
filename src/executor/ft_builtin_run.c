@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_run.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 20:40:18 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 11:57:55 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/05 12:07:25 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,18 @@ static int	ft_forker_builtin(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd)
 		rtn = ft_put_msg_error(NULL, FLAG_ERROR_P);
 	if (rtn == 0 && data->pid == 0)
 	{
+		ft_destroy_tt(&shell->transition_table);
+		rl_clear_history();
+		ft_destroy_ast_stk(data->cmd_stk);
 		if (data->fd_in >= 0 && data->fd_out > 0)
 			rtn = ft_exec_builtin(shell, data, cmd);
 		else
 		{
 			close(data->pipe_fd[0]);
 			close(data->pipe_fd[1]);
-			ft_destroy_ast_stk(data->cmd_stk);
 			ft_destroy_command(&cmd);
-			rl_clear_history();
 			ft_destroy_shell(shell);
-			if (data->fd_in < 0 && data->fd_out < 0)
+			if (data->fd_in < 0 || data->fd_out < 0)
 				exit(1);
 			else
 				exit(0);
@@ -80,9 +81,7 @@ static int	ft_exec_builtin(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd)
 	close(data->pipe_fd[0]);
 	ft_pipe_worker(data);
 	rtn = ft_builin_parser(shell, data, cmd);
-	ft_destroy_ast_stk(data->cmd_stk);
 	ft_destroy_command(&cmd);
-	rl_clear_history();
 	ft_destroy_shell(shell);
 	exit(rtn);
 }
