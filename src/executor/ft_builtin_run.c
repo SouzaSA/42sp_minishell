@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtin_run.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 20:40:18 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/03 18:42:07 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:57:55 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_executor.h"
+#include "ft_signals.h"
 
 static int	ft_forker_builtin(t_shell *shell, t_cmd_data *data, t_cmd_blk *blk);
 static int	ft_exec_builtin(t_shell *shell, t_cmd_data *data, t_cmd_blk *blk);
@@ -45,6 +46,7 @@ static int	ft_forker_builtin(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd)
 	if (pipe(data->pipe_fd) == -1)
 		rtn = ft_put_msg_error(NULL, FLAG_ERROR_P);
 	data->pid = fork();
+	ft_handle_process_signals();
 	if (data->pid == -1)
 		rtn = ft_put_msg_error(NULL, FLAG_ERROR_P);
 	if (rtn == 0 && data->pid == 0)
