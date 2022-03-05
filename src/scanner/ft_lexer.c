@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 09:50:00 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/20 13:49:53 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 17:29:11 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 static void		ft_init_scan(t_scanner *scan);
 static t_list	*ft_mk_token_lst(t_scanner *scan, t_source *src);
+static void		ft_setter_type(t_token *tok, int *is_balanced, int *cmd_flag);
 static int		ft_check_balanced_quotes(char *str);
 
 t_list	*ft_lexer(t_source *src)
@@ -48,14 +49,7 @@ static t_list	*ft_mk_token_lst(t_scanner *scan, t_source *src)
 	token_list = NULL;
 	while (tok->type != TS_EOF)
 	{
-		if (is_balanced)
-			is_balanced = ft_check_balanced_quotes(tok->text);
-		if (tok->type == TS_WORD)
-			cmd_flag = 1;
-		if (tok->type == TS_AND || tok->type == TS_OR || tok->type == TS_PIPE)
-			cmd_flag = 0;
-		if (tok->type == TS_ASSIGNMENT && cmd_flag)
-			tok->type = TS_WORD;
+		ft_setter_type(tok, &is_balanced, &cmd_flag);
 		ft_lstadd_back(&token_list, ft_lstnew(tok));
 		tok = tokenize(scan, src);
 	}
@@ -63,6 +57,18 @@ static t_list	*ft_mk_token_lst(t_scanner *scan, t_source *src)
 	if (!is_balanced)
 		ft_lstclear(&token_list, &ft_del_token);
 	return (token_list);
+}
+
+static void	ft_setter_type(t_token *tok, int *is_balanced, int *cmd_flag)
+{
+	if (*is_balanced)
+		*is_balanced = ft_check_balanced_quotes(tok->text);
+	if (tok->type == TS_WORD)
+		*cmd_flag = 1;
+	if (tok->type == TS_AND || tok->type == TS_OR || tok->type == TS_PIPE)
+		*cmd_flag = 0;
+	if (tok->type == TS_ASSIGNMENT && *cmd_flag)
+		tok->type = TS_WORD;
 }
 
 static int	ft_check_balanced_quotes(char *str)
