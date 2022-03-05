@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/03/05 11:41:50 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/03/05 11:54:34 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -149,11 +149,11 @@ EXPAND			=	ft_expand_star.c \
 					ft_is_dot_dir.c \
 					ft_pathcat.c \
 					ft_is_dir.c \
-					ft_expand_list.c \
-					ft_test_expand_star.c
+					ft_expand_list.c
 
 SIG				=	ft_handle_prompt_signals.c \
-					ft_handle_process_signals.c
+					ft_handle_process_signals.c \
+					ft_handle_here_doc_signals.c
 
 BONUS			=
 

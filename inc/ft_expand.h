@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:36:45 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/04 21:36:07 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:41:53 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 # include "ft_shell_struct.h"
 # include "ft_utils.h"
 
-# define STAR '*'
-
 enum	e_type
 {
 	T_DIR,
@@ -33,8 +31,6 @@ typedef struct s_file
 	char		*name;
 	enum e_type	type;
 }	t_file;
-
-void	ft_test_expand_star(void);
 
 t_list	*ft_expand_star(char *str);
 t_list	*ft_get_splitted_path(char *path);

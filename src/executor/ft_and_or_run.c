@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_and_or_run.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 11:00:20 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/03 18:44:05 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:31:53 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_executor.h"
 
-int ft_and_or_run(t_cmd_data *data, enum e_ast_type type)
+int	ft_and_or_run(t_cmd_data *data, enum e_ast_type type)
 {
 	int	rtn;
 	int	wstatus;

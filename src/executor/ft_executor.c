@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_executor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/04 08:01:12 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:31:38 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_executor.h"
 
-static void ft_init_exec_stack(t_ast *ast, t_list **cmd_stk);
+static void	ft_init_exec_stack(t_ast *ast, t_list **cmd_stk);
 static int	ft_run_cmds(t_shell *shell, t_list **cmd_stk);
 static int	ft_cmd_iter(t_shell *shell, t_cmd_data *data);
 static void	ft_cmd_send(t_shell *shell, t_cmd_data *data, t_ast *ast);
@@ -37,7 +37,7 @@ int	ft_executor(t_shell *shell, char *line)
 	return (rtn);
 }
 
-static void ft_init_exec_stack(t_ast *ast, t_list **cmd_stk)
+static void	ft_init_exec_stack(t_ast *ast, t_list **cmd_stk)
 {
 	if (!ast)
 		return ;
