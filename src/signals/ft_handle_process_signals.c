@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 15:23:12 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/04 20:03:33 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/05 09:33:23 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ void	ft_handle_process_signals(void)
 void	ft_process_cancel(int signal)
 {
 	if (signal)
-		return ;
+		write(1, "\n", 1);
 }
 
 void	ft_process_quit(int signal)
 {
 	if (signal)
-		return ;
+		ft_putendl_fd("Quit (core dump)", 1);
 }

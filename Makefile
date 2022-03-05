@@ -6,7 +6,7 @@
 #    By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/03/04 19:58:29 by edpaulin         ###   ########.fr        #
+#    Updated: 2022/03/05 08:25:46 by edpaulin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -111,7 +111,8 @@ LL1_RULES		=	ft_and_or.c	\
 					ft_stk_set_node.c	\
 					ft_subshell.c
 
-PROMPT			=	ft_print_dir.c
+PROMPT			=	ft_print_dir.c \
+					ft_get_prompt.c
 
 SCANNER			=	ft_add_to_buff.c	\
 					ft_del_token.c	\

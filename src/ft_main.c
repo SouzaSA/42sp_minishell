@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:06:49 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/04 20:02:29 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/05 09:33:30 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	main(int argc, char **argv, char **envp)
 		free(msg);
 		return (1);
 	}
-	ft_handle_prompt_signals();
 	ft_minishell(envp);
 	return (0);
 }

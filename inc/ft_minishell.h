@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/04 20:00:03 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/05 09:14:44 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # include "ft_expand.h"
 # include "ft_utils.h"
 
+#define DOLLAR_OK "\033[0;32m$\e[0;39m "
+#define DOLLAR_ERROR "\033[0;31m$\e[0;39m "
+
 typedef struct s_cmd_tbl
 {
 	int		infile;
@@ -39,5 +42,6 @@ void	ft_handle_process_signals(void);
 char	**ft_get_path(char **envp);
 int		ft_minishell(char **envp);
 void	ft_print_dir(void);
+char	*ft_get_prompt(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:36:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/04 19:31:49 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/05 08:26:49 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,17 @@ int	ft_minishell(char **envp)
 {
 	t_shell		shell;
 	int			status;
+	char		*prompt;
 
 	ft_init_minishell(&shell, envp);
 	//ft_env(&shell);
 	status = 1;
 	while (status)
 	{
-		ft_print_dir();
-		shell.line = readline("\033[0;33m$\e[0;39m ");
+		ft_handle_prompt_signals();
+		prompt = ft_get_prompt();
+		shell.line = readline(prompt);
+		free(prompt);
 		if (!shell.line)
 		{
 			write(1, "\n", 1);
