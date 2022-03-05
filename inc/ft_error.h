@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 14:13:17 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:57:00 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define ENOTDIR 20
 # define ENODATA 61
 
-int		ft_cd_error(t_shell *shell, char *msg, int error_flag);
+int		ft_cd_error(char *msg, int error_flag);
 void	ft_command_error(char *cmd_name);
 int		ft_export_error(char *msg, int error_flag);
 int		ft_put_msg_error(char *msg, int error_flag);

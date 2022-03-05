@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 09:45:11 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/04 20:50:40 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:51:09 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	ft_env(t_shell *shell)
 	if (shell && shell->env_list)
 	{
 		ft_lstiter(shell->env_list, &ft_print_dictionary);
-		shell->status = EXIT_SHELL_SUCCESS;
+		g_exit_status = EXIT_SHELL_SUCCESS;
 	}
-	shell->status = 0;
+	g_exit_status = 0;
 	return (0);
 }
 

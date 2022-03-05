@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_shell_struct.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:22:47 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/04 20:49:50 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:55:06 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct s_shell
 	t_list	*env_list;
 	t_list	*vars;
 	char	*line;
-	int		status;
 	void	(***transition_table)(t_list **, enum e_symbol);
 }	t_shell;
 

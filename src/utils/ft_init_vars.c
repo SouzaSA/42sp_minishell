@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_vars.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:57:26 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/04 20:50:25 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:54:42 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	ft_import_envp(t_shell *shell, char **envp)
 
 	i = 0;
 	shell->env_list = NULL;
-	shell->status = 0;
+	g_exit_status = 0;
 	element.next = NULL;
 	while (envp && envp[i])
 	{
