@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 17:03:55 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 17:09:29 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "ft_command_struct.h"
 # include "ft_expand.h"
 # include "ft_global_status.h"
+# include "ft_signals.h"
 
 int		ft_and_or_run(t_cmd_data *data, enum e_ast_type type);
 int		ft_builtin_run(t_shell *shell, t_cmd_data *data, t_ast *ast);
