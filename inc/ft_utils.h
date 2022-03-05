@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 09:32:33 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/04 21:22:44 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 11:39:49 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	ft_destroy_command(t_cmd_blk **blk);
 void	ft_destroy_dictionary_element(void *dic_item);
 void	ft_destroy_dictionary_list(t_list **dic_lst);
 void	ft_destroy_shell(t_shell *shell);
+void	ft_destroy_tt(void (****transition_table)(t_list **, enum e_symbol));
 t_list	*ft_get_env_node_by_key(t_shell *shell, char *key);
 char	*ft_get_env_value_by_key(t_shell *shell, char *key);
 void	ft_init_minishell(t_shell *shell, char **envp);

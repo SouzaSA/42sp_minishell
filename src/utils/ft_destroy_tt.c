@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_destroy_shell.c                                 :+:      :+:    :+:   */
+/*   ft_destroy_tt.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/15 12:30:26 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 11:42:09 by sde-alva         ###   ########.fr       */
+/*   Created: 2022/03/05 11:29:04 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/03/05 11:48:09 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_utils.h"
 
-void	ft_destroy_shell(t_shell *shell)
+void	ft_destroy_tt(void (****transition_table)(t_list **, enum e_symbol))
 {
-	if (shell)
+	int	i;
+
+	i = 0;
+	if (*transition_table)
 	{
-		if (shell->env_list)
-			ft_destroy_dictionary_list(&shell->env_list);
-		if (shell->vars)
-			ft_destroy_dictionary_list(&shell->vars);
-		if (shell->transition_table)
-			ft_destroy_tt(&shell->transition_table);
-		if (shell->line)
-			free(shell->line);
-		shell->line = NULL;
+		while (i < NUM_NTS)
+		{
+			free((*transition_table)[i]);
+			i++;
+		}
+		free(*transition_table);
+		*transition_table = NULL;
 	}
 }

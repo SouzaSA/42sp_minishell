@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/03/05 11:02:56 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/03/05 11:41:50 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -131,6 +131,7 @@ UTILS			=	ft_destroy_ast_stk.c	\
 					ft_destroy_dictionary_element.c	\
 					ft_destroy_dictionary_list.c	\
 					ft_destroy_shell.c	\
+					ft_destroy_tt.c	\
 					ft_get_env_node_by_key.c	\
 					ft_get_env_value_by_key.c	\
 					ft_init_vars.c	\
