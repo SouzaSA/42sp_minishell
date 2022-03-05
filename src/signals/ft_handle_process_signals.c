@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_handle_signals.c                                :+:      :+:    :+:   */
+/*   ft_handle_process_signals.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 15:23:12 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/01/17 16:31:54 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/05 09:33:23 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 #include <signal.h>
 
-void	ft_handle_sigint(int signal)
+void	ft_process_cancel(int signal);
+void	ft_process_quit(int signal);
+
+void	ft_handle_process_signals(void)
 {
-	if (signal)
-		printf("\n\033[0;33m$\e[0;39m ");
+	signal(SIGINT, &ft_process_cancel);
+	signal(SIGQUIT, &ft_process_quit);
 }
 
-void	ft_handle_sigquit(int signal)
+void	ft_process_cancel(int signal)
 {
 	if (signal)
-		return ;
+		write(1, "\n", 1);
+}
+
+void	ft_process_quit(int signal)
+{
+	if (signal)
+		ft_putendl_fd("Quit (core dump)", 1);
 }

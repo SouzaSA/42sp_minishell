@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/02 16:23:11 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 09:14:44 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <signal.h>
 # include "ft_builtins.h"
 # include "ft_colors.h"
 # include "ft_error.h"
@@ -25,6 +24,9 @@
 # include "ft_scanner.h"
 # include "ft_expand.h"
 # include "ft_utils.h"
+
+#define DOLLAR_OK "\033[0;32m$\e[0;39m "
+#define DOLLAR_ERROR "\033[0;31m$\e[0;39m "
 
 typedef struct s_cmd_tbl
 {
@@ -35,8 +37,11 @@ typedef struct s_cmd_tbl
 	char	*full_path;
 }	t_cmd_tbl;
 
+void	ft_handle_prompt_signals(void);
+void	ft_handle_process_signals(void);
 char	**ft_get_path(char **envp);
 int		ft_minishell(char **envp);
-void	ft_handle_sigint(int signal);
-void	ft_handle_sigquit(int signal);
+void	ft_print_dir(void);
+char	*ft_get_prompt(void);
+
 #endif

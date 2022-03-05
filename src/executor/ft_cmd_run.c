@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_run.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 21:08:41 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/03 19:00:45 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 09:33:59 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_executor.h"
+#include "ft_minishell.h"
 
 static char	**ft_cmd_lst_to_array(t_list *cmd);
 static int	ft_forker(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd);
@@ -72,6 +73,7 @@ static int	ft_forker(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd)
 	if (pipe(data->pipe_fd) == -1)
 		rtn = ft_put_msg_error(NULL, FLAG_ERROR_P);
 	data->pid = fork();
+	ft_handle_process_signals();
 	if (data->pid == -1)
 		rtn = ft_put_msg_error(NULL, FLAG_ERROR_P);
 	if (rtn == 0 && data->pid == 0)

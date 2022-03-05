@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/03/04 21:35:17 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/03/05 11:02:56 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,8 @@ SRCS			=	ft_main.c	\
 					${SCANNER_ADD_DIR}	\
 					${TAPE_SOURCE_ADD_DIR} \
 					${SIG_ADD_DIR} \
-					${EXPAND_ADD_DIR}
+					${EXPAND_ADD_DIR} \
+					${PROMPT_ADD_DIR}
 
 BUILTINS		=	ft_builtins_parser.c	\
 					ft_cd.c	\
@@ -110,7 +111,7 @@ LL1_RULES		=	ft_and_or.c	\
 					ft_stk_set_node.c	\
 					ft_subshell.c
 
-PROMPT			=
+PROMPT			=	ft_get_prompt.c
 
 SCANNER			=	ft_add_to_buff.c	\
 					ft_del_token.c	\
@@ -150,7 +151,8 @@ EXPAND			=	ft_expand_star.c \
 					ft_expand_list.c \
 					ft_test_expand_star.c
 
-SIG				=	ft_handle_signals.c
+SIG				=	ft_handle_prompt_signals.c \
+					ft_handle_process_signals.c
 
 BONUS			=
 
