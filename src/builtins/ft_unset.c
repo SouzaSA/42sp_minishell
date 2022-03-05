@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 10:52:06 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/04 20:50:36 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:52:41 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_unset(t_shell *shell, t_list *cmds)
 			ft_unset_worker(shell, (char *)cmds->content);
 		else
 		{
-			shell->status = 1;
+			g_exit_status = 1;
 			ft_unset_error((char *)cmds->content, FLAG_ERROR_OWN);
 		}
 		cmds = cmds->next;

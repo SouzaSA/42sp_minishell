@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:22:47 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 14:07:03 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 17:04:19 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct s_shell
 	t_list	*vars;
 	int		lineno;
 	char	*line;
-	int		status;
 	void	(***transition_table)(t_list **, enum e_symbol);
 }	t_shell;
 

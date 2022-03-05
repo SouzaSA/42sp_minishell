@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 09:17:31 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/04 20:50:38 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:52:02 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_export_exec(t_shell *shell, t_list *exp_var)
 	dic_item = (t_dictionary *)malloc(sizeof(t_dictionary));
 	if (!dic_item)
 	{
-		shell->status = 1;
+		g_exit_status = 1;
 		return (1);
 	}
 	assign = (char *)exp_var->content;

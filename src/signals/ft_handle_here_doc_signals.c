@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 11:11:18 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/05 11:24:59 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/05 14:17:08 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_handle_here_doc_signals(int pid)
 
 static void	ft_here_doc_cancel(int signal)
 {
-	(void)signal;
+	g_exit_status = 128 + signal;
 	write(1, "\n", 1);
 	exit(130);
 }

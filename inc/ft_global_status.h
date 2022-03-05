@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_signals.h                                       :+:      :+:    :+:   */
+/*   ft_global_status.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/05 11:14:28 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/05 14:12:59 by edpaulin         ###   ########.fr       */
+/*   Created: 2022/03/05 14:11:10 by edpaulin          #+#    #+#             */
+/*   Updated: 2022/03/05 14:31:25 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SIGNALS_H
-# define FT_SIGNALS_H
+#ifndef FT_GLOBAL_STATUS_H
+# define FT_GLOBAL_STATUS_H
 
-# include <signal.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "libft.h"
-# include "ft_global_status.h"
-
-void	ft_handle_prompt_signals(void);
-void	ft_handle_process_signals(void);
-void	ft_handle_here_doc_signals(int pid);
+extern int	g_exit_status;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 19:56:26 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/05 11:24:09 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/05 14:31:38 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,9 @@ void	ft_handle_prompt_signals(void)
 
 void	ft_prompt_cancel(int signal)
 {
-	if (signal)
-	{
-		write(1, "\n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
+	g_exit_status = 128 + signal;
+	write(1, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 10:07:06 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/03 18:56:52 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 14:13:29 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "ft_error.h"
 # include "ft_shell_struct.h"
 # include "ft_utils.h"
+# include "ft_global_status.h"
 
 int		ft_builin_parser(t_shell *shell, t_cmd_data *data, t_cmd_blk *blk);
 int		ft_cd(t_shell *shell, t_list *cmd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:43:00 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/04 20:50:46 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:59:20 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ int	ft_cd(t_shell *shell, t_list *cmds)
 	int		len;
 
 	len = ft_lstsize(cmds);
-	shell->status = 0;
+	g_exit_status = 0;
 	if (cmds && !ft_strcmp("cd", (char *)cmds->content))
 	{
 		if (len == 1)
 			return (ft_cd_home(shell));
 		else if (len > 2)
-			return (ft_cd_error(shell, "too many arguments", FLAG_ERROR_OWN));
+			return (ft_cd_error("too many arguments", FLAG_ERROR_OWN));
 		else if (!ft_strcmp("-", (char *)cmds->next->content))
 			return (ft_cd_swap(shell));
 		else
@@ -45,12 +45,12 @@ static int	ft_cd_home(t_shell *shell)
 	{
 		node = ft_get_env_node_by_key(shell, "HOME");
 		if (!node)
-			return (ft_cd_error(shell, "HOME not set", FLAG_ERROR_OWN));
+			return (ft_cd_error("HOME not set", FLAG_ERROR_OWN));
 		home_path = ft_strdup(((t_dictionary *)node->content)->value);
 		if (chdir(home_path) != 0)
-			return (ft_cd_error(shell, home_path, FLAG_ERROR_P));
+			return (ft_cd_error(home_path, FLAG_ERROR_P));
 		ft_update_env_pwds(shell, home_path);
-		shell->status = 0;
+		g_exit_status = 0;
 	}
 	return (0);
 }
@@ -61,12 +61,12 @@ static int	ft_cd_swap(t_shell *shell)
 
 	old_pwd = ft_get_env_value_by_key(shell, "OLDPWD");
 	if (!old_pwd)
-		return (ft_cd_error(shell, "OLDPWD not set", FLAG_ERROR_OWN));
+		return (ft_cd_error("OLDPWD not set", FLAG_ERROR_OWN));
 	if (chdir(old_pwd) != 0)
-		return (ft_cd_error(shell, old_pwd, FLAG_ERROR_P));
+		return (ft_cd_error(old_pwd, FLAG_ERROR_P));
 	ft_update_env_pwds(shell, ft_strdup(old_pwd));
 	ft_pwd();
-	shell->status = 0;
+	g_exit_status = 0;
 	return (0);
 }
 
@@ -78,15 +78,15 @@ static int	ft_cd_path(t_shell *shell, char *path)
 	stat(path, &stats);
 	if (!S_ISDIR(stats.st_mode))
 	{
-		shell->status = 1;
-		return (ft_cd_error(shell, path, FLAG_ERROR_P));
+		g_exit_status = 1;
+		return (ft_cd_error(path, FLAG_ERROR_P));
 	}
 	if (chdir(path) != 0)
 	{
-		shell->status = 2;
-		return (ft_cd_error(shell, path, FLAG_ERROR_P));
+		g_exit_status = 2;
+		return (ft_cd_error(path, FLAG_ERROR_P));
 	}
 	ft_update_env_pwds(shell, ft_strdup(path));
-	shell->status = 0;
+	g_exit_status = 0;
 	return (0);
 }

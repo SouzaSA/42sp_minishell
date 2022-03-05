@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 10:51:26 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/04 20:50:34 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:51:37 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_exit(t_shell *shell, t_cmd_data *data, t_list *cmds, t_cmd_blk *blk)
 		rtn = ft_exit_messages(ft_atoi((char *)cmds->next->content), NULL);
 	else
 		rtn = ft_exit_messages(0, NULL);
-	shell->status = rtn;
+	g_exit_status = rtn;
 	if (rtn != 2)
 	{
 		if (ft_lstsize(*data->cmd_stk))

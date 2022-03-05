@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 16:58:17 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 17:03:05 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_executor(t_shell *shell, char *line)
 	if (ast)
 	{
 		ft_init_exec_stack(ast, &cmd_stk);
-		ft_expand_exit_num(shell, cmd_stk);
+		ft_expand_exit_num(cmd_stk);
 		ft_run_cmds(shell, &cmd_stk);
 	}
 	else
@@ -85,7 +85,7 @@ static int	ft_run_cmds(t_shell *shell, t_list **cmd_stk)
 	if (!cmd_data.builtin_flag && cmd_data.pid > 0)
 	{
 		waitpid(-1, &rtn, 0);
-		shell->status = WEXITSTATUS(rtn);
+		g_exit_status = WEXITSTATUS(rtn);
 	}
 	dup2(in_cpy, 0);
 	close(in_cpy);

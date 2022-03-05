@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:36:45 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/05 12:29:39 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 16:02:14 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ int		ft_is_dot_dir(char *dir);
 char	*ft_pathcat(char *path_buffer, char *path);
 int		ft_is_dir(unsigned char type);
 void	ft_expand_list(t_list **list, t_list *dir, char *dir_to_open);
-void	ft_expand_exit_num(t_shell *shell, t_list *ast_stk);
+void	ft_expand_exit_num(t_list *ast_stk);
 
 #endif

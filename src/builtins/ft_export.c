@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 12:20:09 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/04 20:50:43 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:52:31 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_export(t_shell *shell, t_list *exp_var)
 	char	*assign;
 	char	*key;
 
-	shell->status = 0;
+	g_exit_status = 0;
 	if (!ft_strcmp((char *)exp_var->content, "export"))
 	{
 		if (exp_var && ft_lstsize(exp_var) == 1)
@@ -36,7 +36,7 @@ int	ft_export(t_shell *shell, t_list *exp_var)
 			ft_export_worker(shell, exp_var);
 		else
 		{
-			shell->status = 1;
+			g_exit_status = 1;
 			ft_export_error((char *)exp_var->content, FLAG_ERROR_OWN);
 		}
 		free(key);
