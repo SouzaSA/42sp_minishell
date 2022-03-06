@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:36:45 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/06 13:37:53 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/06 18:13:11 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_file
 	enum e_type	type;
 }	t_file;
 
-t_list	*ft_expand_star(char *str);
+void	ft_expand_star(t_list *ast_stk);
 t_list	*ft_get_splitted_path(char *path);
 void	ft_clean_file_struct(t_file *fl);
 void	ft_del_content(void *content);
