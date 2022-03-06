@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 14:14:23 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/06 15:16:48 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/06 16:52:54 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	ft_redirections(t_shell *shell, t_list *redir, int *fd_in, int *fd_out)
 		else if (ft_strcmp("<", key) == 0)
 			rtn = ft_redir_in(filename, fd_in);
 		else if (ft_strcmp("<<", key) == 0)
-			ft_here_doc(shell, filename);
+			rtn = ft_here_doc(shell, filename, fd_in);
 		else if (ft_strcmp("<>", key) == 0)
-			ft_redir_in_out(filename, fd_in, fd_out);
+			rtn = ft_redir_in_out(filename, fd_in, fd_out);
 		if (node->next)
 			node = node->next->next;
 	}
@@ -59,7 +59,10 @@ static int	ft_redir_out(char *filename, int *fd_out)
 		open_flag = O_CREAT | O_WRONLY | O_TRUNC;
 		*fd_out = open(filename, open_flag, 0664);
 		if (*fd_out < 0)
+		{
+			g_exit_status = 1;
 			rtn = 1;
+		}
 	}
 	if (rtn)
 		ft_put_msg_error(filename, FLAG_ERROR_P);
@@ -79,7 +82,10 @@ static int	ft_append(char *filename, int *fd_out)
 		open_flag = O_CREAT | O_WRONLY | O_APPEND;
 		*fd_out = open(filename, open_flag, 0664);
 		if (*fd_out < 0)
+		{
+			g_exit_status = 1;
 			rtn = 1;
+		}
 	}
 	if (rtn)
 		ft_put_msg_error(filename, FLAG_ERROR_P);
@@ -97,7 +103,10 @@ static int	ft_redir_in(char *filename, int *fd_in)
 	{
 		*fd_in = open(filename, O_RDONLY);
 		if (*fd_in < 0)
+		{
+			g_exit_status = 1;
 			rtn = 1;
+		}
 	}
 	if (rtn)
 		ft_put_msg_error(filename, FLAG_ERROR_P);
@@ -121,7 +130,10 @@ static int	ft_redir_in_out(char *filename, int *fd_in, int *fd_out)
 		*fd_in = open(filename, O_RDONLY);
 	}
 	if (*fd_in < 0 || *fd_out < 0)
+	{
+		g_exit_status = 1;
 		rtn = 1;
+	}
 	if (rtn)
 		ft_put_msg_error(filename, FLAG_ERROR_P);
 	return (rtn);
