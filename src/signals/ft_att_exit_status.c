@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_signals.h                                       :+:      :+:    :+:   */
+/*   ft_att_exit_status.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/05 11:14:28 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/06 15:36:13 by edpaulin         ###   ########.fr       */
+/*   Created: 2022/03/06 15:35:41 by edpaulin          #+#    #+#             */
+/*   Updated: 2022/03/06 15:36:06 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SIGNALS_H
-# define FT_SIGNALS_H
+#include "ft_signals.h"
 
-# include <signal.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "libft.h"
-# include "ft_global_status.h"
-
-void	ft_handle_prompt_signals(void);
-void	ft_att_status(int signal);
-void	ft_handle_child_process_signals(void);
-void	ft_handle_parent_process_signals(void);
-
-#endif
+void	ft_att_status(int signal)
+{
+	g_exit_status = (128 + signal);
+}

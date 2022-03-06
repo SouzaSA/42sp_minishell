@@ -6,7 +6,7 @@
 #    By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/03/06 15:31:00 by edpaulin         ###   ########.fr        #
+#    Updated: 2022/03/06 15:37:32 by edpaulin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -156,6 +156,7 @@ EXPAND			=	ft_expand_star.c \
 					ft_expand_list.c
 
 SIG				=	ft_handle_prompt_signals.c \
+					ft_att_exit_status.c \
 					ft_handle_child_process_signals.c \
 					ft_handle_parent_process_signals.c
 
