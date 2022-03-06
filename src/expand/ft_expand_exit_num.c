@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand_exit_num.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 09:06:49 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 16:02:07 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/06 14:04:33 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	ft_change_symbol(t_list **list)
 	node = *list;
 	while (node)
 	{
-		if (ft_strcmp((char *)node->content, "$?") == 0)
+		if (node->content && ft_strstr((char *)node->content, "$?"))
 		{
 			aux = node->content;
 			if (((char *)node->content)[0] == '\"')

@@ -6,7 +6,11 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/03/06 15:10:45 by edpaulin         ###   ########.fr       */
+=======
+/*   Updated: 2022/03/06 13:37:17 by sde-alva         ###   ########.fr       */
+>>>>>>> ab7ceacfad0f81d6e7789ae64ef17d0e32aeecc4
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +34,7 @@ int	ft_executor(t_shell *shell, char *line)
 	if (ast)
 	{
 		ft_init_exec_stack(ast, &cmd_stk);
+		ft_expand_tild(shell, cmd_stk);
 		ft_expand_exit_num(cmd_stk);
 		ft_expand_vars(shell, cmd_stk);
 		ft_run_cmds(shell, &cmd_stk);

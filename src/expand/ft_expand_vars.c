@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 17:54:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/06 11:32:14 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/06 14:10:54 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,15 @@ static void	ft_change_var(t_shell *shell, t_list **list)
 	{
 		if (ft_strchr((char *)node->content, '$'))
 		{
-			aux = node->content;
-			if (((char *)node->content)[0] == '\"')
-				node->content = ft_change_dquote(shell, (char *)node->content);
-			else
-				node->content = ft_get_var(shell, &((char *)node->content)[1]);
-			free(aux);
+			aux = (char *)node->content;
+			if (aux)
+			{
+				if (aux[0] == '\"')
+					node->content = ft_change_dquote(shell, aux);
+				else
+					node->content = ft_get_var(shell, &aux[1]);
+				free(aux);
+			}
 		}
 		node = node->next;
 	}
@@ -108,7 +111,7 @@ static char	*ft_get_var(t_shell *shell, char *key)
 	if (!value)
 		value = ft_get_env_value_by_key(shell, key);
 	if (value)
-		return (value);
+		return (ft_strdup(value));
 	else
 		return (ft_strdup(""));
 }
