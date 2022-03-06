@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 17:54:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 20:50:19 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/06 11:32:14 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ static char	*ft_get_var(t_shell *shell, char *key)
 {
 	char	*value;
 
+	if (*key == '\0')
+		return (ft_strdup("$"));
 	value = ft_get_local_var_by_key(shell, key);
 	if (!value)
 		value = ft_get_env_value_by_key(shell, key);
