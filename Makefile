@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/03/05 19:13:45 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/03/06 12:40:32 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -148,6 +148,7 @@ EXPAND			=	ft_expand_star.c \
 					ft_expand_exit_num.c	\
 					ft_add_expansion_to_list.c \
 					ft_match_star.c \
+					ft_expand_tild.c	\
 					ft_expand_vars.c	\
 					ft_is_dot_dir.c \
 					ft_pathcat.c \
