@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_run.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 21:08:41 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/06 15:35:23 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/06 16:03:53 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 static char	**ft_cmd_lst_to_array(t_list *cmd);
 static int	ft_forker(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd);
+static int	ft_child(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd);
 static int	ft_exec_cmd(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd);
-static void	ft_pipe_worker(t_cmd_data *data);
 
 int	ft_cmd_run(t_shell *shell, t_cmd_data *data, t_ast *ast)
 {
@@ -77,27 +77,33 @@ static int	ft_forker(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd)
 		rtn = ft_put_msg_error(NULL, FLAG_ERROR_P);
 	ft_handle_parent_process_signals();
 	if (rtn == 0 && data->pid == 0)
-	{
-		ft_handle_child_process_signals();
-		ft_destroy_tt(&shell->transition_table);
-		ft_destroy_ast_stk(data->cmd_stk);
-		rl_clear_history();
-		if (data->fd_in >= 0 && data->fd_out > 0)
-			rtn = ft_exec_cmd(shell, data, cmd);
-		else
-		{
-			close(data->pipe_fd[0]);
-			close(data->pipe_fd[1]);
-			ft_destroy_command(&cmd);
-			ft_destroy_shell(shell);
-			if (data->fd_in < 0 && data->fd_out < 0)
-				exit(1);
-			else
-				exit(0);
-		}
-	}
+		rtn = ft_child(shell, data, cmd);
 	waitpid(-1, NULL, WNOHANG);
 	close(data->pipe_fd[1]);
+	return (rtn);
+}
+
+static int	ft_child(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd)
+{
+	int	rtn;
+
+	rtn = 0;
+	ft_destroy_tt(&shell->transition_table);
+	rl_clear_history();
+	ft_destroy_ast_stk(data->cmd_stk);
+	if (data->fd_in >= 0 && data->fd_out > 0)
+		rtn = ft_exec_cmd(shell, data, cmd);
+	else
+	{
+		close(data->pipe_fd[0]);
+		close(data->pipe_fd[1]);
+		ft_destroy_command(&cmd);
+		ft_destroy_shell(shell);
+		if (data->fd_in < 0 && data->fd_out < 0)
+			exit(1);
+		else
+			exit(0);
+	}
 	return (rtn);
 }
 
@@ -124,19 +130,4 @@ static int	ft_exec_cmd(t_shell *shell, t_cmd_data *data, t_cmd_blk *blk)
 	ft_destroy_command(&blk);
 	ft_destroy_shell(shell);
 	exit(127);
-}
-
-static void	ft_pipe_worker(t_cmd_data *data)
-{
-	if (data->fd_in > 0)
-	{
-		dup2(data->fd_in, 0);
-		close(data->fd_in);
-		data->fd_in = 0;
-	}
-	if (data->fd_out == 1 && data->pipe_flag)
-		dup2(data->pipe_fd[1], 1);
-	else if (data->fd_out > 1)
-		dup2(data->fd_out, 1);
-	close(data->pipe_fd[1]);
 }

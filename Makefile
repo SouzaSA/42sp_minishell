@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/03/06 15:37:32 by edpaulin         ###   ########.fr        #
+#    Updated: 2022/03/06 16:06:44 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,6 +76,7 @@ EXECUTOR		=	ft_and_or_run.c	\
 					ft_builtin_run.c	\
 					ft_checker_slash.c	\
 					ft_cmd_assignments.c	\
+					ft_cmd_data_init.c	\
 					ft_cmd_redirections.c	\
 					ft_cmd_run.c	\
 					ft_construct_envp.c	\
@@ -83,7 +84,9 @@ EXECUTOR		=	ft_and_or_run.c	\
 					ft_executor.c	\
 					ft_get_cmd_path.c	\
 					ft_here_doc.c	\
-					ft_pipe_run.c
+					ft_pipe_run.c	\
+					ft_pipe_worker.c	\
+					ft_single_builtin.c
 
 PARSER			=	ft_child_node.c	\
 					ft_free_node_tree.c	\

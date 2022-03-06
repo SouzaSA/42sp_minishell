@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_executor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/06 15:34:07 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:56:02 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,33 +54,13 @@ static int	ft_run_cmds(t_shell *shell, t_list **cmd_stk)
 {
 	int			rtn;
 	int			in_cpy;
-	t_ast		*ast;
 	t_cmd_data	cmd_data;
-	t_cmd_blk	*blk;
 
 	rtn = 0;
 	in_cpy = dup(0);
-	cmd_data.fd_in = 0;
-	cmd_data.fd_out = 1;
-	cmd_data.builtin_flag = 0;
-	cmd_data.pid = -1;
-	cmd_data.cmd_stk = cmd_stk;
+	ft_cmd_data_init(&cmd_data, cmd_stk);
 	if (ft_lstsize(*cmd_stk) == 1)
-	{
-		ast = (t_ast *)ft_lsttop(*cmd_stk);
-		blk = ast->blk;
-		if (blk && blk->cmd && ft_isbuiltin((char *)(blk->cmd->content)))
-		{
-			cmd_data.builtin_flag = 1;
-			ast = ft_lstpop(cmd_stk);
-			ft_assignments(shell, ast->blk->assign);
-			ft_redirections(shell, ast->blk->redir, &cmd_data.fd_in, &cmd_data.fd_out);
-			free(ast);
-			ft_builin_parser(shell, &cmd_data, blk);
-			if (blk)
-				ft_destroy_command(&blk);
-		}
-	}
+		ft_single_buitin(shell, cmd_stk, &cmd_data);
 	rtn = ft_cmd_iter(shell, &cmd_data);
 	if (rtn && ft_lstsize(*cmd_stk))
 		ft_destroy_ast_stk(cmd_stk);
