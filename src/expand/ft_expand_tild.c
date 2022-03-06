@@ -6,12 +6,13 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 10:47:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/06 14:46:41 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/06 20:08:38 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_expand.h"
 
+static void	ft_change_assign(t_shell *shell, t_list *list);
 static void	ft_change_tild(t_shell *shell, t_list *list);
 static char	*ft_get_home(t_shell *shell);
 
@@ -26,13 +27,40 @@ int	ft_expand_tild(t_shell *shell, t_list *ast_stk)
 		if (node->content && ((t_ast *)node->content)->blk)
 		{
 			blk = ((t_ast *)node->content)->blk;
-			ft_change_tild(shell, blk->assign);
+			ft_change_assign(shell, blk->assign);
 			ft_change_tild(shell, blk->redir);
 			ft_change_tild(shell, blk->cmd);
 		}
 		node = node->next;
 	}
 	return (0);
+}
+
+static void	ft_change_assign(t_shell *shell, t_list *list)
+{
+	char	*aux;
+	char	*tmp;
+	char	*str;
+	char	*home;
+	t_list	*node;
+
+	node = list;
+	home = ft_get_home(shell);
+	while (node)
+	{
+		str = ft_strchr((char *)node->content, '=') + 1;
+		if (str && *str && str[0] == '~' && (str[1] == '/' || !str[1]))
+		{
+			aux = node->content;
+			str[0] = '\0';
+			tmp = ft_strjoin((char *)node->content, home);
+			node->content = ft_strjoin(tmp, &str[1]);
+			free(aux);
+			free(tmp);
+		}
+		node = node->next;
+	}
+	free(home);
 }
 
 static void	ft_change_tild(t_shell *shell, t_list *list)
@@ -47,7 +75,7 @@ static void	ft_change_tild(t_shell *shell, t_list *list)
 	while (node)
 	{
 		str = (char *)node->content;
-		if (str && str[0] == '~' && (str[1] == ' ' || str[1] == '/' || !str[1]))
+		if (str && str[0] == '~' && (str[1] == '/' || !str[1]))
 		{
 			aux = node->content;
 			if (aux && ft_strlen(aux) == 1)
