@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:36:45 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/05 16:02:14 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/05 18:49:07 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 # include <dirent.h>
 # include <stdio.h>
 # include "ft_ast_struct.h"
-# include "libft.h"
+# include "ft_global_status.h"
 # include "ft_shell_struct.h"
 # include "ft_utils.h"
+# include "libft.h"
 
 enum	e_type
 {
@@ -44,5 +45,6 @@ char	*ft_pathcat(char *path_buffer, char *path);
 int		ft_is_dir(unsigned char type);
 void	ft_expand_list(t_list **list, t_list *dir, char *dir_to_open);
 void	ft_expand_exit_num(t_list *ast_stk);
+int		ft_expand_vars(t_shell *shell, t_list *ast_stk);
 
 #endif

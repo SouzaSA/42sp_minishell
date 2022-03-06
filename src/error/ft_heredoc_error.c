@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_env_value_by_key.c                          :+:      :+:    :+:   */
+/*   ft_heredoc_error.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/16 17:39:09 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 18:48:02 by sde-alva         ###   ########.fr       */
+/*   Created: 2022/03/05 14:14:29 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/03/05 15:05:05 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_utils.h"
+#include "ft_error.h"
 
-char	*ft_get_env_value_by_key(t_shell *shell, char *key)
+int	ft_heredoc_error(char *eof_name, int lineno)
 {
-	t_list	*node;
-	char	*value;
+	char	*num;
 
-	node = shell->env_list;
-	value = NULL;
-	while (node)
-	{
-		if (!ft_strcmp(key, ((t_dictionary *)node->content)->key))
-			value = ((t_dictionary *)node->content)->value;
-		node = node->next;
-	}
-	return (value);
+	num = ft_itoa(lineno);
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd("warning: here-document at line ", 2);
+	ft_putstr_fd(num, 2);
+	ft_putstr_fd(" delimited by end-of-file (wanted `", 2);
+	ft_putstr_fd(eof_name, 2);
+	ft_putendl_fd("')", 2);
+	free(num);
+	return (1);
 }

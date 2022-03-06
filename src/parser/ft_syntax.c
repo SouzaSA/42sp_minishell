@@ -6,12 +6,13 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 09:51:10 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/03 18:35:16 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 17:21:50 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_parser.h"
 
+static void	ft_init_ast_stk(t_ast **ast, t_list **command_stk);
 static void	ft_term_prod(t_list **toks, t_stk_node *node, t_list **cmd_stk);
 static int	ft_nonterm_prod(t_list *toks, t_stk_node *node, t_list **cmd_stk, \
 	void (***tt)(t_list **, enum e_symbol));
@@ -24,11 +25,7 @@ t_ast	*ft_syntax(t_list *toks, void (***tt)(t_list **, enum e_symbol))
 	t_stk_node	*stk_node;
 	int			is_valid;
 
-	ast = ft_new_node(AST_TMP);
-	command_stk = NULL;
-	ft_lstpush(&command_stk, ft_stk_node(TS_EOF));
-	ft_lstpush(&command_stk, ft_stk_node(NTS_START));
-	((t_stk_node *)command_stk->content)->ast_node = ast;
+	ft_init_ast_stk(&ast, &command_stk);
 	is_valid = 1;
 	while (is_valid && ft_lstsize(command_stk) > 0)
 	{
@@ -45,6 +42,15 @@ t_ast	*ft_syntax(t_list *toks, void (***tt)(t_list **, enum e_symbol))
 	}
 	ft_clean_ast(&ast);
 	return (ast);
+}
+
+static void	ft_init_ast_stk(t_ast **ast, t_list **command_stk)
+{
+	*ast = ft_new_node(AST_TMP);
+	*command_stk = NULL;
+	ft_lstpush(command_stk, ft_stk_node(TS_EOF));
+	ft_lstpush(command_stk, ft_stk_node(NTS_START));
+	((t_stk_node *)(*command_stk)->content)->ast_node = *ast;
 }
 
 static void	ft_term_prod(t_list **toks, t_stk_node *node, t_list **cmd_stk)

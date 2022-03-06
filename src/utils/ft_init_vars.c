@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_vars.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:57:26 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 15:54:42 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/05 17:05:00 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_init_minishell(t_shell *shell, char **envp)
 
 	i = 0;
 	shell->vars = NULL;
+	shell->lineno = 0;
 	ft_import_envp(shell, envp);
 	shell->transition_table = malloc(NUM_NTS * sizeof(void ***));
 	while (i < NUM_NTS)

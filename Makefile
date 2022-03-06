@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/03/05 11:54:34 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/03/05 19:13:45 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,7 @@ BUILTINS		=	ft_builtins_parser.c	\
 ERROR			=	ft_cd_errors.c	\
 					ft_command_error.c	\
 					ft_export_error.c	\
+					ft_heredoc_error.c	\
 					ft_put_msg_error.c	\
 					ft_parser_error_msg.c	\
 					ft_unset_error.c
@@ -134,6 +135,7 @@ UTILS			=	ft_destroy_ast_stk.c	\
 					ft_destroy_tt.c	\
 					ft_get_env_node_by_key.c	\
 					ft_get_env_value_by_key.c	\
+					ft_get_local_var_by_key.c	\
 					ft_init_vars.c	\
 					ft_isidentifier.c	\
 					ft_split_join.c	\
@@ -146,6 +148,7 @@ EXPAND			=	ft_expand_star.c \
 					ft_expand_exit_num.c	\
 					ft_add_expansion_to_list.c \
 					ft_match_star.c \
+					ft_expand_vars.c	\
 					ft_is_dot_dir.c \
 					ft_pathcat.c \
 					ft_is_dir.c \
