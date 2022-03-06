@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 14:45:19 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/06 16:05:32 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/06 17:10:49 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	ft_handle_sigint(void)
 
 	sa.sa_handler = &ft_process_cancel;
 	sa.sa_flags = SA_RESTART;
+	sigemptyset(&sa.sa_mask);
 	sigaction(SIGINT, &sa, NULL);
 }
 
@@ -43,5 +44,6 @@ static void	ft_handle_sigquit(void)
 
 	sa.sa_handler = SIG_DFL;
 	sa.sa_flags = SA_RESTART;
+	sigemptyset(&sa.sa_mask);
 	sigaction(SIGQUIT, &sa, NULL);
 }
