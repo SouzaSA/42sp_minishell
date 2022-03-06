@@ -6,14 +6,14 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 17:50:25 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/06 20:04:42 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/06 20:14:06 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_expand.h"
 
 static void		ft_expand_cmd_star(t_list **list);
-static void		ft_lstcouple(t_list *prev, t_list *list, t_list *next);
+static void		ft_couple(t_list **list, t_list *prev, t_list *exp, t_list **n);
 static void		ft_expand_redir_star(t_list **list);
 static t_list	*ft_expand(char *str);
 
@@ -40,8 +40,6 @@ static void	ft_expand_cmd_star(t_list **list)
 	t_list	*node;
 	t_list	*expanded;
 	t_list	*prev;
-	t_list	*aux;
-	t_list	*last;
 
 	node = *list;
 	prev = NULL;
@@ -51,32 +49,33 @@ static void	ft_expand_cmd_star(t_list **list)
 		{
 			expanded = ft_expand((char *)node->content);
 			if (expanded)
-			{
-				if (!prev)
-				{
-					last = ft_lstlast(expanded);
-					*list = expanded;
-					last->next = node->next;
-				}
-				else
-					ft_lstcouple(prev, expanded, node->next);
-				aux = node;
-				node = ft_lstlast(expanded);
-				ft_lstdelone(aux, &free);
-			}
+				ft_couple(list, prev, expanded, &node);
 		}
 		prev = node;
 		node = node->next;
 	}
 }
 
-static void	ft_lstcouple(t_list *prev, t_list *list, t_list *next)
+static void	ft_couple(t_list **list, t_list *prev, t_list *exp, t_list **n)
 {
 	t_list	*last;
+	t_list	*aux;
 
-	prev->next = list;
-	last = ft_lstlast(list);
-	last->next = next;
+	if (!prev)
+	{
+		last = ft_lstlast(exp);
+		*list = exp;
+		last->next = (*n)->next;
+	}
+	else
+	{
+		prev->next = exp;
+		last = ft_lstlast(exp);
+		last->next = (*n)->next;
+	}
+	aux = *n;
+	*n = ft_lstlast(exp);
+	ft_lstdelone(aux, &free);
 }
 
 static void	ft_expand_redir_star(t_list **list)
