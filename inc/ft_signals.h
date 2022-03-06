@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 11:14:28 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/06 12:27:10 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:26:49 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "ft_global_status.h"
 
 void	ft_handle_prompt_signals(void);
-void	ft_handle_process_signals(void);
-void	ft_handle_here_doc_signals(int pid);
+void	ft_handle_child_process_signals(void);
+void	ft_handle_parent_process_signals(void);
 
 #endif

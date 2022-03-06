@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_here_doc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 18:26:09 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 16:04:39 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:28:55 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,23 @@ int	ft_here_doc(t_shell *shell, char *limiter)
 	int	fd[2];
 	int	pid;
 	int	rtn;
-	int lineno;
+	int	lineno;
 
 	rtn = 0;
 	if (pipe(fd) == -1)
 		rtn = ft_put_msg_error(NULL, FLAG_ERROR_P);
 	pid = fork();
-	ft_handle_here_doc_signals(pid);
+	// ft_handle_here_doc_signals(pid);
 	if (pid == -1)
 		rtn = ft_put_msg_error(NULL, FLAG_ERROR_P);
 	if (pid == 0)
 	{
+		ft_handle_child_process_signals();
 		lineno = shell->lineno;
 		ft_destroy_shell(shell);
 		ft_get_by_limiter(fd, limiter, lineno);
 	}
+	ft_handle_parent_process_signals();
 	wait(NULL);
 	close(fd[1]);
 	dup2(fd[0], 0);
