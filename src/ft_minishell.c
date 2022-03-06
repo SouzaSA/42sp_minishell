@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:36:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/06 15:53:57 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/06 16:06:14 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int	ft_minishell(char **envp)
 	t_shell		shell;
 	char		*prompt;
 
+	ft_handle_prompt_signals();
 	ft_init_minishell(&shell, envp);
 	while (1)
 	{
-		ft_handle_prompt_signals();
 		prompt = ft_get_prompt();
 		shell.line = readline(prompt);
 		free(prompt);
