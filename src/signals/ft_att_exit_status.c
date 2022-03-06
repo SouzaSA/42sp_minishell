@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:35:41 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/06 15:36:06 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:57:24 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,4 +15,5 @@
 void	ft_att_status(int signal)
 {
 	g_exit_status = (128 + signal);
+	write(1, "\n", 1);
 }

@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 18:26:09 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/06 15:28:55 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:47:01 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	ft_here_doc(t_shell *shell, char *limiter)
 	rtn = 0;
 	if (pipe(fd) == -1)
 		rtn = ft_put_msg_error(NULL, FLAG_ERROR_P);
+	ft_handle_parent_process_signals();
 	pid = fork();
-	// ft_handle_here_doc_signals(pid);
 	if (pid == -1)
 		rtn = ft_put_msg_error(NULL, FLAG_ERROR_P);
 	if (pid == 0)
@@ -36,7 +36,6 @@ int	ft_here_doc(t_shell *shell, char *limiter)
 		ft_destroy_shell(shell);
 		ft_get_by_limiter(fd, limiter, lineno);
 	}
-	ft_handle_parent_process_signals();
 	wait(NULL);
 	close(fd[1]);
 	dup2(fd[0], 0);
