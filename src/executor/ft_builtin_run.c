@@ -6,16 +6,15 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 20:40:18 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 14:40:26 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:30:29 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_executor.h"
-#include "ft_signals.h"
 
+static int	ft_child(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd);
 static int	ft_forker_builtin(t_shell *shell, t_cmd_data *data, t_cmd_blk *blk);
 static int	ft_exec_builtin(t_shell *shell, t_cmd_data *data, t_cmd_blk *blk);
-static void	ft_pipe_worker(t_cmd_data *cmd_data);
 
 int	ft_builtin_run(t_shell *shell, t_cmd_data *data, t_ast *ast)
 {
@@ -50,26 +49,33 @@ static int	ft_forker_builtin(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd)
 	if (data->pid == -1)
 		rtn = ft_put_msg_error(NULL, FLAG_ERROR_P);
 	if (rtn == 0 && data->pid == 0)
-	{
-		ft_destroy_tt(&shell->transition_table);
-		rl_clear_history();
-		ft_destroy_ast_stk(data->cmd_stk);
-		if (data->fd_in >= 0 && data->fd_out > 0)
-			rtn = ft_exec_builtin(shell, data, cmd);
-		else
-		{
-			close(data->pipe_fd[0]);
-			close(data->pipe_fd[1]);
-			ft_destroy_command(&cmd);
-			ft_destroy_shell(shell);
-			if (data->fd_in < 0 || data->fd_out < 0)
-				exit(1);
-			else
-				exit(0);
-		}
-	}
+		rtn = ft_child(shell, data, cmd);
 	waitpid(-1, NULL, WNOHANG);
 	close(data->pipe_fd[1]);
+	return (rtn);
+}
+
+static int	ft_child(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd)
+{
+	int	rtn;
+
+	rtn = 0;
+	ft_destroy_tt(&shell->transition_table);
+	rl_clear_history();
+	ft_destroy_ast_stk(data->cmd_stk);
+	if (data->fd_in >= 0 && data->fd_out > 0)
+		rtn = ft_exec_builtin(shell, data, cmd);
+	else
+	{
+		close(data->pipe_fd[0]);
+		close(data->pipe_fd[1]);
+		ft_destroy_command(&cmd);
+		ft_destroy_shell(shell);
+		if (data->fd_in < 0 || data->fd_out < 0)
+			exit(1);
+		else
+			exit(0);
+	}
 	return (rtn);
 }
 
@@ -84,19 +90,4 @@ static int	ft_exec_builtin(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd)
 	ft_destroy_command(&cmd);
 	ft_destroy_shell(shell);
 	exit(rtn);
-}
-
-static void	ft_pipe_worker(t_cmd_data *data)
-{
-	if (data->fd_in > 0)
-	{
-		dup2(data->fd_in, 0);
-		close(data->fd_in);
-		data->fd_in = 0;
-	}
-	if (data->fd_out == 1 && data->pipe_flag)
-		dup2(data->pipe_fd[1], 1);
-	else if (data->fd_out > 1)
-		dup2(data->fd_out, 1);
-	close(data->pipe_fd[1]);
 }

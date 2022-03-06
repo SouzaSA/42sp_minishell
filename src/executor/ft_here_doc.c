@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 18:26:09 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 16:04:39 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:48:16 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_here_doc(t_shell *shell, char *limiter)
 	int	fd[2];
 	int	pid;
 	int	rtn;
-	int lineno;
+	int	lineno;
 
 	rtn = 0;
 	if (pipe(fd) == -1)

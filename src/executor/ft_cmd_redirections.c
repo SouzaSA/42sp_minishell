@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 14:14:23 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 16:24:17 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/06 15:16:48 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_redirections(t_shell *shell, t_list *redir, int *fd_in, int *fd_out)
 		else if (ft_strcmp("<", key) == 0)
 			rtn = ft_redir_in(filename, fd_in);
 		else if (ft_strcmp("<<", key) == 0)
-			ft_here_doc(shell, filename); //TODO clean things when error on gnl
+			ft_here_doc(shell, filename);
 		else if (ft_strcmp("<>", key) == 0)
 			ft_redir_in_out(filename, fd_in, fd_out);
 		if (node->next)
