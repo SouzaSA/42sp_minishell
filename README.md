@@ -136,7 +136,11 @@ flowchart TB
 	PARSER-->EXECUTOR
 ```
 
-Following some tips from prof. Gustavo Rodrigues \[1\], to build this project we need to implement a **Parser**, a **Executor** and **shell Subsystems**.
+Following some tips from [prof. Gustavo Rodrigues \[1\]](<#references>), to build this project we need to implement a **Lexer**, **Parser** and **Executor**.
+
+The **Lexer** will be responsible to separate the line in tokens and classifies it in some categories as: word (that will represent commands, arguments, filenames and var names), assignments (strings with a equals "=" sign inside), pipe (for the "|" pipe symbol), and (for "&&" symbol) and or (for the "||" symbol).
+
+//TODO
 
 The Parser, is the software component that reads the command line, and puts it into a data structure that will store the commands that will be executed futher.
 
