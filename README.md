@@ -98,15 +98,38 @@ To achieve the bonus the minishell must: (from minishell subject version 6)
 
 ## Overview
 
-```flow
-st=>start: Login
-op=>operation: Login operation
-cond=>condition: Successful Yes or No?
-e=>end: To admin
-
-st->op->cond
-cond(yes)->e
-cond(no)->op
+```mermaid
+flowchart TB
+	subgraph LEXER
+		direction LR
+		line-->tape-automata
+		tape-automata-->tokenizer
+		tokenizer-->token-classification
+	end
+	subgraph PARSER
+		direction LR
+		tokens-->parsing-grammar
+		parsing-grammar-->assignment-list
+		parsing-grammar-->command-list
+		parsing-grammar-->redirection-list
+		assignment-list-->command-block
+		command-list-->command-block
+		redirection-list-->command-block
+		command-block-->AST
+	end
+	subgraph EXECUTOR
+		direction LR
+		AST-->command-stack
+		command-stack-->expand-tilda
+		expand-tilda-->expand-vars
+		expand-vars-->expand-star
+		expand-star-->builtin
+		expand-star-->extern
+		builtin-->run
+		extern-->run
+		run-->pipe-management
+	end
+	LEXER-->PARSER
 ```
 
 Following some tips from prof. Gustavo Rodrigues \[1\], to build this project we need to implement a **Parser**, a **Executor** and **shell Subsystems**.
