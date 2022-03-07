@@ -119,7 +119,7 @@ flowchart TB
 	end
 	subgraph EXECUTOR
 		direction LR
-		AST-->command-stack
+		command-stack
 		command-stack-->expand-tilda
 		expand-tilda-->expand-vars
 		expand-vars-->expand-star
@@ -128,8 +128,12 @@ flowchart TB
 		builtin-->run
 		extern-->run
 		run-->pipe-management
+		run-->and/or-management
+		pipe-management-->output
+		and/or-management-->output
 	end
 	LEXER-->PARSER
+	PARSER-->EXECUTOR
 ```
 
 Following some tips from prof. Gustavo Rodrigues \[1\], to build this project we need to implement a **Parser**, a **Executor** and **shell Subsystems**.
