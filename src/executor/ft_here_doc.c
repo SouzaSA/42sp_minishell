@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 18:26:09 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/08 15:56:02 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/08 15:58:58 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,16 @@ static void	ft_get_by_limiter(int *fd, char *lmt, int lno, t_cmd_data *data)
 
 static void	ft_clean(char **line1, char **line2, t_cmd_data *data, int *fd)
 {
-	if (data->cmd)
-		free(data->cmd);
-	ft_destroy_command(&data->blk);
-	ft_destroy_ast_stk(data->cmd_stk);
 	free(*line1);
 	*line1 = NULL;
 	free(*line2);
 	*line2 = NULL;
 	if (fd)
+	{
 		close(fd[1]);
+		if (data->cmd)
+			free(data->cmd);
+		ft_destroy_command(&data->blk);
+		ft_destroy_ast_stk(data->cmd_stk);
+	}
 }
