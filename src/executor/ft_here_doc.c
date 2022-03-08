@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 18:26:09 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/08 15:41:48 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/08 15:56:02 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	ft_hdoc_child(t_shell *shell, char *lmt, int *fd, t_cmd_data *data);
 static void	ft_get_by_limiter(int *fd, char *lmt, int lineno, t_cmd_data *data);
-static void	ft_free_lines(char **line1, char **line2, t_cmd_data *data);
+static void	ft_clean(char **line1, char **line2, t_cmd_data *data, int *fd);
 
 int	ft_here_doc(t_shell *shell, char *limiter, t_cmd_data *data)
 {
@@ -66,23 +66,21 @@ static void	ft_get_by_limiter(int *fd, char *lmt, int lno, t_cmd_data *data)
 		line_no_nl = ft_substr(line, 0, ft_strlen(line) - 1);
 		if (ft_strcmp(lmt, line_no_nl) == 0)
 		{
-			ft_free_lines(&line, &line_no_nl, data);
-			close(fd[1]);
+			ft_clean(&line, &line_no_nl, data, fd);
 			exit(0);
 		}
 		if (write(fd[1], line, ft_strlen(line)) == -1)
 			ft_put_msg_error("Can't write a line on pipe", FLAG_ERROR_OWN);
-		ft_free_lines(&line, &line_no_nl, data);
+		ft_clean(&line, &line_no_nl, data, NULL);
 		write(1, "> ", 2);
 		line = get_next_line(0);
 	}
-	ft_free_lines(&line, &line_no_nl, data);
-	close(fd[1]);
+	ft_clean(&line, &line_no_nl, data, fd);
 	ft_heredoc_error(lmt, lno);
 	exit(1);
 }
 
-static void	ft_free_lines(char **line1, char **line2, t_cmd_data *data)
+static void	ft_clean(char **line1, char **line2, t_cmd_data *data, int *fd)
 {
 	if (data->cmd)
 		free(data->cmd);
@@ -92,4 +90,6 @@ static void	ft_free_lines(char **line1, char **line2, t_cmd_data *data)
 	*line1 = NULL;
 	free(*line2);
 	*line2 = NULL;
+	if (fd)
+		close(fd[1]);
 }
