@@ -98,7 +98,7 @@ To achieve the bonus the minishell must: (from minishell subject version 6)
 
 ## Overview
 
-Following some tips from (prof. Gustavo Rodrigues)[^grr], to build this project we need to implement a **Lexer**, **Parser** and **Executor**.
+Following some tips from prof. Gustavo Rodrigues[^grr], to build this project we need to implement a **Lexer**, **Parser** and **Executor**.
 
 ```mermaid
 flowchart TB
@@ -155,7 +155,7 @@ The **Executor**, this entity will do the hard work, where it will expand the va
 
 ##  The LEXER
 
-This entity must separate the tokens from th line, whe can follow the way showed by (Ricardo Hincapie)[^richi], but we choose the path similar to that adopted by compiler developers, where we build a automata to split tokens, deveop a grammar to parse the line, this can be this can be seen in the  Alfred V. Aho book[^alfvaho], a tape automata is a easier way to separate the tokens like ">outfile" where the symbol ">" is binded to the "filename".
+This entity must separate the tokens from th line, whe can follow the way showed by Ricardo Hincapie[^richi], but we choose the path similar to that adopted by compiler developers, where we build a automata to split tokens, deveop a grammar to parse the line, this can be this can be seen in the  Alfred V. Aho book[^alfvaho], a tape automata is a easier way to separate the tokens like ">outfile" where the symbol ">" is binded to the "filename".
 
 ## Tokens description
 
