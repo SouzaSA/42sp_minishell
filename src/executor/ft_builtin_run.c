@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 20:40:18 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/06 16:05:59 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/08 15:35:43 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,20 @@ static int	ft_exec_builtin(t_shell *shell, t_cmd_data *data, t_cmd_blk *blk);
 int	ft_builtin_run(t_shell *shell, t_cmd_data *data, t_ast *ast)
 {
 	int			rtn;
-	t_cmd_blk	*blk;
 
 	rtn = 0;
-	blk = ast->blk;
+	data->blk = ast->blk;
 	free(ast);
 	data->cmd = NULL;
 	data->fd_in = 0;
 	data->fd_out = 1;
 	data->pid = -1;
-	rtn = ft_assignments(shell, blk->assign);
-	rtn = ft_redirections(shell, blk->redir, &data->fd_in, &data->fd_out);
-	rtn = ft_forker_builtin(shell, data, blk);
+	rtn = ft_assignments(shell, data->blk->assign);
+	rtn = ft_redirections(shell, data);
+	rtn = ft_forker_builtin(shell, data, data->blk);
 	if (data->cmd)
 		free(data->cmd);
-	ft_destroy_command(&blk);
+	ft_destroy_command(&data->blk);
 	return (rtn);
 }
 

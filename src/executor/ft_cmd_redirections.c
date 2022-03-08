@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 14:14:23 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/06 16:52:54 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/08 15:35:08 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	ft_append(char *filename, int *fd_out);
 static int	ft_redir_in(char *filename, int *fd_in);
 static int	ft_redir_in_out(char *filename, int *fd_in, int *fd_out);
 
-int	ft_redirections(t_shell *shell, t_list *redir, int *fd_in, int *fd_out)
+int	ft_redirections(t_shell *shell, t_cmd_data *data)
 {
 	int		rtn;
 	char	*key;
@@ -25,21 +25,21 @@ int	ft_redirections(t_shell *shell, t_list *redir, int *fd_in, int *fd_out)
 	t_list	*node;
 
 	rtn = 0;
-	node = redir;
+	node = data->blk->redir;
 	while (rtn == 0 && node)
 	{
 		key = (char *)node->content;
 		filename = (char *)node->next->content;
 		if (ft_strcmp(">", key) == 0)
-			rtn = ft_redir_out(filename, fd_out);
+			rtn = ft_redir_out(filename, &data->fd_out);
 		else if (ft_strcmp(">>", key) == 0)
-			rtn = ft_append(filename, fd_out);
+			rtn = ft_append(filename, &data->fd_out);
 		else if (ft_strcmp("<", key) == 0)
-			rtn = ft_redir_in(filename, fd_in);
+			rtn = ft_redir_in(filename, &data->fd_in);
 		else if (ft_strcmp("<<", key) == 0)
-			rtn = ft_here_doc(shell, filename, fd_in);
+			rtn = ft_here_doc(shell, filename, data);
 		else if (ft_strcmp("<>", key) == 0)
-			rtn = ft_redir_in_out(filename, fd_in, fd_out);
+			rtn = ft_redir_in_out(filename, &data->fd_in, &data->fd_out);
 		if (node->next)
 			node = node->next->next;
 	}
