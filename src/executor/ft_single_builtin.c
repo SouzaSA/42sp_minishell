@@ -6,14 +6,19 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 14:58:54 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/06 15:16:18 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/08 11:02:48 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_executor.h"
 
+static void	ft_change_std_in_out(t_cmd_data *data);
+static void	ft_close_fds(t_cmd_data *data, int in_dup, int out_dup);
+
 void	ft_single_buitin(t_shell *shell, t_list **cmd_stk, t_cmd_data *data)
 {
+	int			in_dup;
+	int			out_dup;
 	t_ast		*ast;
 	t_cmd_blk	*blk;
 
@@ -21,6 +26,11 @@ void	ft_single_buitin(t_shell *shell, t_list **cmd_stk, t_cmd_data *data)
 	blk = ast->blk;
 	if (blk && blk->cmd && ft_isbuiltin((char *)(blk->cmd->content)))
 	{
+		ft_assignments(shell, blk->assign);
+		ft_redirections(shell, blk->redir, &data->fd_in, &data->fd_out);
+		in_dup = dup(0);
+		out_dup = dup(1);
+		ft_change_std_in_out(data);
 		data->builtin_flag = 1;
 		ast = ft_lstpop(cmd_stk);
 		ft_assignments(shell, blk->assign);
@@ -29,5 +39,24 @@ void	ft_single_buitin(t_shell *shell, t_list **cmd_stk, t_cmd_data *data)
 		ft_builin_parser(shell, data, blk);
 		if (blk)
 			ft_destroy_command(&blk);
+		ft_close_fds(data, in_dup, out_dup);
 	}
+}
+
+static void	ft_change_std_in_out(t_cmd_data *data)
+{
+	if (data->fd_in > 0)
+		dup2(data->fd_in, 0);
+	if (data->fd_out > 1)
+		dup2(data->fd_out, 1);
+}
+
+static void	ft_close_fds(t_cmd_data *data, int in_dup, int out_dup)
+{
+	if (data->fd_in > 0)
+		close(data->fd_in);
+	if (data->fd_out > 1)
+		close(data->fd_out);
+	dup2(in_dup, 0);
+	dup2(out_dup, 1);
 }
