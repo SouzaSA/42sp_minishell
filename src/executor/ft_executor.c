@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_executor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/06 18:17:49 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/08 22:00:47 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,19 @@ static int	ft_run_cmds(t_shell *shell, t_list **cmd_stk)
 {
 	int			rtn;
 	int			in_cpy;
+	int			num_cmds;
 	t_cmd_data	cmd_data;
 
 	rtn = 0;
 	in_cpy = dup(0);
 	ft_cmd_data_init(&cmd_data, cmd_stk);
-	if (ft_lstsize(*cmd_stk) == 1)
+	num_cmds = ft_lstsize(*cmd_stk);
+	if (num_cmds == 1)
 		ft_single_buitin(shell, cmd_stk, &cmd_data);
 	rtn = ft_cmd_iter(shell, &cmd_data);
 	if (rtn && ft_lstsize(*cmd_stk))
 		ft_destroy_ast_stk(cmd_stk);
-	if (!cmd_data.builtin_flag && cmd_data.pid > 0)
+	if (num_cmds > 1)
 	{
 		waitpid(-1, &rtn, 0);
 		if (!WIFSIGNALED(rtn))

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/03/06 20:38:38 by edpaulin         ###   ########.fr        #
+#    Updated: 2022/03/08 20:55:00 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -139,6 +139,7 @@ UTILS				=	ft_destroy_ast_stk.c	\
 						ft_get_env_node_by_key.c	\
 						ft_get_env_value_by_key.c	\
 						ft_get_local_var_by_key.c	\
+						ft_get_local_var_node_by_key.c	\
 						ft_init_vars.c	\
 						ft_isidentifier.c	\
 						ft_split_join.c	\

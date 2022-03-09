@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 14:58:54 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/08 15:48:39 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/08 21:50:24 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,4 @@ static void	ft_close_fds(t_cmd_data *data, int in_dup, int out_dup)
 		close(data->fd_out);
 	dup2(in_dup, 0);
 	dup2(out_dup, 1);
-	clear_history();
 }

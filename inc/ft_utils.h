@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 09:32:33 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 18:49:37 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/08 20:53:23 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	ft_destroy_tt(void (****transition_table)(t_list **, enum e_symbol));
 t_list	*ft_get_env_node_by_key(t_shell *shell, char *key);
 char	*ft_get_env_value_by_key(t_shell *shell, char *key);
 char	*ft_get_local_var_by_key(t_shell *shell, char *key);
+t_list	*ft_get_local_var_node_by_key(t_shell *shell, char *key);
 void	ft_init_minishell(t_shell *shell, char **envp);
 int		ft_isidentifier(char *str);
 char	*ft_split_join(char **splitted);
