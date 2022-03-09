@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 20:54:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/08 15:34:57 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/09 20:20:59 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**ft_construct_path(char **cmd, t_list *env_lst);
 int		ft_executor(t_shell *shell, char *line);
 char	*ft_get_cmd_path(char *command, char **path_list);
 int		ft_here_doc(t_shell *shell, char *limiter, t_cmd_data *data);
-int		ft_pipe_run(t_cmd_data *data);
+int		ft_pipe_run(t_cmd_data *data, t_list *cmd_stk);
 void	ft_pipe_worker(t_cmd_data *data);
 void	ft_single_buitin(t_shell *shell, t_list **cmd_stk, t_cmd_data *data);
 #endif

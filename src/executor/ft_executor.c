@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/08 22:00:47 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/09 20:12:17 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	ft_run_cmds(t_shell *shell, t_list **cmd_stk)
 		ft_destroy_ast_stk(cmd_stk);
 	if (num_cmds > 1)
 	{
-		waitpid(-1, &rtn, 0);
+		wait(&rtn);
 		if (!WIFSIGNALED(rtn))
 			g_exit_status = WEXITSTATUS(rtn);
 	}
@@ -95,7 +95,7 @@ static int	ft_cmd_iter(t_shell *shell, t_cmd_data *data)
 			ast = NULL;
 		}
 		else if (ast->type == AST_PIPE)
-			rtn = ft_pipe_run(data);
+			rtn = ft_pipe_run(data, *data->cmd_stk);
 		else if (ast->type == AST_AND || ast->type == AST_OR)
 			rtn = ft_and_or_run(data, ast->type);
 		if (ast)
