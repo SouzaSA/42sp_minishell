@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 17:54:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/06 14:10:54 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/10 10:52:19 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ static void	ft_change_splited(t_shell *shell, char **splited)
 		aux = splited[i];
 		if (value && posfix)
 			splited[i] = ft_strjoin(value, posfix);
-		free (aux);
+		free(value);
+		free(aux);
 		free(key);
 		i++;
 	}
