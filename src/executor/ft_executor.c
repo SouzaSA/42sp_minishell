@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/09 20:12:17 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/10 10:44:49 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	ft_run_cmds(t_shell *shell, t_list **cmd_stk)
 	rtn = ft_cmd_iter(shell, &cmd_data);
 	if (rtn && ft_lstsize(*cmd_stk))
 		ft_destroy_ast_stk(cmd_stk);
-	if (num_cmds > 1)
+	if (num_cmds > 1 || !cmd_data.builtin_flag)
 	{
 		wait(&rtn);
 		if (!WIFSIGNALED(rtn))
