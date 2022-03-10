@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:43:00 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 15:59:20 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/10 14:18:45 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ static int	ft_cd_swap(t_shell *shell)
 
 static int	ft_cd_path(t_shell *shell, char *path)
 {
+	char		*actual_wd;
 	struct stat	stats;
 
 	stats.st_mode = 0;
@@ -86,7 +87,8 @@ static int	ft_cd_path(t_shell *shell, char *path)
 		g_exit_status = 2;
 		return (ft_cd_error(path, FLAG_ERROR_P));
 	}
-	ft_update_env_pwds(shell, ft_strdup(path));
+	actual_wd = getcwd(NULL, 0);
+	ft_update_env_pwds(shell, actual_wd);
 	g_exit_status = 0;
 	return (0);
 }
