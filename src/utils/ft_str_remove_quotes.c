@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_join.c                                    :+:      :+:    :+:   */
+/*   ft_str_remove_quotes.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/04 21:18:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/11 10:59:48 by sde-alva         ###   ########.fr       */
+/*   Created: 2022/03/11 08:12:52 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/03/11 10:19:41 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_utils.h"
 
-char	*ft_split_join(char **splitted)
+char	*ft_str_remove_quotes(char *str)
 {
-	int		i;
-	char	*aux;
-	char	*new;
+	char	*unquoted;
 
-	i = 0;
-	new = ft_strdup("");
-	while (splitted[i])
-	{
-		aux = new;
-		new = ft_strjoin(new, splitted[i]);
-		free(aux);
-		i++;
-	}
-	return (new);
+	printf("str: %s\n", str);//tirar
+	if (str && (str[0] == '\"' || str[0] == '\''))
+		unquoted = ft_substr(str, 1, ft_strlen(str) - 2);
+	else
+		unquoted = ft_strdup(str);
+	printf("unquoted: %s\n", unquoted);//tirar
+	return (unquoted);
 }

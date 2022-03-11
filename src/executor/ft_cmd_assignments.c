@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 10:11:54 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/10 11:45:51 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/11 10:18:47 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ static t_dictionary	*ft_set_dictionary_element(char *assignment)
 			return (NULL);
 		len_key = ft_strchr(assignment, '=') - assignment;
 		element->key = ft_substr(assignment, 0, len_key);
-		element->value = ft_strtrim(&assignment[len_key + 1], "\"\'");
+		element->value = ft_str_remove_quotes(&assignment[len_key + 1]);
 	}
 	return (element);
 }

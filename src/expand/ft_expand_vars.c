@@ -6,13 +6,13 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 17:54:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/10 10:52:19 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/11 10:49:31 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_expand.h"
 
-static char	*ft_change_dquote(t_shell *shell, char *str);
+static char	*ft_change_str(t_shell *shell, char *str);
 static void	ft_change_splited(t_shell *shell, char **splited);
 static void	ft_change_var(t_shell *shell, t_list **list);
 static char	*ft_get_var(t_shell *shell, char *key);
@@ -40,34 +40,38 @@ int	ft_expand_vars(t_shell *shell, t_list *ast_stk)
 static void	ft_change_var(t_shell *shell, t_list **list)
 {
 	char	*aux;
+	char	*val;
 	t_list	*node;
 
 	node = *list;
 	while (node)
 	{
-		if (ft_strchr((char *)node->content, '$'))
-		{
+		aux = NULL;
+		val = NULL;
+		if (node->content)
 			aux = (char *)node->content;
-			if (aux)
-			{
-				if (aux[0] == '\"')
-					node->content = ft_change_dquote(shell, aux);
-				else
-					node->content = ft_get_var(shell, &aux[1]);
-				free(aux);
-			}
+		if (aux)
+			val = ft_strchr(aux, '=');
+		if ((aux && aux[0] != '\'' && ft_strchr(aux, '$')) \
+			&& (!val || (val && val[1] != '\'')))
+		{
+			node->content = ft_change_str(shell, aux);
+			free(aux);
 		}
 		node = node->next;
 	}
 }
 
-static char	*ft_change_dquote(t_shell *shell, char *str)
+static char	*ft_change_str(t_shell *shell, char *str)
 {
 	char	*new;
 	char	**splitted;
 
 	splitted = ft_split(str, '$');
-	ft_change_splited(shell, &splitted[1]);
+	if (str[0] == '$')
+		ft_change_splited(shell, splitted);
+	else
+		ft_change_splited(shell, &splitted[1]);
 	new = ft_split_join(splitted);
 	ft_split_destroy(splitted);
 	return (new);
@@ -104,15 +108,15 @@ static void	ft_change_splited(t_shell *shell, char **splited)
 
 static char	*ft_get_var(t_shell *shell, char *key)
 {
-	char	*value;
+	t_list	*node;
 
 	if (*key == '\0')
 		return (ft_strdup("$"));
-	value = ft_get_local_var_by_key(shell, key);
-	if (!value)
-		value = ft_get_env_value_by_key(shell, key);
-	if (value)
-		return (ft_strdup(value));
+	node = ft_get_local_var_node_by_key(shell, key);
+	if (!node)
+		node = ft_get_env_node_by_key(shell, key);
+	if (node)
+		return (ft_strdup(((t_dictionary *)node->content)->value));
 	else
 		return (ft_strdup(""));
 }

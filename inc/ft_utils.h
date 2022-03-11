@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 09:32:33 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/08 20:53:23 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/11 08:17:28 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ t_list	*ft_get_local_var_node_by_key(t_shell *shell, char *key);
 void	ft_init_minishell(t_shell *shell, char **envp);
 int		ft_isidentifier(char *str);
 char	*ft_split_join(char **splitted);
+char	*ft_str_remove_quotes(char *str);
 int		ft_update_env_pwds(t_shell *shell, char *new_pwd);
 #endif

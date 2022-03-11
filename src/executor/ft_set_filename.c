@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 19:31:27 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/10 21:50:33 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/11 08:22:01 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_set_filename(t_list **redir_node, char **filename)
 		aux = (*redir_node)->content;
 		(*redir_node)->content = new->content;
 		new->content = aux;
-		*filename = ft_strtrim((char *)(*redir_node)->content, "\"\'");
+		*filename = ft_str_remove_quotes((char *)(*redir_node)->content);
 	}
 	ft_lstdelone(new, &free);
 	return (rtn);

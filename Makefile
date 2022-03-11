@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/03/10 21:31:23 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/03/11 08:18:02 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -145,6 +145,7 @@ UTILS				=	ft_destroy_ast_stk.c	\
 						ft_init_vars.c	\
 						ft_isidentifier.c	\
 						ft_split_join.c	\
+						ft_str_remove_quotes.c	\
 						ft_update_env_pwd.c
 
 EXPAND				=	ft_expand_star.c \
