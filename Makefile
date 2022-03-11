@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/03/08 20:55:00 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/03/10 21:31:23 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ BUILTINS			=	ft_builtins_parser.c	\
 
 ERROR				=	ft_cd_errors.c	\
 						ft_command_error.c	\
+						ft_expand_error.c	\
 						ft_export_error.c	\
 						ft_heredoc_error.c	\
 						ft_put_msg_error.c	\
@@ -86,6 +87,7 @@ EXECUTOR			=	ft_and_or_run.c	\
 						ft_here_doc.c	\
 						ft_pipe_run.c	\
 						ft_pipe_worker.c	\
+						ft_set_filename.c	\
 						ft_single_builtin.c
 
 PARSER				=	ft_child_node.c	\

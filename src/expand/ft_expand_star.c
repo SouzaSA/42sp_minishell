@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand_star.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 17:50:25 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/06 20:14:06 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/10 21:47:39 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,17 @@ static void		ft_couple(t_list **list, t_list *prev, t_list *exp, t_list **n);
 static void		ft_expand_redir_star(t_list **list);
 static t_list	*ft_expand(char *str);
 
-void	ft_expand_star(t_list *ast_stk)
+void	ft_expand_star(t_list **list, int type)
 {
-	t_list		*node;
-	t_cmd_blk	*blk;
-
-	node = ast_stk;
-	while (node)
+	if (list && *list)
 	{
-		if (node->content && ((t_ast *)node->content)->blk)
+		if (type == EXPAND_CMD)
+			ft_expand_cmd_star(list);
+		if (type == EXPAND_REDIR)
 		{
-			blk = ((t_ast *)node->content)->blk;
-			ft_expand_cmd_star(&blk->cmd);
-			ft_expand_redir_star(&blk->redir);
+			printf("\noi\n");
+			ft_expand_redir_star(list);
 		}
-		node = node->next;
 	}
 }
 
