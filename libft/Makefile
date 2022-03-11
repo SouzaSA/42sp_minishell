@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/23 13:58:02 by sde-alva          #+#    #+#              #
-#    Updated: 2021/12/16 21:04:13 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/03/04 17:40:58 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,15 +43,20 @@ IS				=	ft_isalnum.c	\
 					ft_isprint.c	\
 					ft_isspace.c
 
-LST				=	ft_lstadd_back.c	\
+LST				=	ft_lstadd_after.c	\
+					ft_lstadd_back.c	\
 					ft_lstadd_front.c	\
 					ft_lstclear.c	\
+					ft_lstdel_front.c	\
 					ft_lstdelone.c	\
 					ft_lstiter.c	\
 					ft_lstlast.c	\
 					ft_lstmap.c	\
 					ft_lstnew.c	\
-					ft_lstsize.c
+					ft_lstpop.c	\
+					ft_lstpush.c	\
+					ft_lstsize.c	\
+					ft_lsttop.c
 
 MATH			=	ft_abs.c	\
 					ft_average.c	\
@@ -92,6 +97,7 @@ STR				=	ft_atoi.c	\
 					ft_strncmp.c	\
 					ft_strnstr.c	\
 					ft_strrchr.c	\
+					ft_strstr.c	\
 					ft_strtolower.c	\
 					ft_strtrim.c	\
 					ft_substr.c	\
@@ -127,16 +133,23 @@ CFLAGS			=	-Wall -Wextra -Werror
 
 RM				=	rm -rf
 
-DIR_GUARD		=	mkdir -p ${@D}
+DIR_GUARD		=	mkdir -p $@
 
-${OBJ_DIR}/%.o:	${SRC_DIR}/%.c
-				${DIR_GUARD}
+${OBJ_DIR}/.:
+					${DIR_GUARD}
+
+${OBJ_DIR}%/.:
+					${DIR_GUARD}
+
+.SECONDEXPANSION:
+
+${OBJ_DIR}/%.o:	${SRC_DIR}/%.c | $${@D}/.
 				${CC} ${CFLAGS} ${INCS} -c $< -o $@
 
 ${NAME}:		${LIB_FILE}
 
 ${LIB_FILE}:	${OBJS}
-				${DIR_GUARD}
+				mkdir -p ${@D}
 				ar rcs ${LIB_FILE} ${OBJS}
 
 all:			${NAME}
@@ -150,3 +163,5 @@ fclean: 		clean
 re:				fclean all
 
 .PHONY:			all clean fclean re ${NAME}
+
+.PRECIOUS:		${OBJ_DIR}/. ${OBJ_DIR}%/.

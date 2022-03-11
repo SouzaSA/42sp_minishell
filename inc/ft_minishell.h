@@ -3,39 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/16 20:49:08 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 15:19:46 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_MINISHELL_H
 # define FT_MINISHELL_H
-# include <errno.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <sys/types.h>
-# include <sys/wait.h>
-# include <string.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "libft.h"
+# include "ft_builtins.h"
 # include "ft_colors.h"
+# include "ft_error.h"
+# include "ft_executor.h"
+# include "ft_parser.h"
+# include "ft_scanner.h"
+# include "ft_expand.h"
+# include "ft_utils.h"
+# include "libft.h"
+# include "ft_global_status.h"
 
-typedef struct s_dictionary
-{
-	char	*key;
-	char	*value;
-}	t_dictionary;
-
-typedef struct s_shell
-{
-	t_list	*env_list;
-	int		error_status;
-}	t_shell;
+# define PROMPT_SIZE 4096
+# define PROMPT_DOLLAR "\033[0;32m$\e[0;39m "
 
 typedef struct s_cmd_tbl
 {
@@ -48,9 +41,6 @@ typedef struct s_cmd_tbl
 
 char	**ft_get_path(char **envp);
 int		ft_minishell(char **envp);
+char	*ft_get_prompt(void);
 
-void	ft_destroy_vars(t_shell *shell);
-char	*ft_get_var_value(t_shell *shell, char *var);
-void	ft_init_minishell(t_shell *shell, char **envp);
-void	ft_put_msg_error(t_shell *shell, char *msg);
 #endif

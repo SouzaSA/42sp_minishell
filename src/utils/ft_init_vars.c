@@ -6,27 +6,44 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 18:57:26 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/16 21:16:46 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/05 17:05:00 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
 
+static void	ft_import_envp(t_shell *shell, char **envp);
+
 void	ft_init_minishell(t_shell *shell, char **envp)
 {
-	int				i;
-	long	idx;
-	t_dictionary	*dic_item;
+	int	i;
+
+	i = 0;
+	shell->vars = NULL;
+	shell->lineno = 0;
+	ft_import_envp(shell, envp);
+	shell->transition_table = malloc(NUM_NTS * sizeof(void ***));
+	while (i < NUM_NTS)
+	{
+		shell->transition_table[i] = malloc(NUM_TS * sizeof(void **));
+		i++;
+	}
+	ft_fill_transition_table(shell->transition_table);
+}
+
+static void	ft_import_envp(t_shell *shell, char **envp)
+{
+	int		i;
+	t_list	element;
 
 	i = 0;
 	shell->env_list = NULL;
+	g_exit_status = 0;
+	element.next = NULL;
 	while (envp && envp[i])
 	{
-		dic_item = (t_dictionary *)malloc(sizeof(t_dictionary));
-		idx = (long)(ft_strchr(envp[i], '=') - &envp[i][0]);
-		dic_item->key = ft_substr(envp[i], 0, idx);
-		dic_item->value = ft_substr(envp[i], idx + 1, ft_strlen(envp[i]));
-		ft_lstadd_back(&shell->env_list, ft_lstnew(dic_item));
+		element.content = envp[i];
+		ft_export(shell, &element);
 		i++;
 	}
 }

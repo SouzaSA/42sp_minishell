@@ -3,109 +3,75 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:36:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/17 11:29:25 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/11 20:44:09 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
+#include "ft_signals.h"
+#include <curses.h>
+#include <term.h>
 
-static int	ft_set_status(char *line);
-static void	ft_print_dictionary(void *dic_item); //tirar só para teste
-
-void	del(void *content)
-{
-	if (content)
-	{
-		free(content);
-		content = NULL;
-	}
-}
-
-void	env(t_shell *shell)
-{
-	ft_lstiter(shell->env_list, &ft_print_dictionary);
-}
-
-void	export(t_shell *shell, char *line)
-{
-	t_dictionary	*dic_item;
-	
-	dic_item = (t_dictionary *)malloc(sizeof(t_dictionary));
-	dic_item->key = ft_strdup(line);
-	dic_item->value = ft_strdup(line);
-	ft_lstadd_back(&shell->env_list, ft_lstnew(dic_item));
-}
-
-void	unset(t_shell *shell)
-{
-	t_list	*node;
-	t_list	*last;
-
-	last = ft_lstlast(shell->env_list);
-	node = shell->env_list;
-	while (node->next->next != NULL)
-		node = node->next;
-	ft_lstdelone(last, &del);
-	node->next = NULL;
-}
+static void	ft_no_line(t_shell *shell);
+static int	ft_lineck(char *line);
+static void	ft_free_line(t_shell *shell);
 
 int	ft_minishell(char **envp)
 {
-	t_shell	shell;
-	char	*line;
-	int 	status;
+	char		*prompt;
+	t_shell		shell;
 
 	ft_init_minishell(&shell, envp);
-	status = 1;
-	while (status)
+	while (1)
 	{
-		line = readline("\033[0;33m$\e[0;39m ");
-		if (!line || (line && !ft_set_status(line)))
+		ft_handle_prompt_signals();
+		prompt = ft_get_prompt();
+		shell.line = readline(prompt);
+		free(prompt);
+		if (!shell.line)
+			ft_no_line(&shell);
+		if (shell.line && (ft_strlen(shell.line) == 0 || ft_lineck(shell.line)))
 		{
-			write(2, "exit\n", 5);
-			status = 0;
-		}
-		if (line && ft_strlen(line) == 0)
-		{
-			free(line);
+			ft_free_line(&shell);
 			continue ;
 		}
-		add_history(line);
-		ft_putendl_fd(line, 1);
-		if (ft_strcmp(line, "env") == 0)
-			env(&shell);
-		else if (ft_strcmp(line, "export") == 0)
-			export(&shell, line);
-		else if (ft_strcmp(line, "unset") == 0)
-			unset(&shell);
-		free(line);
+		add_history(shell.line);
+		ft_executor(&shell, shell.line);
+		ft_free_line(&shell);
+		shell.lineno++;
 	}
 	ft_destroy_vars(&shell);
 	rl_clear_history();
+	ft_destroy_shell(&shell);
 	return (0);
 }
 
-static int	ft_set_status(char *line)
+static void	ft_no_line(t_shell *shell)
 {
-	int		status;
-
-	status = 1;
-	if (ft_strcmp("exit", line) == 0)
-		status = 0;
-	return (status);
+	rl_clear_history();
+	ft_destroy_shell(shell);
+	write(1, "\n", 1);
+	exit(0);
 }
 
-static void	ft_print_dictionary(void *dic_item) //tirar só para teste
+static int	ft_lineck(char *line)
 {
-	if (dic_item)
-	{
-		if (((t_dictionary *)dic_item)->key)
-			ft_putstr_fd(((t_dictionary *)dic_item)->key, 1);
-		write(1, " = ", 3);
-		if (((t_dictionary *)dic_item)->value)
-			ft_putendl_fd(((t_dictionary *)dic_item)->value, 1);
-	}
+	int		has_any;
+	char	*trimmed;
+
+	trimmed = ft_strtrim(line, " ");
+	has_any = 0;
+	if (!trimmed || ft_strlen(trimmed) == 0)
+		has_any = 1;
+	free(trimmed);
+	return (has_any);
+}
+
+static void	ft_free_line(t_shell *shell)
+{
+	free(shell->line);
+	shell->line = NULL;
 }

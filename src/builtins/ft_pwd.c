@@ -6,21 +6,21 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 16:29:00 by sde-alva          #+#    #+#             */
-/*   Updated: 2021/12/16 20:41:41 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/02 16:17:05 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_minishell.h"
+#include "ft_builtins.h"
 
-int ft_pwd(t_shell shell)
+int	ft_pwd(void)
 {
 	char	*cwd;
 
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 		return (1);
-	ft_putendl_fd(cwd);
+	ft_putendl_fd(cwd, 1);
 	free(cwd);
 	cwd = NULL;
-	return(0)
+	return (0);
 }
