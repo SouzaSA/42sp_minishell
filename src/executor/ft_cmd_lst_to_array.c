@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 15:48:53 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/11 16:29:23 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/11 17:35:26 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	**ft_cmd_lst_to_array(t_shell *shell, t_list **cmd)
 		(*cmd)->content = pathed;
 		free(aux);
 		ft_expand_star(cmd);
-		if (ft_lstsize(*cmd) > 1L << 10)
+		if (ft_lstsize(*cmd) > 1L << 12)
 			ft_expand_error((char *)(*cmd)->content, FLAG_ERROR_CMD);
 		else
 			cmd_array = ft_create_array(*cmd);
