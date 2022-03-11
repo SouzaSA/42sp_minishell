@@ -6,14 +6,13 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 21:08:41 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/08 20:15:52 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/11 16:27:32 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_executor.h"
 #include "ft_signals.h"
 
-static char	**ft_cmd_lst_to_array(t_list *cmd);
 static int	ft_forker(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd);
 static int	ft_child(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd);
 static int	ft_exec_cmd(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd);
@@ -38,32 +37,6 @@ int	ft_cmd_run(t_shell *shell, t_cmd_data *data, t_ast *ast)
 		free(data->cmd);
 	ft_destroy_command(&blk);
 	return (rtn);
-}
-
-static char	**ft_cmd_lst_to_array(t_list *cmd)
-{
-	int		i;
-	t_list	*node;
-	char	**cmd_array;
-
-	i = 0;
-	cmd_array = NULL;
-	if (cmd)
-	{
-		cmd_array = (char **)malloc((ft_lstsize(cmd) + 1) * sizeof(char *));
-		if (cmd_array)
-		{
-			node = cmd;
-			while (node)
-			{
-				cmd_array[i] = (char *)node->content;
-				node = node->next;
-				i++;
-			}
-			cmd_array[i] = NULL;
-		}
-	}
-	return (cmd_array);
 }
 
 static int	ft_forker(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd)
@@ -110,24 +83,19 @@ static int	ft_child(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd)
 
 static int	ft_exec_cmd(t_shell *shell, t_cmd_data *data, t_cmd_blk *blk)
 {
-	char	**cmd_args;
 	char	**envp;
 
-	cmd_args = NULL;
 	close(data->pipe_fd[0]);
-	data->cmd = ft_cmd_lst_to_array(blk->cmd);
+	data->cmd = ft_cmd_lst_to_array(shell, &blk->cmd);
 	if (data->cmd)
-		cmd_args = ft_construct_path(data->cmd, shell->env_list);
-	if (cmd_args && cmd_args[0])
 	{
 		ft_pipe_worker(data);
 		envp = ft_construct_envp(shell->env_list);
-		if (execve(cmd_args[0], cmd_args, envp) == -1)
+		if (execve(data->cmd[0], data->cmd, envp) == -1)
 			ft_put_msg_error("execve error", FLAG_ERROR_OWN);
-		free(cmd_args[0]);
 		ft_split_destroy(envp);
 	}
-	free(cmd_args);
+	free(data->cmd);
 	ft_destroy_command(&blk);
 	ft_destroy_shell(shell);
 	exit(127);

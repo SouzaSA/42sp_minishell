@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:36:45 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/10 20:26:09 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/11 14:37:12 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@
 # include "ft_utils.h"
 # include "libft.h"
 
-# define EXPAND_REDIR 0
-# define EXPAND_CMD 1
-
 enum	e_type
 {
 	T_DIR,
@@ -36,7 +33,7 @@ typedef struct s_file
 	enum e_type	type;
 }	t_file;
 
-void	ft_expand_star(t_list **list, int type);
+void	ft_expand_star(t_list **list);
 t_list	*ft_get_splitted_path(char *path);
 void	ft_clean_file_struct(t_file *fl);
 void	ft_del_content(void *content);
