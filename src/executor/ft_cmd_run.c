@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd_run.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 21:08:41 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/11 20:36:29 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/12 17:42:10 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static int	ft_child(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd)
 	int	rtn;
 
 	rtn = 0;
+	ft_handle_child_process_signals();
 	ft_destroy_tt(&shell->transition_table);
 	rl_clear_history();
 	ft_destroy_ast_stk(data->cmd_stk);
