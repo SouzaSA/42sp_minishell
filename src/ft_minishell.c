@@ -6,14 +6,11 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:36:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/11 20:44:09 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/11 20:47:30 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
-#include "ft_signals.h"
-#include <curses.h>
-#include <term.h>
 
 static void	ft_no_line(t_shell *shell);
 static int	ft_lineck(char *line);
@@ -43,7 +40,6 @@ int	ft_minishell(char **envp)
 		ft_free_line(&shell);
 		shell.lineno++;
 	}
-	ft_destroy_vars(&shell);
 	rl_clear_history();
 	ft_destroy_shell(&shell);
 	return (0);

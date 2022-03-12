@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 15:48:53 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/11 17:35:26 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/11 21:27:33 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static char	**ft_create_array(t_list *cmd)
 {
 	int		i;
 	t_list	*node;
+	char	*aux;
 	char	**cmd_array;
 
 	i = 0;
@@ -49,17 +50,17 @@ static char	**ft_create_array(t_list *cmd)
 	if (cmd)
 	{
 		cmd_array = (char **)malloc((ft_lstsize(cmd) + 1) * sizeof(char *));
-		if (cmd_array)
+		node = cmd;
+		while (cmd_array && node)
 		{
-			node = cmd;
-			while (node)
-			{
-				cmd_array[i] = (char *)node->content;
-				node = node->next;
-				i++;
-			}
-			cmd_array[i] = NULL;
+			aux = (char *)node->content;
+			node->content = ft_str_remove_quotes(aux);
+			free(aux);
+			cmd_array[i] = (char *)node->content;
+			node = node->next;
+			i++;
 		}
+		cmd_array[i] = NULL;
 	}
 	return (cmd_array);
 }

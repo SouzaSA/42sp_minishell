@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser_error_msg.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 11:30:54 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/05 11:30:55 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/11 21:09:55 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,5 @@ void	ft_parser_error_msg(char *tok_text)
 	free(aux);
 	ft_put_msg_error(msg, FLAG_ERROR_OWN);
 	free (msg);
+	g_exit_status = 2;
 }
