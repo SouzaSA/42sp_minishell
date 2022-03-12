@@ -177,6 +177,188 @@ This entity must separate the tokens from th line, whe can follow the way showed
 
 ##  The PARSER
 
+### Minishell context free grammar
+
+```
+START ==> AND_OR
+AND_OR ==> PIPELINE | AND_OR and_if PIPELINE | AND_OR or_if PIPELINE
+PIPELINE ==> COMMAND | COMMAND pipe PIPELINE
+COMMAND ==> SIMPLE_CMD | SUBSHELL | SUBSHELL REDIRECT_LIST
+SUBSHELL ==> lbrace AND_OR rbrace
+SIMPLE_CMD ==> word | word CMD_SULFIX | CMD_PREFIX | CMD_PREFIX word | CMD_PREFIX word CMD_SULFIX
+CMD_PREFIX ==> IO_REDIRECT | CMD_PREFIX IO_REDIRECT | assignment | CMD_PREFIX assignment
+CMD_SULFIX ==> IO_REDIRECT | CMD_SULFIX IO_REDIRECT | word | CMD_SULFIX word
+REDIRECT_LIST ==> IO_REDIRECT | REDIRECT_LIST IO_REDIRECT
+IO_REDIRECT ==> IO_FILE | IO_HERE
+IO_FILE ==> less word
+IO_FILE ==> great word
+IO_FILE ==> dgreat word
+IO_FILE ==> lessgreat word
+IO_HERE ==> dless word
+```
+### State diagram of CFG
+```mermaid
+stateDiagram-v2
+	direction LR
+	state (START)
+	{
+		direction LR
+		[*] --> START
+		START --> AND_OR
+		AND_OR --> [*]
+	}
+```
+```mermaid
+	stateDiagram-v2
+	direction LR
+	state (AND_OR)
+	{
+		direction LR
+		[*] --> AND_OR
+		PIPELINE --> AND_OR
+		AND_OR --> PIPELINE
+		PIPELINE --> [*]
+		AND_OR --> and_if
+		AND_OR --> or_if
+		and_if --> PIPELINE
+		or_if --> PIPELINE
+	}
+```
+```mermaid
+	stateDiagram-v2
+	direction LR
+	state (PIPELINE)
+	{
+		direction LR
+		[*] --> PIPELINE
+		PIPELINE --> COMMAND
+		PIPELINE --> [*]
+		COMMAND --> pipe
+		COMMAND --> [*]
+		pipe --> PIPELINE
+	}
+```
+```mermaid
+	stateDiagram-v2
+	direction LR
+	state (COMMAND)
+	{
+		direction LR
+		[*] --> COMMAND
+		COMMAND --> SIMPLE_CMD
+		SIMPLE_CMD --> [*]
+		COMMAND --> SUBSHELL
+		SUBSHELL --> [*]
+		SUBSHELL --> REDIRECT_LIST
+		REDIRECT_LIST --> [*]
+	}
+```
+```mermaid
+	stateDiagram-v2
+	direction LR
+	state (SUBSHELL)
+	{
+		direction LR
+		[*] --> SUBSHELL
+		SUBSHELL --> lbrace
+		lbrace --> AND_OR
+		AND_OR --> rbrace
+		rbrace --> [*]
+	}
+```
+```mermaid
+	stateDiagram-v2
+	direction LR
+	state (SIMPLE_CMD)
+	{
+		direction LR
+		[*] --> SIMPLE_CMD
+		SIMPLE_CMD --> word
+		word --> [*]
+		word --> CMD_SULFIX
+		CMD_SULFIX --> [*]
+		SIMPLE_CMD --> CMD_PREFIX
+		CMD_PREFIX --> [*]
+		CMD_PREFIX --> word
+	}
+```
+```mermaid
+	stateDiagram-v2
+	direction LR
+	state (CMD_PREFIX)
+	{
+		direction LR
+		[*] --> CMD_PREFIX
+		CMD_PREFIX --> IO_REDIRECT
+		IO_REDIRECT --> [*]
+		IO_REDIRECT --> CMD_PREFIX
+		assignment --> CMD_PREFIX
+		CMD_PREFIX --> assignment
+		assignment --> [*]
+	}
+```
+```mermaid
+	stateDiagram-v2
+	direction LR
+	state (CMD_SULFIX)
+	{
+		direction LR
+		[*] --> CMD_SULFIX
+		CMD_SULFIX --> IO_REDIRECT
+		IO_REDIRECT --> [*]
+		IO_REDIRECT --> CMD_SULFIX
+		word --> CMD_SULFIX
+		CMD_SULFIX --> word
+		word --> [*]
+	}
+```
+```mermaid
+	stateDiagram-v2
+	direction LR
+	state (REDIRECT_LIST)
+	{
+		direction LR
+		[*] --> REDIRECT_LIST
+		REDIRECT_LIST --> IO_REDIRECT
+		IO_REDIRECT --> REDIRECT_LIST
+		IO_REDIRECT --> [*]
+		REDIRECT_LIST --> [*]
+	}
+```
+```mermaid
+	stateDiagram-v2
+	direction LR
+	state (IO_REDIRECT)
+	{
+		direction LR
+		[*] --> IO_REDIRECT
+		IO_REDIRECT --> IO_FILE
+		IO_REDIRECT --> IO_HERE
+		IO_FILE --> [*]
+		IO_HERE --> [*]
+	}
+```
+```mermaid
+	stateDiagram-v2
+	direction LR
+	state (REDIRECTIONS)
+	{
+		direction LR
+		[*] --> IO_FILE
+		[*] --> IO_HERE
+		IO_FILE --> less
+		IO_FILE --> great
+		IO_FILE --> dgreat
+		IO_FILE --> lessgreat
+		IO_HERE --> dless
+		less --> word
+		great --> word
+		dgreat --> word
+		lessgreat --> word
+		dless --> word
+		word --> [*]
+	}
+```
 ### **Shell Context Free Grammar (CFG) grammar, LL(1) type, defined with the BNF syntax:**
 
 ```
