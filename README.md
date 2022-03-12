@@ -124,11 +124,11 @@ flowchart TB
 		command-stack
 		command-stack-->expand-tilda
 		expand-tilda-->expand-vars
-		expand-vars-->expand-star
-		expand-star-->builtin
-		expand-star-->extern
-		builtin-->run
-		extern-->run
+		expand-vars-->builtin
+		expand-vars-->extern
+		builtin-->expand-star
+		extern-->expand-star
+		expand-star-->run
 		run-->pipe-management
 		run-->and/or-management
 		pipe-management-->output
