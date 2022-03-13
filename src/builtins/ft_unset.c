@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 10:52:06 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 15:52:41 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/13 19:57:25 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static void	ft_remove_from_list(t_list **list, char *key)
 				*list = node->next;
 			else
 				prev_node->next = node->next;
+			ft_lstdelone(node, &ft_destroy_dictionary_element);
 		}
 	}
 }
