@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 11:00:20 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/13 16:53:56 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/13 17:19:30 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	ft_and_or_run(t_cmd_data *data, enum e_ast_type type)
 		ft_remove_unused_branch(data);
 	data->forked = 0;
 	data->last_status = exec_status;
+	g_exit_status = exec_status;
 	return (exec_status);
 }
 
