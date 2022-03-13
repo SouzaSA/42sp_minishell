@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 15:48:53 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/11 21:27:33 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/13 10:51:54 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**ft_cmd_lst_to_array(t_shell *shell, t_list **cmd)
 
 	pathed = NULL;
 	cmd_array = NULL;
-	if (cmd && (char *)(*cmd)->content)
+	if (cmd && *cmd && (char *)(*cmd)->content)
 		pathed = ft_construct_path((char *)(*cmd)->content, shell->env_list);
 	if (pathed)
 	{
