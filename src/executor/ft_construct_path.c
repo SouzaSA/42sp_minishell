@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 08:55:56 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/11 16:12:10 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/13 18:36:31 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ char	*ft_construct_path(char *cmd, t_list *env_lst)
 	while (env_lst && ft_strcmp(key, "PATH"))
 	{
 		env_lst = env_lst->next;
-		key = ((t_dictionary *)env_lst->content)->key;
+		if (env_lst)
+			key = ((t_dictionary *)env_lst->content)->key;
 	}
 	if (env_lst && env_lst->content)
 		path = ft_split(((t_dictionary *)env_lst->content)->value, ':');
 	cmd_pathed = ft_get_cmd_path(cmd, path);
-	ft_split_destroy(path);
+	if (path)
+		ft_split_destroy(path);
 	return (cmd_pathed);
 }
