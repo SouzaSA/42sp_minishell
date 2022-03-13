@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 10:51:26 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 15:51:37 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/13 10:29:09 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	ft_exit_messages(int code, char *msg)
 
 	if (code == 0)
 	{
-		rtn = 0;
+		rtn = g_exit_status;
 		ft_putendl_fd("exit", 2);
 	}
 	else if (code == 1)
