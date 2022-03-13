@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/13 15:48:33 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/13 16:51:26 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static int	ft_cmd_iter(t_shell *shell, t_cmd_data *data)
 		else if (ast->type == AST_PIPE)
 			rtn = ft_pipe_run(data, *data->cmd_stk);
 		else if (ast->type == AST_AND || ast->type == AST_OR)
-			ft_and_or_run(data, ast->type, ast->level);
+			ft_and_or_run(data, ast->type);
 		if (ast)
 		{
 			if (ast->blk)

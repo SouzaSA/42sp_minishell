@@ -6,15 +6,15 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 11:00:20 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/13 15:49:37 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/13 16:53:56 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_executor.h"
 
-static void	ft_remove_unused_branch(t_cmd_data *data, int level);
+static void	ft_remove_unused_branch(t_cmd_data *data);
 
-int	ft_and_or_run(t_cmd_data *data, enum e_ast_type type, int level)
+int	ft_and_or_run(t_cmd_data *data, enum e_ast_type type)
 {
 	int		wstatus;
 	int		exec_status;
@@ -29,17 +29,19 @@ int	ft_and_or_run(t_cmd_data *data, enum e_ast_type type, int level)
 	if (data->fd_out > 1)
 		close(data->fd_out);
 	if ((!exec_status && type == AST_OR) || (exec_status && type == AST_AND))
-		ft_remove_unused_branch(data, level);
+		ft_remove_unused_branch(data);
 	data->forked = 0;
 	data->last_status = exec_status;
 	return (exec_status);
 }
 
-static void	ft_remove_unused_branch(t_cmd_data *data, int level)
+static void	ft_remove_unused_branch(t_cmd_data *data)
 {
+	int		level;
 	t_ast	*ast;
 
 	ast = (t_ast *)ft_lsttop(*data->cmd_stk);
+	level = ast->level - 1;
 	while (ast && ast->level > level)
 	{
 		ast = (t_ast *)ft_lstpop(data->cmd_stk);
