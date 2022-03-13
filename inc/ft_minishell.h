@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 15:19:46 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/13 19:42:37 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "ft_builtins.h"
-# include "ft_colors.h"
 # include "ft_error.h"
 # include "ft_executor.h"
 # include "ft_parser.h"
@@ -28,7 +27,9 @@
 # include "ft_global_status.h"
 
 # define PROMPT_SIZE 4096
-# define PROMPT_DOLLAR "\033[0;32m$\e[0;39m "
+# define PROMPT_DOLLAR "\001\033[0;32m$\e[0;39m\002 "
+# define CYAN "\001\033[0;36m\002"
+# define END_COLOR "\001\e[0;39m\002"
 
 typedef struct s_cmd_tbl
 {

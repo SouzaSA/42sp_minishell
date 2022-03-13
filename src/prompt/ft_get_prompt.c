@@ -6,12 +6,11 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 08:22:07 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/05 15:21:46 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/13 19:41:59 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell.h"
-#include "ft_colors.h"
 
 static char	*ft_create_prompt(char *cwd);
 
