@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 14:55:35 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/06 17:10:42 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/13 17:48:09 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	ft_handle_sigint(void)
 {
 	struct sigaction	sa;
 
-	sa.sa_handler = &ft_att_status;
+	sa.sa_handler = &ft_att_exit_status;
 	sa.sa_flags = SA_RESTART;
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGINT, &sa, NULL);
@@ -36,7 +36,7 @@ static void	ft_handle_sigquit(void)
 {
 	struct sigaction	sa;
 
-	sa.sa_handler = &ft_att_status;
+	sa.sa_handler = &ft_att_exit_status;
 	sa.sa_flags = SA_RESTART;
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGQUIT, &sa, NULL);

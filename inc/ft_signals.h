@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_signals.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 11:14:28 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/06 15:55:46 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/13 17:48:15 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "ft_global_status.h"
 
 void	ft_handle_prompt_signals(void);
-void	ft_att_status(int signal);
+void	ft_att_exit_status(int signal);
 void	ft_handle_child_process_signals(void);
 void	ft_handle_parent_process_signals(void);
 
