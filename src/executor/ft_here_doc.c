@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 18:26:09 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/08 15:58:58 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/13 20:21:42 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	ft_hdoc_child(t_shell *shell, char *lmt, int *fd, t_cmd_data *data);
 static void	ft_get_by_limiter(int *fd, char *lmt, int lineno, t_cmd_data *data);
 static void	ft_clean(char **line1, char **line2, t_cmd_data *data, int *fd);
+static void	ft_clean_limiter_free(char *limiter, int exit_code);
 
 int	ft_here_doc(t_shell *shell, char *limiter, t_cmd_data *data)
 {
@@ -67,7 +68,7 @@ static void	ft_get_by_limiter(int *fd, char *lmt, int lno, t_cmd_data *data)
 		if (ft_strcmp(lmt, line_no_nl) == 0)
 		{
 			ft_clean(&line, &line_no_nl, data, fd);
-			exit(0);
+			ft_clean_limiter_free(lmt, 0);
 		}
 		if (write(fd[1], line, ft_strlen(line)) == -1)
 			ft_put_msg_error("Can't write a line on pipe", FLAG_ERROR_OWN);
@@ -77,7 +78,7 @@ static void	ft_get_by_limiter(int *fd, char *lmt, int lno, t_cmd_data *data)
 	}
 	ft_clean(&line, &line_no_nl, data, fd);
 	ft_heredoc_error(lmt, lno);
-	exit(1);
+	ft_clean_limiter_free(lmt, 1);
 }
 
 static void	ft_clean(char **line1, char **line2, t_cmd_data *data, int *fd)
@@ -94,4 +95,11 @@ static void	ft_clean(char **line1, char **line2, t_cmd_data *data, int *fd)
 		ft_destroy_command(&data->blk);
 		ft_destroy_ast_stk(data->cmd_stk);
 	}
+}
+
+static void	ft_clean_limiter_free(char *limiter, int exit_code)
+{
+	if (limiter)
+		free(limiter);
+	exit(exit_code);
 }
