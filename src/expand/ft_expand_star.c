@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand_star.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 17:50:25 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/12 19:02:47 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/13 11:08:20 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_expand_star(t_list **list)
 	prev = NULL;
 	while (node)
 	{
-		if (strchr((char *)node->content, '*'))
+		if (node->content && strchr((char *)node->content, '*'))
 		{
 			expanded = ft_expand((char *)node->content);
 			if (expanded)
