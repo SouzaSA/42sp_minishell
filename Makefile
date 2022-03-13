@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/03/12 20:59:37 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/03/13 20:32:41 by edpaulin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -148,7 +148,8 @@ UTILS				=	ft_destroy_ast_stk.c	\
 						ft_isidentifier.c	\
 						ft_split_join.c	\
 						ft_str_remove_quotes.c	\
-						ft_update_env_pwd.c
+						ft_update_env_pwd.c \
+						ft_is_directory_file.c
 
 EXPAND				=	ft_expand_star.c \
 						ft_get_splitted_path.c \

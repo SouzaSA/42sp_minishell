@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 09:32:33 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/11 08:17:28 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/13 20:32:25 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <unistd.h>
 # include "ft_ast_struct.h"
 # include "ft_grammar_symbols.h"
 # include "libft.h"
@@ -36,4 +39,5 @@ int		ft_isidentifier(char *str);
 char	*ft_split_join(char **splitted);
 char	*ft_str_remove_quotes(char *str);
 int		ft_update_env_pwds(t_shell *shell, char *new_pwd);
+int		ft_is_directory_file(const char *file);
 #endif
