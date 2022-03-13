@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_error.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/12 20:57:19 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/13 20:41:31 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define ENODATA 61
 
 int		ft_cd_error(char *msg, int error_flag);
-void	ft_command_error(char *cmd_name);
+void	ft_command_error(char *cmd_name, int flag);
 int		ft_expand_error(char *msg, int type);
 int		ft_export_error(char *msg, int error_flag);
 int		ft_heredoc_error(char *eof_name, int lineno);

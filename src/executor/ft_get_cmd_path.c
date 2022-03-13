@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_cmd_path.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 08:55:56 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/11 22:01:38 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/13 20:48:12 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,17 @@ char	*ft_get_cmd_path(char *command, char **path_list)
 	char	*aux;
 	char	*path_cmd;
 
+	if (ft_is_directory_file(command))
+	{
+		ft_command_error(command, 1);
+		return (NULL);
+	}
 	path_cmd = NULL;
 	aux = ft_str_remove_quotes(command);
 	if (ft_checker_slash(aux) && access(aux, F_OK & X_OK) == 0)
 		path_cmd = ft_strdup(aux);
 	else if (ft_checker_slash(aux))
-		ft_command_error(aux);
+		ft_command_error(aux, 0);
 	else
 		path_cmd = ft_join_cmd_path(aux, path_list);
 	free(aux);
@@ -41,7 +46,7 @@ static char	*ft_join_cmd_path(char *command, char **path_list)
 	if (!ft_is_clean_str(command))
 		path_cmd = ft_search_cmd(command, path_list);
 	if (!path_cmd)
-		ft_command_error(command);
+		ft_command_error(command, 0);
 	return (path_cmd);
 }
 
