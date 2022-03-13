@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 09:50:00 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/05 17:29:11 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/12 20:58:09 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,27 @@ static void	ft_setter_type(t_token *tok, int *is_balanced, int *cmd_flag)
 static int	ft_check_balanced_quotes(char *str)
 {
 	int	is_balanced;
-	int	last_idx;
+	int	flag_quote;
+	int	flag_dquote;
 
 	is_balanced = 1;
-	if (str)
+	flag_quote = 0;
+	flag_dquote = 0;
+	while (str && *str)
 	{
-		last_idx = ft_strlen(str) - 1;
-		if ((str[0] == '\'' && str[last_idx] != '\'' ) \
-			|| (str[0] == '\"' && str[last_idx] != '\"'))
+		if (*str == '\'' && !flag_dquote)
 		{
-			is_balanced = 0;
-			ft_put_msg_error("lexer: unbalanced quotes", FLAG_ERROR_OWN);
+			flag_quote = !flag_quote;
+			is_balanced = !is_balanced;
 		}
+		if (*str == '\"' && !flag_quote)
+		{
+			flag_dquote = !flag_dquote;
+			is_balanced = !is_balanced;
+		}
+		str++;
 	}
+	if (!is_balanced)
+		ft_lexer_error();
 	return (is_balanced);
 }

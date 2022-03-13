@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_parser_error_msg.c                              :+:      :+:    :+:   */
+/*   ft_lexer_error.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/05 11:30:54 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/12 20:33:15 by sde-alva         ###   ########.fr       */
+/*   Created: 2022/03/12 20:55:05 by sde-alva          #+#    #+#             */
+/*   Updated: 2022/03/12 21:00:03 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_error.h"
 
-void	ft_parser_error_msg(char *tok_text)
+int	ft_lexer_error(void)
 {
-	char	*msg;
-	char	*aux;
-
 	g_exit_status = 2;
-	if (!tok_text)
-	{
-		msg = "syntax error near unexpected token `\\n´";
-		ft_put_msg_error(msg, FLAG_ERROR_OWN);
-		return ;
-	}
-	aux = ft_strjoin("syntax error near unexpected token `", tok_text);
-	msg = ft_strjoin(aux, "´");
-	free(aux);
-	ft_put_msg_error(msg, FLAG_ERROR_OWN);
-	free (msg);
+	ft_put_msg_error("lexer: unbalanced quotes", FLAG_ERROR_OWN);
+	return (1);
 }
