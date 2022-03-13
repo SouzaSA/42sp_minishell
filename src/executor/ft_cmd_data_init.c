@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:11:36 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/06 15:16:11 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/13 15:35:07 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,7 @@ void	ft_cmd_data_init(t_cmd_data *data, t_list **cmd_stk)
 	data->fd_out = 1;
 	data->builtin_flag = 0;
 	data->pid = -1;
+	data->forked = 0;
+	data->last_status = 0;
 	data->cmd_stk = cmd_stk;
 }

@@ -6,16 +6,16 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/11 14:45:38 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/13 15:48:33 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_executor.h"
 
-static void	ft_init_exec_stack(t_ast *ast, t_list **cmd_stk);
+static void	ft_init_exec_stack(t_ast *ast, t_list **cmd_stk, int level);
 static int	ft_run_cmds(t_shell *shell, t_list **cmd_stk);
 static int	ft_cmd_iter(t_shell *shell, t_cmd_data *data);
-static void	ft_cmd_send(t_shell *shell, t_cmd_data *data, t_ast *ast);
+static void	ft_cmd_send(t_shell *shell, t_cmd_data *data, t_ast **ast);
 
 int	ft_executor(t_shell *shell, char *line)
 {
@@ -29,7 +29,7 @@ int	ft_executor(t_shell *shell, char *line)
 	ast = ft_parser(line, shell->transition_table);
 	if (ast)
 	{
-		ft_init_exec_stack(ast, &cmd_stk);
+		ft_init_exec_stack(ast, &cmd_stk, 0);
 		ft_expand_tild(shell, cmd_stk);
 		ft_expand_exit_num(cmd_stk);
 		ft_expand_vars(shell, cmd_stk);
@@ -40,14 +40,15 @@ int	ft_executor(t_shell *shell, char *line)
 	return (rtn);
 }
 
-static void	ft_init_exec_stack(t_ast *ast, t_list **cmd_stk)
+static void	ft_init_exec_stack(t_ast *ast, t_list **cmd_stk, int level)
 {
 	if (!ast)
 		return ;
+	ast->level = level;
 	if (ast->first_child)
-		ft_init_exec_stack(ast->first_child->next_sibling, cmd_stk);
+		ft_init_exec_stack(ast->first_child->next_sibling, cmd_stk, level + 1);
 	ft_lstpush(cmd_stk, ast);
-	ft_init_exec_stack(ast->first_child, cmd_stk);
+	ft_init_exec_stack(ast->first_child, cmd_stk, level + 1);
 }
 
 static int	ft_run_cmds(t_shell *shell, t_list **cmd_stk)
@@ -85,18 +86,15 @@ static int	ft_cmd_iter(t_shell *shell, t_cmd_data *data)
 	t_ast		*ast;
 
 	rtn = 0;
-	while (rtn == 0 && ft_lstsize(*data->cmd_stk))
+	while (rtn == 0 && data->cmd_stk && ft_lstsize(*data->cmd_stk))
 	{
 		ast = (t_ast *)ft_lstpop(data->cmd_stk);
 		if (ast->type == AST_CMD && shell)
-		{
-			ft_cmd_send(shell, data, ast);
-			ast = NULL;
-		}
+			ft_cmd_send(shell, data, &ast);
 		else if (ast->type == AST_PIPE)
 			rtn = ft_pipe_run(data, *data->cmd_stk);
 		else if (ast->type == AST_AND || ast->type == AST_OR)
-			rtn = ft_and_or_run(data, ast->type);
+			ft_and_or_run(data, ast->type, ast->level);
 		if (ast)
 		{
 			if (ast->blk)
@@ -107,7 +105,7 @@ static int	ft_cmd_iter(t_shell *shell, t_cmd_data *data)
 	return (rtn);
 }
 
-static void	ft_cmd_send(t_shell *shell, t_cmd_data *data, t_ast *ast)
+static void	ft_cmd_send(t_shell *shell, t_cmd_data *data, t_ast **ast)
 {
 	t_ast	*ast_nxt;
 
@@ -116,13 +114,14 @@ static void	ft_cmd_send(t_shell *shell, t_cmd_data *data, t_ast *ast)
 	if (ast_nxt && ast_nxt->type == AST_PIPE)
 		data->pipe_flag = 1;
 	data->cmd_stk = data->cmd_stk;
-	if (ast->blk->cmd && ast->blk->cmd->content \
-		&& ft_isbuiltin((char *)ast->blk->cmd->content))
+	if ((*ast)->blk->cmd && (*ast)->blk->cmd->content \
+		&& ft_isbuiltin((char *)(*ast)->blk->cmd->content))
 	{
-		ft_builtin_run(shell, data, ast);
+		ft_builtin_run(shell, data, *ast);
 	}
 	else
 	{
-		ft_cmd_run(shell, data, ast);
+		ft_cmd_run(shell, data, *ast);
 	}
+	*ast = NULL;
 }

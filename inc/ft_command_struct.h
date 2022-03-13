@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 18:07:49 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/08 15:06:05 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/13 15:04:19 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef struct s_cmd_data
 	int			builtin_flag;
 	int			pipe_flag;
 	int			pipe_fd[2];
+	int			forked;
+	int			last_status;
 	int			pid;
 	t_cmd_blk	*blk;
 	t_list		**cmd_stk;

@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:08:23 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/03 18:25:24 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/13 13:02:42 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_cmd_blk
 
 typedef struct s_ast
 {
+	int				level;
 	enum e_ast_type	type;
 	t_cmd_blk		*blk;
 	int				children;

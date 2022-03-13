@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 20:40:18 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/11 20:32:20 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/13 15:14:21 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static int	ft_forker_builtin(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd)
 	data->pid = fork();
 	if (data->pid == -1)
 		rtn = ft_put_msg_error(NULL, FLAG_ERROR_P);
+	if (rtn == 0)
+		data->forked = 1;
 	if (rtn == 0 && data->pid == 0)
 		rtn = ft_child(shell, data, cmd);
 	waitpid(-1, NULL, WNOHANG);
