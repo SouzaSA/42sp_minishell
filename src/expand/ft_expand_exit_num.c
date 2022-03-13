@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand_exit_num.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 09:06:49 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/06 14:04:33 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/13 19:56:43 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_expand.h"
-#include "ft_global_status.h"
 
 static void	ft_change_symbol(t_list **list);
 static char	*ft_change_dquote(char *str);

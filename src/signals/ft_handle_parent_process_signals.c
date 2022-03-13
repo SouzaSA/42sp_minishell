@@ -6,12 +6,11 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 14:55:35 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/13 17:48:09 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/13 19:51:18 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_signals.h"
-#include "wait.h"
 
 static void	ft_handle_sigint(void);
 static void	ft_handle_sigquit(void);

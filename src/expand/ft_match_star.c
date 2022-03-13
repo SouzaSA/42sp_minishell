@@ -6,12 +6,11 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 18:24:11 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/04 18:29:41 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/13 19:55:58 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_expand.h"
-#include <string.h>
 
 static int		ft_recursive_match(char *pattern, char *text);
 static size_t	ft_block_size(char *block);
