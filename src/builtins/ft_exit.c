@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 10:51:26 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/14 16:52:14 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/14 17:13:57 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	ft_is_num(char *num);
 static int	ft_exit_messages(int code, char *msg, int flag);
+static void	ft_put_error(char *msg, int flag);
 
 int	ft_exit(t_shell *shell, t_cmd_data *data, t_list *cmds, t_cmd_blk *blk)
 {
@@ -30,7 +31,6 @@ int	ft_exit(t_shell *shell, t_cmd_data *data, t_list *cmds, t_cmd_blk *blk)
 		rtn = ft_exit_messages(ft_atoi((char *)cmds->next->content), NULL, 0);
 	else
 		rtn = ft_exit_messages(0, NULL, 0);
-	g_exit_status = rtn;
 	if (rtn != 2)
 	{
 		if (ft_lstsize(*data->cmd_stk))
@@ -38,7 +38,7 @@ int	ft_exit(t_shell *shell, t_cmd_data *data, t_list *cmds, t_cmd_blk *blk)
 		ft_destroy_command(&blk);
 		rl_clear_history();
 		ft_destroy_shell(shell);
-		exit(rtn);
+		exit(g_exit_status);
 	}
 	return (rtn);
 }
@@ -63,27 +63,38 @@ static int	ft_exit_messages(int code, char *msg, int flag)
 {
 	int	rtn;
 
-	if (flag == 0)
+	rtn = 0;
+	ft_put_error(msg, flag);
+	if (flag == 1)
 	{
-		rtn = g_exit_status;
-		ft_putendl_fd("exit", 2);
-	}
-	else if (flag == 1)
-	{
-		rtn = 1;
-		ft_putendl_fd("minishell: exit: too many arguments", 2);
+		g_exit_status = 1;
 	}
 	else if (flag == 2)
 	{
 		rtn = 2;
+		g_exit_status = 2;
+	}
+	else
+	{
+		g_exit_status = code % 256;
+	}
+	return (rtn);
+}
+
+static void	ft_put_error(char *msg, int flag)
+{
+	if (flag == 1)
+	{
+		ft_putendl_fd("minishell: exit: too many arguments", 2);
+	}
+	else if (flag == 2)
+	{
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(msg, 2);
 		ft_putendl_fd(": numeric argument required", 2);
 	}
 	else
 	{
-		rtn = code % 256;
 		ft_putendl_fd("exit", 2);
 	}
-	return (rtn);
 }
