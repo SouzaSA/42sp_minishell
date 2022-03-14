@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:36:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/13 20:07:48 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/14 11:01:31 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	ft_no_line(t_shell *shell)
 {
 	rl_clear_history();
 	ft_destroy_shell(shell);
-	write(1, "exit\n", 5);
+	write(2, "exit\n", 5);
 	exit(0);
 }
 
