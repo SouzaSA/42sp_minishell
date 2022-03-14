@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 09:02:24 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/13 19:42:37 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/14 20:23:54 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_cmd_tbl
 }	t_cmd_tbl;
 
 char	**ft_get_path(char **envp);
-int		ft_minishell(char **envp);
+void	ft_minishell(char **envp);
 char	*ft_get_prompt(void);
 
 #endif

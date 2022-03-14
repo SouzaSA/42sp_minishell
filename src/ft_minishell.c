@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:36:17 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/14 11:01:31 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/14 20:23:26 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	ft_no_line(t_shell *shell);
 static int	ft_lineck(char *line);
 static void	ft_free_line(t_shell *shell);
 
-int	ft_minishell(char **envp)
+void	ft_minishell(char **envp)
 {
 	char		*prompt;
 	t_shell		shell;
@@ -40,9 +40,6 @@ int	ft_minishell(char **envp)
 		ft_free_line(&shell);
 		shell.lineno++;
 	}
-	rl_clear_history();
-	ft_destroy_shell(&shell);
-	return (0);
 }
 
 static void	ft_no_line(t_shell *shell)
