@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/13 17:45:20 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/13 21:48:30 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	ft_run_cmds(t_shell *shell, t_list **cmd_stk)
 		ft_destroy_ast_stk(cmd_stk);
 	if ((num_cmds > 1 || !cmd_data.builtin_flag) && cmd_data.forked)
 	{
-		waitpid(0, &rtn, 0);
+		waitpid(cmd_data.pid, &rtn, 0);
 		if (!WIFSIGNALED(rtn))
 			g_exit_status = WEXITSTATUS(rtn);
 	}
@@ -92,7 +92,7 @@ static int	ft_cmd_iter(t_shell *shell, t_cmd_data *data)
 		if (ast->type == AST_CMD && shell)
 			ft_cmd_send(shell, data, &ast);
 		else if (ast->type == AST_PIPE)
-			rtn = ft_pipe_run(data, *data->cmd_stk);
+			rtn = ft_pipe_run(data);
 		else if (ast->type == AST_AND || ast->type == AST_OR)
 			ft_and_or_run(data, ast->type);
 		if (ast)
