@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/10 18:26:09 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/13 20:21:42 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/15 18:13:40 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ static void	ft_hdoc_child(t_shell *shell, char *lmt, int *fd, t_cmd_data *data)
 	lineno = shell->lineno;
 	ft_handle_child_process_signals();
 	ft_destroy_shell(shell);
+	ft_destroy_ast_stk(data->cmd_stk);
+	ft_destroy_command(&data->blk);
+	rl_clear_history();
 	ft_get_by_limiter(fd, lmt, lineno, data);
 }
 
