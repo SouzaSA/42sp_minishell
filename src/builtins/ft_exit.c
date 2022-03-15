@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 10:51:26 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/14 17:13:57 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/15 16:53:13 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_exit(t_shell *shell, t_cmd_data *data, t_list *cmds, t_cmd_blk *blk)
 	else if (len == 2)
 		rtn = ft_exit_messages(ft_atoi((char *)cmds->next->content), NULL, 0);
 	else
-		rtn = ft_exit_messages(0, NULL, 0);
+		rtn = ft_exit_messages(g_exit_status, NULL, 0);
 	if (rtn != 2)
 	{
 		if (ft_lstsize(*data->cmd_stk))
@@ -40,7 +40,7 @@ int	ft_exit(t_shell *shell, t_cmd_data *data, t_list *cmds, t_cmd_blk *blk)
 		ft_destroy_shell(shell);
 		exit(g_exit_status);
 	}
-	return (rtn);
+	return (g_exit_status);
 }
 
 static int	ft_is_num(char *num)
