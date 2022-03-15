@@ -3,16 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/03/13 20:32:41 by edpaulin         ###   ########.fr        #
+#    Updated: 2022/03/15 14:17:43 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .DEFAULT_GOAL		:=	all
 
 NAME				=	minishell
+NAME_MANDATAORY		=	minishell_mandatory
+NAME_BONUS			=	minishell_bonus
 
 INC_DIR				=	inc
 OBJ_DIR				=	obj
@@ -151,29 +153,62 @@ UTILS				=	ft_destroy_ast_stk.c	\
 						ft_update_env_pwd.c \
 						ft_is_directory_file.c
 
-EXPAND				=	ft_expand_star.c \
-						ft_get_splitted_path.c \
-						ft_clean_file_struct.c \
-						ft_del_content.c \
-						ft_expand_exit_num.c	\
-						ft_add_expansion_to_list.c \
-						ft_match_star.c \
+EXPAND				=	ft_expand_exit_num.c	\
 						ft_expand_tild.c	\
-						ft_expand_vars.c	\
-						ft_is_dot_dir.c \
-						ft_pathcat.c \
-						ft_is_dir.c \
-						ft_expand_list.c
+						ft_expand_vars.c
 
 SIG					=	ft_handle_prompt_signals.c \
 						ft_att_exit_status.c \
 						ft_handle_child_process_signals.c \
 						ft_handle_parent_process_signals.c
 
-BONUS				=
+BONUS				=	ft_main.c	\
+						ft_minishell.c	\
+						${BUILTIN_ADD_DIR}	\
+						${ERROR_ADD_DIR} \
+						${PARSER_ADD_DIR} \
+						${EXECUTOR_BONUS_ADD_DIR} \
+						${UTILS_ADD_DIR}	\
+						${SCANNER_ADD_DIR}	\
+						${TAPE_SOURCE_ADD_DIR} \
+						${SIG_ADD_DIR} \
+						${EXPAND_BONUS_ADD_DIR} \
+						${PROMPT_ADD_DIR}
+
+EXECUTOR_BONUS		=	ft_and_or_run_bonus.c	\
+						ft_builtin_run_bonus.c	\
+						ft_checker_slash.c	\
+						ft_cmd_assignments.c	\
+						ft_cmd_data_init.c	\
+						ft_cmd_lst_to_array_bonus.c	\
+						ft_cmd_redirections.c	\
+						ft_cmd_run.c	\
+						ft_construct_envp.c	\
+						ft_construct_path.c	\
+						ft_executor.c	\
+						ft_get_cmd_path.c	\
+						ft_here_doc.c	\
+						ft_pipe_run.c	\
+						ft_pipe_worker.c	\
+						ft_set_filename_bonus.c	\
+						ft_single_builtin_bonus.c
+
+EXPAND_BONUS		=	ft_add_expansion_to_list.c \
+						ft_clean_file_struct.c \
+						ft_del_content.c \
+						ft_expand_exit_num.c	\
+						ft_expand_list.c	\
+						ft_expand_star_bonus.c	\
+						ft_expand_tild.c	\
+						ft_expand_vars.c	\
+						ft_get_splitted_path.c \
+						ft_is_dir.c \
+						ft_is_dot_dir.c \
+						ft_match_star.c	\
+						ft_pathcat.c
+
 
 OBJS				=	${addprefix ./${OBJ_DIR}/,${SRCS:.c=.o}}
-BONUS_OBJS			=	${addprefix ./${OBJ_DIR}/,${BONUS:.c=.o}}
 UTILS_ADD_DIR		=	${addprefix ${UTILS_DIR}/,${UTILS}}
 BUILTIN_ADD_DIR		=	${addprefix ${BUILTINS_DIR}/,${BUILTINS}}
 ERROR_ADD_DIR		=	${addprefix ${ERROR_DIR}/,${ERROR}}
@@ -186,6 +221,10 @@ TAPE_SOURCE_ADD_DIR	=	${addprefix ${TAPE_SOURCE_DIR}/,${TAPE_SOURCE}}
 UTILS_ADD_DIR		=	${addprefix ${UTILS_DIR}/,${UTILS}}
 SIG_ADD_DIR			=	${addprefix ${SIG_DIR}/,${SIG}}
 EXPAND_ADD_DIR		=	${addprefix ${EXPAND_DIR}/,${EXPAND}}
+
+BONUS_OBJS			=	${addprefix ./${OBJ_DIR}/,${BONUS:.c=.o}}
+EXECUTOR_BONUS_ADD_DIR	=	${addprefix ${EXECUTOR_DIR}/,${EXECUTOR_BONUS}}
+EXPAND_BONUS_ADD_DIR	=	${addprefix ${EXPAND_DIR}/,${EXPAND_BONUS}}
 
 RM					=	@rm -rf
 
@@ -202,13 +241,19 @@ ${OBJ_DIR}%/.:
 ${OBJ_DIR}/%.o:	${SRC_DIR}/%.c | $${@D}/.
 				${CC} ${CFLAGS} ${INCS} -c $< -o $@
 
-${NAME}:		${OBJS}
+${NAME_MANDATAORY}:	${OBJS}
 				make -C ${LIBFT_DIR}
-				${CC} ${CFLAGS} ${OBJS} ${LIBS} ${INCS} -o ${NAME}
+				${CC} ${CFLAGS} ${OBJS} ${LIBS} ${INCS} -o ${NAME_MANDATAORY}
+				rm -f ${NAME_BONUS}
+				cp ${NAME_MANDATAORY} ${NAME}
+
+${NAME}:		${NAME_MANDATAORY}
 
 ${NAME_BONUS}:	${BONUS_OBJS}
 				make -C ${LIBFT_DIR}
 				${CC} ${CFLAGS} ${BONUS_OBJS} ${LIBS} ${INCS} -o ${NAME_BONUS}
+				rm -f ${NAME_MANDATAORY}
+				cp ${NAME_BONUS} ${NAME}
 
 all:			${NAME}
 

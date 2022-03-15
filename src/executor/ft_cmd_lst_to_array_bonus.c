@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cmd_lst_to_array.c                              :+:      :+:    :+:   */
+/*   ft_cmd_lst_to_array_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 15:48:53 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/15 12:53:41 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/15 13:05:36 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_executor.h"
+#include "ft_executor_bonus.h"
 
 static char	**ft_create_array(t_list *cmd);
 
@@ -29,6 +29,7 @@ char	**ft_cmd_lst_to_array(t_shell *shell, t_list **cmd)
 		aux = (char *)(*cmd)->content;
 		(*cmd)->content = pathed;
 		free(aux);
+		ft_expand_star(cmd);
 		if (ft_lstsize(*cmd) > 1L << 12)
 			ft_expand_error((char *)(*cmd)->content, FLAG_ERROR_CMD);
 		else

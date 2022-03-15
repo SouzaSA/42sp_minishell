@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_expand_star.c                                   :+:      :+:    :+:   */
+/*   ft_expand_star_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 17:50:25 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/13 11:08:20 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/15 13:23:04 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_expand.h"
+#include "ft_expand_bonus.h"
 
 static void		ft_couple(t_list **list, t_list *prev, t_list *exp, t_list **n);
 static t_list	*ft_expand(char *str);

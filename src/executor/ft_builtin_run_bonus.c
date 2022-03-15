@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_builtin_run.c                                   :+:      :+:    :+:   */
+/*   ft_builtin_run_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 20:40:18 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/15 12:53:46 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/15 13:04:58 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_executor.h"
+#include "ft_executor_bonus.h"
 
 static int	ft_child(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd);
 static int	ft_update_cmd_lst(t_list **cmd);
@@ -88,6 +88,7 @@ static int	ft_update_cmd_lst(t_list **cmd)
 	int	rtn;
 
 	rtn = 0;
+	ft_expand_star(cmd);
 	if (ft_lstsize(*cmd) > 1L << 12)
 	{
 		ft_expand_error((char *)(*cmd)->content, FLAG_ERROR_CMD);

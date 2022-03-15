@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_set_filename.c                                  :+:      :+:    :+:   */
+/*   ft_set_filename_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 19:31:27 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/15 13:08:09 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/15 13:06:05 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_executor.h"
+#include "ft_executor_bonus.h"
 
 int	ft_set_filename(t_list **redir_node, char **filename)
 {
@@ -20,6 +20,7 @@ int	ft_set_filename(t_list **redir_node, char **filename)
 
 	rtn = 0;
 	new = ft_lstnew(ft_strdup((*redir_node)->content));
+	ft_expand_star(&new);
 	if (ft_lstsize(new) > 1)
 	{
 		rtn = ft_expand_error((char *)(*redir_node)->content, FLAG_ERROR_REDIR);
