@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 14:15:15 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/02/19 09:39:29 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/14 22:07:13 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	ft_init_tt_start_and_or(void (***tt)(t_list **, enum e_symbol))
 
 void	ft_init_tt_pipeline_subshell(void (***tt)(t_list **, enum e_symbol))
 {
-	tt[NTS_PIPELINE][TS_EOF - NUM_NTS] = &ft_epsilon;
 	tt[NTS_PIPELINE][TS_AND - NUM_NTS] = &ft_pipeline;
 	tt[NTS_PIPELINE][TS_OR - NUM_NTS] = &ft_pipeline;
 	tt[NTS_PIPELINE][TS_LBRACE - NUM_NTS] = &ft_pipeline;
