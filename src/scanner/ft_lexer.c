@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/08 09:50:00 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/12 20:58:09 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/15 15:01:18 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_scanner.h"
-#include <stdio.h> //tirar
 
 static void		ft_init_scan(t_scanner *scan);
 static t_list	*ft_mk_token_lst(t_scanner *scan, t_source *src);
