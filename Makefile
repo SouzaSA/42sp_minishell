@@ -6,7 +6,7 @@
 #    By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/03/15 14:54:20 by edpaulin         ###   ########.fr        #
+#    Updated: 2022/03/15 20:35:53 by edpaulin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -274,6 +274,8 @@ fclean: 		clean
 				make -C ${LIBFT_DIR} fclean
 
 re:				fclean all
+
+rebonus:		fclean bonus
 
 .PHONY:			all bonus san clean fclean re
 
