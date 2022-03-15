@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/03/15 14:17:43 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/03/15 14:54:20 by edpaulin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,10 @@
 NAME				=	minishell
 NAME_MANDATAORY		=	minishell_mandatory
 NAME_BONUS			=	minishell_bonus
+
+BIN_DIR				=	bin
+BIN_MANDATORY		=	${addprefix ${BIN_DIR}/,${NAME_MANDATAORY}}
+BIN_BONUS			=	${addprefix ${BIN_DIR}/,${NAME_BONUS}}
 
 INC_DIR				=	inc
 OBJ_DIR				=	obj
@@ -241,36 +245,32 @@ ${OBJ_DIR}%/.:
 ${OBJ_DIR}/%.o:	${SRC_DIR}/%.c | $${@D}/.
 				${CC} ${CFLAGS} ${INCS} -c $< -o $@
 
-${NAME_MANDATAORY}:	${OBJS}
+${BIN_MANDATORY}:	${OBJS}
+				mkdir -p ${@D}
 				make -C ${LIBFT_DIR}
-				${CC} ${CFLAGS} ${OBJS} ${LIBS} ${INCS} -o ${NAME_MANDATAORY}
-				rm -f ${NAME_BONUS}
-				cp ${NAME_MANDATAORY} ${NAME}
+				${CC} ${CFLAGS} ${OBJS} ${LIBS} ${INCS} -o ${BIN_MANDATORY}
+				rm -f ${BIN_BONUS}
+				cp ${BIN_MANDATORY} ${NAME}
 
-${NAME}:		${NAME_MANDATAORY}
+${NAME}:		${BIN_MANDATORY}
 
-${NAME_BONUS}:	${BONUS_OBJS}
+${BIN_BONUS}:	${BONUS_OBJS}
+				mkdir -p ${@D}
 				make -C ${LIBFT_DIR}
-				${CC} ${CFLAGS} ${BONUS_OBJS} ${LIBS} ${INCS} -o ${NAME_BONUS}
-				rm -f ${NAME_MANDATAORY}
-				cp ${NAME_BONUS} ${NAME}
+				${CC} ${CFLAGS} ${BONUS_OBJS} ${LIBS} ${INCS} -o ${BIN_BONUS}
+				rm -f ${BIN_MANDATORY}
+				cp ${BIN_BONUS} ${NAME}
 
 all:			${NAME}
 
-bonus:			${NAME_BONUS}
-
-san:			${OBJS}
-				${CC} ${SAN} ${CFLAGS} ${OBJS} ${LIBS} ${INCS} -o ${NAME}
-
-bonus_san:		${BONUS_OBJS}
-				${CC} ${SAN} ${CFLAGS} ${BONUS_OBJS} ${LIBS} ${INCS} -o ${NAME}
+bonus:			${BIN_BONUS}
 
 clean:
 				${RM} ${OBJ_DIR}
 				make -C ${LIBFT_DIR} clean
 
 fclean: 		clean
-				${RM} ${NAME}
+				${RM} ${NAME} ${BIN_DIR}
 				make -C ${LIBFT_DIR} fclean
 
 re:				fclean all
