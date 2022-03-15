@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/18 10:51:42 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/06 14:47:50 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/15 19:08:59 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ft_echo(t_list *cmds)
 	cmds = cmds->next;
 	if (flag)
 		cmds = cmds->next;
-	while (i < num_words)
+	while (cmds && i < num_words)
 	{
 		word = ((char *)cmds->content);
 		write(1, word, ft_strlen(word));
