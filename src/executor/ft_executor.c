@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/15 19:47:08 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/15 21:58:19 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,10 @@ static void	ft_init_exec_stack(t_ast *ast, t_list **cmd_stk, int level)
 static int	ft_run_cmds(t_shell *shell, t_list **cmd_stk)
 {
 	int			rtn;
-	int			in_cpy;
 	int			num_cmds;
 	t_cmd_data	cmd_data;
 
 	rtn = 0;
-	in_cpy = dup(0);
 	ft_cmd_data_init(&cmd_data, cmd_stk);
 	num_cmds = ft_lstsize(*cmd_stk);
 	if (num_cmds == 1)
@@ -73,8 +71,8 @@ static int	ft_run_cmds(t_shell *shell, t_list **cmd_stk)
 		if (!WIFSIGNALED(rtn))
 			g_exit_status = WEXITSTATUS(rtn);
 	}
-	dup2(in_cpy, 0);
-	close(in_cpy);
+	dup2(cmd_data.in_cpy, 0);
+	close(cmd_data.in_cpy);
 	if (cmd_data.fd_out > 1)
 		close(cmd_data.fd_out);
 	return (rtn);
@@ -102,6 +100,7 @@ static int	ft_cmd_iter(t_shell *shell, t_cmd_data *data)
 			free(ast);
 		}
 	}
+	close(data->pipe_fd[0]);
 	return (rtn);
 }
 
