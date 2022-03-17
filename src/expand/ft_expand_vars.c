@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/05 17:54:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/11 10:49:31 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/17 14:04:16 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,12 @@ static char	*ft_change_str(t_shell *shell, char *str)
 	char	**splitted;
 
 	splitted = ft_split(str, '$');
-	if (str[0] == '$')
+	if (str[0] == '$' && splitted && !splitted[0])
+	{
+		ft_split_destroy(splitted);
+		return (ft_strdup("$"));
+	}
+	else if (str[0] == '$')
 		ft_change_splited(shell, splitted);
 	else
 		ft_change_splited(shell, &splitted[1]);
