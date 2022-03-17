@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/17 10:27:54 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/17 10:40:56 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static int	ft_run_cmds(t_shell *shell, t_list **cmd_stk)
 	if ((num_cmds > 1 || !cmd_data.builtin_flag) && cmd_data.forked)
 	{
 		waitpid(cmd_data.pid, &rtn, 0);
+		kill(cmd_data.pid, SIGUSR1);
 		if (!WIFSIGNALED(rtn))
 			g_exit_status = WEXITSTATUS(rtn);
 	}

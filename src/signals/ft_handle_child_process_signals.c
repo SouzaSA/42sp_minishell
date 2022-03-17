@@ -6,7 +6,11 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 14:45:19 by edpaulin          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/03/17 10:08:18 by sde-alva         ###   ########.fr       */
+=======
+/*   Updated: 2022/03/17 10:35:03 by edpaulin         ###   ########.fr       */
+>>>>>>> c822aa416c5e237ead65b8ef0a07e0e3ece72223
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +66,6 @@ static void	ft_handle_sigusr1(void)
 
 static void	ft_process_kill(int signal)
 {
-	//(void *)&signal;
 	if (signal)
 		exit(0);
 }
