@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/03/16 20:52:32 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/03/17 10:34:08 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,8 +80,7 @@ ERROR				=	ft_cd_errors.c	\
 						ft_parser_error_msg.c	\
 						ft_unset_error.c
 
-EXECUTOR			=	ft_and_or_run.c	\
-						ft_builtin_run.c	\
+EXECUTOR			=	ft_builtin_run.c	\
 						ft_checker_slash.c	\
 						ft_cmd_assignments.c	\
 						ft_cmd_data_init.c	\
@@ -173,11 +172,18 @@ BONUS				=	ft_main.c	\
 						${PARSER_ADD_DIR} \
 						${EXECUTOR_BONUS_ADD_DIR} \
 						${UTILS_ADD_DIR}	\
-						${SCANNER_ADD_DIR}	\
+						${SCANNER_BONUS_ADD_DIR}	\
 						${TAPE_SOURCE_ADD_DIR} \
 						${SIG_ADD_DIR} \
 						${EXPAND_BONUS_ADD_DIR} \
 						${PROMPT_ADD_DIR}
+
+SCANNER_BONUS		=	ft_add_to_buff.c	\
+						ft_del_token.c	\
+						ft_init_token.c	\
+						ft_lexer.c	\
+						ft_set_token_bonus.c	\
+						ft_tokenize_bonus.c
 
 EXECUTOR_BONUS		=	ft_and_or_run_bonus.c	\
 						ft_builtin_run_bonus.c	\
@@ -189,7 +195,7 @@ EXECUTOR_BONUS		=	ft_and_or_run_bonus.c	\
 						ft_cmd_run.c	\
 						ft_construct_envp.c	\
 						ft_construct_path.c	\
-						ft_executor.c	\
+						ft_executor_bonus.c	\
 						ft_get_cmd_path.c	\
 						ft_here_doc.c	\
 						ft_pipe_run.c	\
@@ -229,6 +235,7 @@ EXPAND_ADD_DIR		=	${addprefix ${EXPAND_DIR}/,${EXPAND}}
 BONUS_OBJS			=	${addprefix ./${OBJ_DIR}/,${BONUS:.c=.o}}
 EXECUTOR_BONUS_ADD_DIR	=	${addprefix ${EXECUTOR_DIR}/,${EXECUTOR_BONUS}}
 EXPAND_BONUS_ADD_DIR	=	${addprefix ${EXPAND_DIR}/,${EXPAND_BONUS}}
+SCANNER_BONUS_ADD_DIR	=	${addprefix ${SCANNER_DIR}/,${SCANNER_BONUS}}
 
 RM					=	@rm -rf
 

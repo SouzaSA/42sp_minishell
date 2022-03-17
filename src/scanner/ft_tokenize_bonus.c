@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 17:51:45 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/17 10:35:49 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/04 08:13:43 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,8 @@ static int	ft_buffer_set(t_scanner *scan, t_source *src, char nc)
 		if (scan->tok_bufindex > 0)
 			break_flag = 1;
 	}
-	else if (nc == '\n' || nc == '|' || nc == '<' || nc == '>')
+	else if (nc == '\n' || nc == '|' || nc == '<' || nc == '>' \
+		|| nc == '(' || nc == ')' || nc == '&')
 	{
 		ft_token_separator(scan, src, nc);
 		break_flag = 1;
@@ -111,6 +112,12 @@ static void	ft_token_separator(t_scanner *scan, t_source *src, char nc)
 			nc = ft_next_char(src);
 			ft_add_to_buf(scan, nc);
 		}
+	}
+	else if (scan->tok_bufindex == 0 && \
+		((nc == '&' && nnc == '&') || (nc == '|' && nnc == '|')))
+	{
+		ft_add_to_buf(scan, nc);
+		ft_add_to_buf(scan, ft_next_char(src));
 	}
 	else if (scan->tok_bufindex > 0)
 		ft_unget_char(src);
