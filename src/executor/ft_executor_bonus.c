@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_executor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/17 11:01:49 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/16 22:37:06 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ static int	ft_cmd_iter(t_shell *shell, t_cmd_data *data)
 			ft_cmd_send(shell, data, &ast);
 		else if (ast->type == AST_PIPE)
 			rtn = ft_pipe_run(data);
+		else if (ast->type == AST_AND || ast->type == AST_OR)
+			ft_and_or_run(data, ast->type);
 		if (ast)
 		{
 			if (ast->blk)
