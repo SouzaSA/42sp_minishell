@@ -6,16 +6,17 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 21:08:41 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/15 21:52:34 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/16 22:21:24 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_executor.h"
 #include "ft_signals.h"
 
-static int	ft_forker(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd);
-static int	ft_child(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd);
-static int	ft_exec_cmd(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd);
+static int	ft_forker(t_shell *shell, t_cmd_data *data, t_cmd_blk *blk);
+static int	ft_child(t_shell *shell, t_cmd_data *data, t_cmd_blk *blk);
+static int	ft_exec_cmd(t_shell *shell, t_cmd_data *data, t_cmd_blk *blk);
+static void	ft_parent(t_cmd_data *data, t_cmd_blk *blk);
 
 int	ft_cmd_run(t_shell *shell, t_cmd_data *data, t_ast *ast)
 {
@@ -39,9 +40,9 @@ int	ft_cmd_run(t_shell *shell, t_cmd_data *data, t_ast *ast)
 	return (rtn);
 }
 
-static int	ft_forker(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd)
+static int	ft_forker(t_shell *shell, t_cmd_data *data, t_cmd_blk *blk)
 {
-	int	rtn;
+	int		rtn;
 
 	rtn = 0;
 	if (pipe(data->pipe_fd) == -1)
@@ -53,14 +54,12 @@ static int	ft_forker(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd)
 		data->forked = 1;
 	ft_handle_parent_process_signals();
 	if (rtn == 0 && data->pid == 0)
-		rtn = ft_child(shell, data, cmd);
-	close(data->pipe_fd[1]);
-	if (data->fd_in > 0)
-		close(data->fd_in);
+		rtn = ft_child(shell, data, blk);
+	ft_parent(data, blk);
 	return (rtn);
 }
 
-static int	ft_child(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd)
+static int	ft_child(t_shell *shell, t_cmd_data *data, t_cmd_blk *blk)
 {
 	int	rtn;
 
@@ -70,12 +69,12 @@ static int	ft_child(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd)
 	rl_clear_history();
 	ft_destroy_ast_stk(data->cmd_stk);
 	if (data->fd_in >= 0 && data->fd_out > 0)
-		rtn = ft_exec_cmd(shell, data, cmd);
+		rtn = ft_exec_cmd(shell, data, blk);
 	else
 	{
 		close(data->pipe_fd[0]);
 		close(data->pipe_fd[1]);
-		ft_destroy_command(&cmd);
+		ft_destroy_command(&blk);
 		ft_destroy_shell(shell);
 		if (data->fd_in < 0 || data->fd_out < 0)
 			exit(g_exit_status);
@@ -106,4 +105,22 @@ static int	ft_exec_cmd(t_shell *shell, t_cmd_data *data, t_cmd_blk *blk)
 	ft_destroy_command(&blk);
 	ft_destroy_shell(shell);
 	exit(g_exit_status);
+}
+
+static void	ft_parent(t_cmd_data *data, t_cmd_blk *blk)
+{
+	t_ast	*ast;
+
+	ast = ft_lsttop(*data->cmd_stk);
+	if (ft_lstsize(*data->cmd_stk) && ast->type != AST_AND \
+		&& ast->type != AST_OR && blk && blk->cmd \
+		&& !ft_strstr((char *)blk->cmd->content, "cat"))
+	{
+		waitpid(data->pid, NULL, 0);
+	}
+	else
+		waitpid(data->pid, NULL, 1);
+	close(data->pipe_fd[1]);
+	if (data->fd_in > 0)
+		close(data->fd_in);
 }
