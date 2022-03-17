@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 20:40:18 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/16 19:07:31 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/17 19:11:50 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,12 @@ int	ft_builtin_run(t_shell *shell, t_cmd_data *data, t_ast *ast)
 
 static int	ft_forker_builtin(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd)
 {
-	int	rtn;
+	int		wstatus;
+	int		rtn;
+	t_ast	*ast;
 
 	rtn = 0;
+	ast = ft_lsttop(*data->cmd_stk);
 	if (pipe(data->pipe_fd) == -1)
 		rtn = ft_put_msg_error(NULL, FLAG_ERROR_P);
 	data->pid = fork();
@@ -51,8 +54,13 @@ static int	ft_forker_builtin(t_shell *shell, t_cmd_data *data, t_cmd_blk *cmd)
 		data->forked = 1;
 	if (rtn == 0 && data->pid == 0)
 		rtn = ft_child(shell, data, cmd);
-	if (ft_lstsize(*data->cmd_stk))
-		waitpid(data->pid, NULL, 0);
+	if (ft_lstsize(*data->cmd_stk) && ast->type != AST_AND \
+		&& ast->type != AST_OR)
+	{
+		waitpid(data->pid, &wstatus, 0);
+		if (!WIFSIGNALED(wstatus))
+			g_exit_status = WEXITSTATUS(wstatus);
+	}
 	close(data->pipe_fd[1]);
 	return (rtn);
 }
