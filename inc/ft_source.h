@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_source.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 08:28:08 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/01/09 10:46:15 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/17 14:31:00 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define FT_SOURCE_H
 # include "ft_error.h"
 
-//# define EOF -1
 # define ERRCHAR 0
 # define INIT_SRC_POS -2
 
