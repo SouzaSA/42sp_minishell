@@ -6,7 +6,7 @@
 /*   By: edpaulin <edpaulin@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 14:45:19 by edpaulin          #+#    #+#             */
-/*   Updated: 2022/03/17 08:18:54 by edpaulin         ###   ########.fr       */
+/*   Updated: 2022/03/17 10:35:03 by edpaulin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ static void	ft_handle_sigusr1(void)
 
 static void	ft_process_kill(int signal)
 {
-	(void *)&signal;
-	exit(0);
+	if (signal)
+		exit(0);
 }
