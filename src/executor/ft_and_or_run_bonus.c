@@ -42,7 +42,7 @@ static void	ft_remove_unused_branch(t_cmd_data *data)
 	t_ast	*ast;
 	ast = (t_ast *)ft_lsttop(*data->cmd_stk);
 	level = ast->level - 1;
-	while (ast && ast->level >= level)
+	while (ast && ast->level > level)
 	{
 		ast = (t_ast *)ft_lstpop(data->cmd_stk);
 		if (ast->blk)
