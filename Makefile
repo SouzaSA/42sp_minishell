@@ -6,7 +6,7 @@
 #    By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/25 08:50:14 by sde-alva          #+#    #+#              #
-#    Updated: 2022/03/17 10:34:08 by sde-alva         ###   ########.fr        #
+#    Updated: 2022/03/18 21:21:35 by sde-alva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ LIBFT_LIB			=	${LIBFT_DIR}/lib
 CC					=	cc
 CFLAGS				=	-Wall -Wextra -Werror -g
 INCS				=	-I ${INC_DIR} -I ${LIBFT_INC}
-LIBS				=	-L ${LIBFT_LIB} -l ${LIBFT} -lreadline -lncurses
+LIBS				=	-L ${LIBFT_LIB} -l ${LIBFT} -lreadline
 SAN					=	-g -fsanitize=address
 
 SRCS				=	ft_main.c	\

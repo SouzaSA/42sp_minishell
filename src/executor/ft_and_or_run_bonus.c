@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 11:00:20 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/15 19:20:26 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/18 21:52:42 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,9 @@ static void	ft_remove_unused_branch(t_cmd_data *data)
 {
 	int		level;
 	t_ast	*ast;
-
 	ast = (t_ast *)ft_lsttop(*data->cmd_stk);
 	level = ast->level - 1;
-	while (ast && ast->level > level)
+	while (ast && ast->level >= level)
 	{
 		ast = (t_ast *)ft_lstpop(data->cmd_stk);
 		if (ast->blk)
