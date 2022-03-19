@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_executor.c                                      :+:      :+:    :+:   */
+/*   ft_executor_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 11:45:35 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/16 22:37:06 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/19 11:37:49 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,11 @@ static void	ft_init_exec_stack(t_ast *ast, t_list **cmd_stk, int level)
 	ast->level = level;
 	if (ast->first_child)
 		ft_init_exec_stack(ast->first_child->next_sibling, cmd_stk, level + 1);
-	ft_lstpush(cmd_stk, ast);
+	if (ast->type != AST_SUBSHELL)
+		ft_lstpush(cmd_stk, ast);
 	ft_init_exec_stack(ast->first_child, cmd_stk, level + 1);
+	if (ast->type == AST_SUBSHELL)
+		ft_lstpush(cmd_stk, ast);
 }
 
 static int	ft_run_cmds(t_shell *shell, t_list **cmd_stk)
@@ -94,7 +97,7 @@ static int	ft_cmd_iter(t_shell *shell, t_cmd_data *data)
 		else if (ast->type == AST_PIPE)
 			rtn = ft_pipe_run(data);
 		else if (ast->type == AST_AND || ast->type == AST_OR)
-			ft_and_or_run(data, ast->type);
+			ft_and_or_run(data, ast);
 		if (ast)
 		{
 			if (ast->blk)

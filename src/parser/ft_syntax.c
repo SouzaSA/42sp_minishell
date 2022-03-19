@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 09:51:10 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/14 21:59:01 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/19 09:57:48 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ static void	ft_clean_ast(t_ast **ast)
 		ft_clean_ast(&(*ast)->next_sibling);
 		ft_clean_ast(&(*ast)->first_child);
 	}
-	if ((*ast) && (*ast)->children == 1)
+	if ((*ast) && (*ast)->children == 1 && (*ast)->type != AST_SUBSHELL)
 	{
 		ast_tmp = *ast;
 		*ast = (*ast)->first_child;

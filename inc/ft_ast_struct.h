@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 15:08:23 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/13 13:02:42 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/19 09:53:38 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ enum e_ast_type
 	AST_AND,
 	AST_OR,
 	AST_ASSIGN,
+	AST_SUBSHELL,
 	AST_TMP,
 };
 

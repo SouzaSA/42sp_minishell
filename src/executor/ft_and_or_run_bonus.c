@@ -6,7 +6,7 @@
 /*   By: sde-alva <sde-alva@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 11:00:20 by sde-alva          #+#    #+#             */
-/*   Updated: 2022/03/18 21:52:42 by sde-alva         ###   ########.fr       */
+/*   Updated: 2022/03/19 11:37:12 by sde-alva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 static void	ft_remove_unused_branch(t_cmd_data *data);
 
-int	ft_and_or_run(t_cmd_data *data, enum e_ast_type type)
+int	ft_and_or_run(t_cmd_data *data, t_ast *ast)
 {
-	int		wstatus;
-	int		exec_status;
+	int				wstatus;
+	int				exec_status;
+	enum e_ast_type	type;
 
+	type = ast->type;
 	exec_status = data->last_status;
 	if (data->forked)
 	{
@@ -40,6 +42,7 @@ static void	ft_remove_unused_branch(t_cmd_data *data)
 {
 	int		level;
 	t_ast	*ast;
+
 	ast = (t_ast *)ft_lsttop(*data->cmd_stk);
 	level = ast->level - 1;
 	while (ast && ast->level > level)
